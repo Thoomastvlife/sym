@@ -51,7 +51,7 @@
             line-height: 1.6;
         }
 
-        /* 道路救援提醒卡片 */
+        /* 道路救援說明區塊 */
         .rescue-card {
             background-color: #f8f9fa;
             border: 1px solid #e0e0e0;
@@ -106,11 +106,22 @@
 
         footer { background-color: #222; color: #fff; text-align: center; padding: 1.5em 0; width: 100%; font-size: 0.85rem; }
 
+        /* 📱 手機版邊界優化 */
         @media (max-width: 768px) {
             nav { flex-direction: column; gap: 10px; padding: 12px; }
             nav ul { width: 100%; justify-content: center; gap: 5px; }
-            .container { margin: 20px 15px; padding: 20px; }
-            .maintenance-table th, .maintenance-table td { padding: 8px 5px; font-size: 0.85rem; }
+            .container { 
+                width: 95%; 
+                margin: 15px auto; 
+                padding: 18px 12px; 
+            }
+            .promo-banner {
+                padding: 16px 10px;
+            }
+            .rescue-card {
+                padding: 15px 12px;
+            }
+            .maintenance-table th, .maintenance-table td { padding: 8px 4px; font-size: 0.82rem; }
         }
     </style>
 </head>
@@ -137,7 +148,8 @@
 
     <div class="container">
         <h1>專業維修與定期保養</h1>
-<!-- 免費排氣檢驗特惠區塊 -->
+
+        <!-- 免費排氣檢驗特惠區塊 -->
         <div class="promo-banner">
             <h3>🛵 免費機車排氣檢驗 ‧ 好禮大方送！</h3>
             <p>
@@ -174,6 +186,7 @@
                 <strong>距離限制與須知：</strong>救援服務範圍以店家周邊 <strong>5 公里內</strong> 為主；若救援距離<strong>超過 5 公里以上，需視現場人力與距離評估，可能無法提供即時救援服務</strong>，敬請見諒。如遇緊急狀況，請先來電與我們確認現場位置與派車狀況！
             </p>
         </div>
+
         <!-- 看板里程對照表 -->
         <div class="service-section">
             <h2>📋 機車定期保養須知對照表</h2>
