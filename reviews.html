@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="./favicon.ico">
+    <title>SYM-三陽機車-旭騰車行_顧客評價與推薦</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, 'Microsoft JhengHei', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 導覽列 Header 樣式 */
+        header {
+            background-color: #222;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #ffcc00;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 12px;
+            font-weight: 500;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+        }
+
+        /* 下拉選單樣式 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #222;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 6px;
+            min-width: 180px;
+            padding: 8px 0;
+            z-index: 1001;
+        }
+
+        .dropdown-menu li a {
+            color: #fff;
+            padding: 10px 16px;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #333;
+            color: #ffcc00;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* 主內容區塊 */
+        .container {
+            max-width: 900px;
+            margin: 40px auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 35px;
+            font-size: 0.95rem;
+        }
+
+        /* Google 商家評價引導大卡片 */
+        .google-card {
+            background: #ffffff;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 35px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        .google-card h2 {
+            font-size: 1.5rem;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .stars {
+            color: #fbbc04;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+        }
+
+        .google-card p {
+            color: #555;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        /* 主要行動按鈕 (Call to Action) */
+        .btn-google {
+            display: inline-block;
+            background-color: #4285f4;
+            color: #ffffff;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 10px rgba(66, 133, 244, 0.3);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn-google:hover {
+            background-color: #3367d6;
+            transform: translateY(-2px);
+        }
+
+        /* 靜態評價示範卡片牆 */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .review-box {
+            background-color: #fff;
+            padding: 22px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid #ffcc00;
+        }
+
+        .reviewer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .reviewer-name {
+            font-weight: bold;
+            color: #222;
+        }
+
+        .review-stars {
+            color: #fbbc04;
+            font-size: 0.9rem;
+        }
+
+        .review-content {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 1.5em 0;
+            width: 100%;
+            font-size: 0.85rem;
+        }
+
+        /* 手機版響應式 RWD 調整 */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px;
+            }
+
+            nav ul {
+                width: 100%;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            nav a {
+                padding: 6px 10px;
+                font-size: 0.95rem;
+            }
+
+            .container {
+                margin: 20px 15px;
+            }
+
+            .google-card {
+                padding: 25px 15px;
+            }
+
+            .btn-google {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SYM 旭騰車行</a>
+            <ul>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="cont.html">關於我們</a></li>
+                <li class="dropdown">
+                    <a href="cont.html">服務 ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="cont.html">專業維修與保養</a></li>
+                        <li><a href="terms.html">代步車借用條款</a></li>
+                    </ul>
+                </li>
+                <li><a href="cont.html">聯繫我們</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="section-title">顧客滿意度與評價</h1>
+        <p class="subtitle">感謝車友們的肯定與支持，旭騰車行持續提供最專業優質的服務</p>
+
+        <!-- 引導點擊 Google 評價區塊 -->
+        <div class="google-card">
+            <h2>五星好評 ‧ 車友真心推薦</h2>
+            <div class="stars">★★★★★</div>
+            <p>點擊下方按鈕可直接跳轉至 Google 商家頁面，查看最新的車友真實評價或留下您的寶貴建議：</p>
+            <a href="https://share.google/FvHVPE8C5VAoYcye8" target="_blank" class="btn-google">
+                👉 前往 Google 查看完整顧客評價
+            </a>
+        </div>
+
+        <!-- 靜態好評展示（可自由修改文字） -->
+        <div class="reviews-grid">
+            <div class="review-box">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">在地車友</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-content">技師非常細心，檢測狀況說明得很清楚，價格也很公道，保養完騎起來順暢很多！</p>
+            </div>
+
+            <div class="review-box">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">通勤族</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-content">維修留車期間有提供代步機車可以借用，真的幫了大忙！服務態度讚！</p>
+            </div>
+
+            <div class="review-box">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">SYM 車友</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-content">專業的 SYM 專修店，不會盲目亂換零件，會先評估需求再報價，值得信賴！</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 SYM 三陽機車 - 旭騰車行 &reg; Xuteng car dealership. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script>
+</body>
+</html>
