@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>代步機車借用服務條款與免責聲明 - SYM 旭騰車行</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="./favicon.ico">
+    <title>SYM-三陽機車-旭騰車行_代步機車借用服務條款與免責聲明</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,15 +14,16 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, 'Microsoft JhengHei', sans-serif;
+            background-color: #f9f9f9;
             color: #333;
             line-height: 1.6;
         }
 
+        /* 導覽列 Header 樣式 */
         header {
-            background-color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: #222;
+            color: #fff;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -38,8 +41,9 @@
         .logo {
             font-size: 1.25rem;
             font-weight: bold;
-            color: #d32f2f;
+            color: #ffcc00;
             text-decoration: none;
+            text-transform: uppercase;
         }
 
         nav ul {
@@ -55,7 +59,7 @@
 
         nav a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
             padding: 10px 12px;
             font-weight: 500;
             display: block;
@@ -63,15 +67,16 @@
         }
 
         nav a:hover {
-            color: #d32f2f;
+            color: #ffcc00;
         }
 
+        /* 下拉選單樣式 */
         .dropdown-menu {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
-            background-color: #ffffff;
+            background-color: #222;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             border-radius: 6px;
             min-width: 180px;
@@ -80,83 +85,130 @@
         }
 
         .dropdown-menu li a {
-            color: #333;
+            color: #fff;
             padding: 10px 16px;
             white-space: nowrap;
             font-size: 0.95rem;
         }
 
         .dropdown-menu li a:hover {
-            background-color: #f1f3f5;
-            color: #d32f2f;
+            background-color: #333;
+            color: #ffcc00;
         }
 
         .dropdown:hover .dropdown-menu {
             display: block;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        h1 {
-            font-size: 1.6rem;
-            color: #212529;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .alert-box {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 4px;
-            font-size: 0.95rem;
-        }
-
-        .terms-content {
-            background: #ffffff;
-            padding: 25px;
+        /* 條款公告頁面專用樣式 */
+        .terms-container {
+            max-width: 850px;
+            margin: 40px auto 60px auto;
+            padding: 40px;
+            background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        .terms-content h3 {
-            font-size: 1.1rem;
-            color: #d32f2f;
-            margin: 20px 0 10px 0;
-        }
-
-        .terms-content p {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
+        .terms-container h1 {
+            font-size: 1.8em;
+            color: #222;
+            border-bottom: 3px solid #ffcc00;
+            padding-bottom: 12px;
+            margin-top: 0;
+            text-align: center;
         }
 
         .notice-box {
-            background: #e9ecef;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 25px;
+            background-color: #fff8e1;
+            border-left: 5px solid #ffcc00;
+            padding: 15px 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            line-height: 1.5;
         }
 
-        .notice-box ul {
+        .terms-body {
+            line-height: 1.8;
+            font-size: 1em;
+        }
+
+        .terms-body h3 {
+            color: #111;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 5px;
+        }
+
+        .terms-body p {
+            margin: 0 0 15px 0;
+            text-align: justify;
+        }
+
+        .highlight-text {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        /* 實體申辦說明區塊 */
+        .offline-instruction {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+        }
+
+        .offline-instruction h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #222;
+            font-size: 1.1em;
+        }
+
+        .offline-instruction ul {
+            margin: 0;
             padding-left: 20px;
-            font-size: 0.95rem;
+        }
+
+        .offline-instruction li {
+            margin-bottom: 8px;
+        }
+
+        .print-btn {
+            display: block;
+            width: 160px;
+            margin: 30px auto 0 auto;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.95em;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .print-btn:hover {
+            background-color: #ffcc00;
+            color: #333;
         }
 
         footer {
+            background-color: #222;
+            color: #fff;
             text-align: center;
-            padding: 20px;
-            background: #212529;
-            color: #aaa;
-            margin-top: 40px;
+            padding: 1.5em 0;
+            width: 100%;
             font-size: 0.85rem;
         }
 
+        /* 手機版響應式 RWD 調整 */
         @media (max-width: 768px) {
             nav {
                 flex-direction: column;
@@ -174,17 +226,39 @@
                 padding: 6px 10px;
                 font-size: 0.95rem;
             }
+
+            .terms-container {
+                margin: 20px 15px;
+                padding: 20px;
+            }
+
+            .terms-container h1 {
+                font-size: 1.4em;
+            }
+        }
+
+        /* 列印時隱藏導覽列與按鈕 */
+        @media print {
+            header, footer, .print-btn, .notice-box {
+                display: none !important;
+            }
+            .terms-container {
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
         }
     </style>
 </head>
 <body>
-
     <header>
         <nav>
+            <!-- 點擊跳回主頁 -->
             <a href="index.html" class="logo">SYM 旭騰車行</a>
             <ul>
                 <li><a href="index.html">首頁</a></li>
                 <li><a href="cont.html">關於我們</a></li>
+                <!-- 服務下拉選單 -->
                 <li class="dropdown">
                     <a href="cont.html">服務 ▾</a>
                     <ul class="dropdown-menu">
@@ -197,44 +271,68 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div class="terms-container">
         <h1>代步機車借用服務條款與免責聲明</h1>
         
-        <div class="alert-box">
+        <!-- 網頁告知專用提示框 -->
+        <div class="notice-box">
             <strong>📢 顧客提醒：</strong><br>
             本網頁內容僅供條款審閱與告知。本車行代步車借用服務「不提供線上申請」，用戶須於留車維修現場核對證件並<strong>簽署實體紙本切結書</strong>後方得取車。
         </div>
-
-        <div class="terms-content">
+        
+        <!-- 純公告條款內容 -->
+        <div class="terms-body">
             <p>歡迎使用<strong>SYM三陽機車-旭騰車行</strong>（以下簡稱「本店家」）所提供之維修代步車借用服務。凡向本店家申請借用代步車輛之用戶，均須充分閱讀、理解並同意接受本條款之全部內容，並以現場簽署之實體紙本切結書為法定契約依據。</p>
             
             <h3>第一條：用戶資格與審查</h3>
-            <p>1. 借用人保證已年滿 18 歲，且持有中華民國有效之合法機車駕駛執照。</p>
-            <p>2. 領車時須出示駕照及身分證正本供現場資格核對並留存影本或照片。</p>
-
+            <p>1. 借用人（以下簡稱用戶）保證已年滿 18 歲，且持有中華民國有效之合法機車駕駛執照（非處於吊扣、吊銷或失效狀態）。</p>
+            <p>2. 用戶於現場領車時，須主動出示駕駛執照及身分證正本，本店家將進行資格核對並拍照或影印留存，作為身分確認與相關行政用途。</p>
+            <p>3. 若本店家發現用戶有蓄意隱瞞無照、駕照失效，或有飲酒、吸食違禁品之虞者，本店家得隨時拒絕或終止借用服務。</p>
+            
             <h3>第二條：車輛保管與使用限制</h3>
-            <p>1. 車輛僅限用戶本人駕駛，嚴禁轉借、轉租或從事外送營業活動。</p>
-
-            <h3>第三條：違規罰單與損失</h3>
-            <p>1. 借用期間產生之交通違規罰單、拖吊費一律由用戶全額負擔。</p>
-
-            <h3>第四條：事故處理與免責聲明</h3>
-            <p>1. 車輛毀損或失竊用戶須負全額賠償責任。發生事故必須立即報警處置。</p>
+            <p>1. 用戶應以善良管理人之注意義務保管並使用代步車。車輛僅限用戶本人駕駛，絕對禁止轉借、轉租、轉讓予任何第三人。</p>
+            <p>2. 代步車僅供一般通勤代步使用。嚴禁將車輛用於賽車競速、危險駕駛、載運違禁品、從事外送平台（如 Uber Eats、Foodpanda 等）之營業行為或任何營利活動。</p>
+            <p>3. 借用期間之燃油費用（或電動車充電費用）及因用車產生之停車費、過路費等，均由用戶自行負擔。</p>
+            
+            <h3>第三條：違規罰單與扣牌停業損失</h3>
+            <p>1. 借用期間內，因操作或騎乘該車輛所產生之所有交通違規罰單、過期滯納金、拖吊費、保管費等行政罰鍰，不論罰單寄達時間為何，一律由用戶全額負擔。本店家依法得將違規責任逕行轉罰移轉至用戶名下。</p>
+            <p>2. 若用戶因嚴重交通違規（包括但不限於：酒駕、毒駕、超速 40 公里以上、危險駕駛、無照駕駛、拒絕酒測等）導致代步車遭警方依法扣留、吊扣車牌或吊銷牌照：<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;(1) 用戶須承擔所有相關法律責任與罰鍰。<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;(2) 用戶須賠償本店家於扣牌期間內，因無法營運該車輛之商業損失。營業損失以<span class="highlight-text">每日新台幣 800 元</span>計算，累計至牌照重新發還並可合法上路之日止。</p>
+            
+            <h3>第四條：車禍事故處理與免責聲明</h3>
+            <p>1. 借用期間如代步車發生碰撞、摔車、毀損、外觀刮傷或失竊，用戶應立即通知本店家。用戶須負擔所有原廠零件修復費用（依本店家評估之原廠零件規格為準）；若車輛全損或失竊，應依當時市場價值全額賠償。</p>
+            <p>2. 若發生交通事故，用戶必須立即保持現場並報警處理（撥打 110 留存警察筆錄及事故現場圖），絕對不得私下和解。</p>
+            <p>3. <span class="highlight-text">【免責聲明】</span>因可歸責於用戶之事故導致第三人（或用戶自身）之傷亡、財產損失或精神損害，除強制汽車責任險理賠範圍外，其餘所有民事賠償、刑事責任及行政處分，概由用戶自行全額承擔。本店家不負任何連帶賠償或法律責任。</p>
+            
+            <h3>第五條：個人資料蒐集與隱私權政策</h3>
+            <p>用戶同意本店家依《個人資料保護法》之規定，蒐集、處理及利用用戶所提供之個人資料（含姓名、身分證字號、駕照、聯絡電話、地址等）。該資料僅用於身分確認、代步車管理、違規罰單通知及因用車爭議引發之法律訴訟，本店家依法負有保密義務。</p>
+            
+            <h3>第六條：條款修改與管轄法院</h3>
+            <p>1. 本店家保留隨時修改或變更本條款內容之權利，修改後之條款將直接公告於本網頁上，不另行個別通知。</p>
+            <p>2. 因本服務條款或借用事實所生之任何爭議，雙方同意以誠信原則協商解決；若有訴訟必要，雙方同意以<strong>臺灣新北地方法院</strong>為第一審管轄法院。</p>
         </div>
 
-        <div class="notice-box">
+        <!-- 實體申辦說明 -->
+        <div class="offline-instruction">
             <h4>📝 實體臨櫃辦理須知：</h4>
             <ul>
-                <li>原車留店維修時，請向櫃檯技師提出代步車需求。</li>
-                <li>備妥本人身分證及有效駕照正本。</li>
-                <li>完成現場核對並於切結書簽名後取車。</li>
+                <li>原車留店維修或保養時，請向櫃檯技師提出代步車需求。</li>
+                <li>請備妥借用人本人的<strong>「身分證正本」</strong>與<strong>「有效機車駕照正本」</strong>。</li>
+                <li>經現場人員核對無誤後，須於實體紙本切結書上簽名蓋章，完成外觀拍照核對即可騎出。</li>
             </ul>
         </div>
+
+        <!-- 列印按鈕 -->
+        <button class="print-btn" onclick="window.print()">列印本頁條款</button>
     </div>
 
     <footer>
-        <p>© 2026 SYM 三陽機車 - 旭騰車行 ® Xuteng car dealership. All Rights Reserved.</p>
+        <p>&copy; 2026 SYM 三陽機車 - 旭騰車行 &reg; Xuteng car dealership. All Rights Reserved.</p>
     </footer>
 
+    <script src="script.js"></script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script>
 </body>
 </html>
