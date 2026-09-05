@@ -19,7 +19,7 @@
             line-height: 1.6;
         }
 
-        /* 導覽列 Header 樣式（修復跑版問題） */
+        /* 導覽列 Header 樣式 */
         header {
             background-color: #ffffff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -122,6 +122,20 @@
             padding-left: 20px;
         }
 
+        /* 地圖容器響應式設定 */
+        .map-container {
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 350px;
+            border: 0;
+        }
+
         /* 頁尾 */
         footer {
             text-align: center;
@@ -135,6 +149,7 @@
 </head>
 <body>
 
+    <!-- 導覽列 -->
     <header>
         <nav>
             <div class="logo">SYM 旭騰車行</div>
@@ -147,9 +162,11 @@
         </nav>
     </header>
 
+    <!-- 主要內容區 -->
     <div class="container">
         <h1 class="page-title">SYM 旭騰車行</h1>
 
+        <!-- 店址資訊與 Google 地圖 -->
         <div class="info-card">
             <h2>📍 店址資訊</h2>
             <p>
@@ -158,6 +175,16 @@
                     220015 新北市板橋區新海路398號（開啟 Google 地圖）
                 </a>
             </p>
+            
+            <!-- 嵌入地圖 -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.9782800363297!2d121.45620127607736!3d25.026700677819875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a9ca1fd37e1b%3A0x8491771a39f014c4!2zU1lNLVNBTllBTkctRGF5YW5nLeS4iemZveaps-i7iOaJvA!5e0!3m2!1szh-TW!2stw!4v1700000000000!5m2!1szh-TW!2stw" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
         </div>
 
         <div class="info-card">
@@ -167,4 +194,24 @@
         </div>
 
         <div class="info-card">
-            <h2>💬 線
+            <h2>💬 線上客服與社群</h2>
+            <ul>
+                <li style="margin-bottom: 10px;">
+                    <strong>LINE 官方帳號：</strong>
+                    <a class="contact-link" href="https://lin.ee/5yZJRvK" target="_blank" rel="noopener noreferrer">點此加入客服 Line 專區</a>
+                </li>
+                <li>
+                    <strong>Facebook 粉絲專頁：</strong>
+                    <a class="contact-link" href="https://www.facebook.com/people/sym-%E6%97%AD%E9%A8%B0%E8%BB%8A%E8%A1%8C/100092753474710/" target="_blank" rel="noopener noreferrer">SYM 旭騰車行 FB 粉絲專頁</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>© 2026 SYM 三陽機車 - 旭騰車行 ® Xuteng car dealership. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
