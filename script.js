@@ -1,9 +1,9 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', function () {
-	// 設定溫和柔光的深夜極光藍綠靜態漸層背景 (Dark Midnight Turquoise)
+	// 設定左上角較亮、過渡自然且不刺眼的深夜極光藍綠漸層（確保黑色文字清晰）
 	const body = document.body;
-	body.style.background = 'linear-gradient(135deg, #0a192f 0%, #203a43 50%, #2c5364 100%)';
+	body.style.background = 'linear-gradient(135deg, #4b6cb7 0%, #182848 100%)';
 });
 
 /*
