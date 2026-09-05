@@ -6,6 +6,48 @@
     <link rel="stylesheet" href="./styles.css">
     <link rel="icon" href="./favicon.ico">
     <title>SYM-三陽機車-旭騰車行_專業維修與保養</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, 'Microsoft JhengHei', sans-serif; background-color: #2b3e66; color: #333; line-height: 1.6; }
+
+        /* 白底紅字小型 Header (Logo紅字置中、選單滿版均分) */
+        header { background-color: #ffffff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; flex-direction: column; align-items: center; max-width: 1200px; margin: 0 auto; padding: 8px 0; }
+        .logo { font-size: 1.1rem; font-weight: bold; color: #d32f2f; text-decoration: none; text-transform: uppercase; margin-bottom: 6px; text-align: center; }
+        nav ul { list-style: none; display: flex; align-items: center; width: 100%; padding: 0; margin: 0; }
+        nav ul li { position: relative; flex: 1; text-align: center; }
+        nav a { text-decoration: none; color: #333; padding: 8px 0; font-size: 0.9rem; font-weight: 500; display: block; transition: color 0.3s; width: 100%; }
+        nav a:hover { color: #d32f2f; }
+
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #eee; border-radius: 6px; min-width: 160px; padding: 6px 0; z-index: 1001; }
+        .dropdown-menu li { flex: none; text-align: left; }
+        .dropdown-menu li a { color: #333; padding: 8px 12px; white-space: nowrap; font-size: 0.88rem; }
+        .dropdown-menu li a:hover { background-color: #f5f5f5; color: #d32f2f; }
+        .dropdown:hover .dropdown-menu { display: block; }
+
+        .container { max-width: 950px; margin: 30px auto 50px auto; padding: 35px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { font-size: 1.8em; color: #222; margin-bottom: 8px; text-align: center; font-weight: bold; }
+        .subtitle { text-align: center; color: #666; font-size: 0.92rem; margin-bottom: 25px; border-bottom: 2px solid #ffcc00; padding-bottom: 15px; }
+
+        .service-section { margin-bottom: 30px; }
+        .section-header { font-size: 1.25rem; font-weight: bold; color: #d32f2f; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+        .service-card { background: #fafafa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; transition: transform 0.2s; }
+        .service-card:hover { transform: translateY(-3px); }
+        .service-card h3 { font-size: 1.05rem; color: #222; margin-bottom: 8px; font-weight: bold; }
+        .service-card p { font-size: 0.88rem; color: #555; line-height: 1.6; }
+
+        .notice-box { background-color: #fffde6; border: 1px solid #ffe58f; border-left: 5px solid #ffcc00; padding: 15px; border-radius: 4px; margin-top: 20px; font-size: 0.9rem; color: #444; }
+
+        footer { background-color: #222; color: #fff; text-align: center; padding: 1.2em 0; width: 100%; font-size: 0.85rem; }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 1rem; }
+            nav a { font-size: 0.85rem; padding: 6px 0; }
+            .container { width: 95%; margin: 12px auto; padding: 16px 10px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -29,141 +71,51 @@
     </header>
 
     <div class="container">
-        <h1>專業維修與定期保養</h1>
-
-        <div class="promo-banner">
-            <h3>🛵 免費機車排氣檢驗 ‧ 好禮大方送！</h3>
-            <p>
-                收到驗車提醒單了嗎？歡迎至旭騰車行進行年度免費排氣檢測！<br>
-                檢驗完成即<strong>免費贈送精美垃圾袋乙綑</strong>，現場還有技師貼心提醒您的最佳驗車月份與保養建議，讓您安心騎乘不罰款！
-            </p>
-        </div>
-
-        <div class="features-grid">
-            <div class="feature-item">
-                <h3>🔍 透明報價</h3>
-                <p>施工前清楚說明零件費用與工資，獲同意後方開始維修。</p>
-            </div>
-            <div class="feature-item">
-                <h3>💻 電腦診斷</h3>
-                <p>引進 SYM 原廠專用檢測設備，精準定位故障不猜測。</p>
-            </div>
-            <div class="feature-item">
-                <h3>🛠️ 原廠零件</h3>
-                <p>堅持使用 SYM 原廠正規零件，給愛車最佳耐用度與相容性。</p>
-            </div>
-            <div class="feature-item">
-                <h3>🛵 代步支援</h3>
-                <p>留車維修提供免費代步車借用服務，不影響您的日常通勤。</p>
-            </div>
-        </div>
-
-        <div class="rescue-card">
-            <h3>🚨 道路救援支援說明</h3>
-            <p>
-                愛車半路熄火或爆胎？旭騰車行提供在地道路救援服務！<br>
-                <strong>距離限制與須知：</strong>救援服務範圍以店家周邊 <strong>5 公里內</strong> 為主；若救援距離<strong>超過 5 公里以上，需視現場人力與距離評估，可能無法提供即時救援服務</strong>，敬請見諒。如遇緊急狀況，請先來電與我們確認現場位置與派車狀況！
-            </p>
-        </div>
+        <h1>專業維修與保養服務</h1>
+        <div class="subtitle">SYM 原廠認證技術 ‧ 精準診斷 ‧ 嚴選高品質零件</div>
 
         <div class="service-section">
-            <h2>📋 機車定期保養須知對照表</h2>
-            <table class="maintenance-table">
-                <thead>
-                    <tr>
-                        <th>保養 / 檢查項目</th>
-                        <th>建議保養里程</th>
-                        <th>處置方式</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>機油 / 齒輪油</strong></td>
-                        <td>每 1,000 公里</td>
-                        <td class="highlight-action">更換</td>
-                    </tr>
-                    <tr>
-                        <td><strong>空氣濾清器 (空濾)</strong></td>
-                        <td>每 5,000 公里</td>
-                        <td class="highlight-action">更換</td>
-                    </tr>
-                    <tr>
-                        <td><strong>汽油除碳劑</strong></td>
-                        <td>每 5,000 公里</td>
-                        <td>添加</td>
-                    </tr>
-                    <tr>
-                        <td><strong>火星塞</strong></td>
-                        <td>每 10,000 公里</td>
-                        <td class="highlight-action">更換</td>
-                    </tr>
-                    <tr>
-                        <td><strong>噴射系統</strong></td>
-                        <td>每 10,000 公里</td>
-                        <td>清洗</td>
-                    </tr>
-                    <tr>
-                        <td><strong>傳動系統</strong></td>
-                        <td>每 20,000 公里</td>
-                        <td>檢查</td>
-                    </tr>
-                    <tr>
-                        <td><strong>皮帶</strong></td>
-                        <td>每 20,000 公里</td>
-                        <td>檢查 / 更換</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="service-section">
-            <h2>💡 為何需要定期保養？核心項目說明</h2>
-            <div class="details-grid">
-                <div class="detail-card">
-                    <h4>🛢️ 機油 / 齒輪油</h4>
-                    <p>潤滑引擎與齒輪內部運轉。定期更換可防止金屬磨損、降低引擎運轉高溫，確保動力輸出順暢。</p>
+            <div class="section-header">
+                <span>🔧 定期保養與系統維護</span>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>原廠機油與齒輪油更換</h3>
+                    <p>提供 SYM 原廠級機油與齒輪油，定期為引擎與傳動系統進行基礎潤滑與保護。</p>
                 </div>
-                <div class="detail-card">
-                    <h4>🌪️ 空氣濾清器</h4>
-                    <p>過濾進入引擎的空氣雜質。髒污過多會導致吸氣不順、油耗增加及加速無力。</p>
+                <div class="service-card">
+                    <h3>噴射系統大保養</h3>
+                    <p>使用專用清洗設備針對節導閥、噴油嘴及進氣道進行深度積碳清除，恢復順暢油門響應。</p>
                 </div>
-                <div class="detail-card">
-                    <h4>⚡ 火星塞</h4>
-                    <p>負責點燃引擎混合氣。消耗磨損後易導致點火不良、冷車難發動甚至行駛中熄火。</p>
-                </div>
-                <div class="detail-card">
-                    <h4>⚙️ 噴射系統與傳動保養</h4>
-                    <p>清洗節導門與噴油嘴可恢復油耗效益；檢查皮帶與傳動元件可避免行駛中斷裂顧路。</p>
+                <div class="service-card">
+                    <h3>傳動系統檢查與套件更換</h3>
+                    <p>皮帶、普利珠、離合器等耗材定期檢測與更換，確保動力傳輸效率並防止斷皮帶顧路。</p>
                 </div>
             </div>
         </div>
 
         <div class="service-section">
-            <h2>📋 旭騰標準維修服務流程</h2>
-            <div class="workflow">
-                <ol>
-                    <li><strong>進廠接單：</strong>聆聽車主用車狀況，進行初步外觀與基本功能檢測。</li>
-                    <li><strong>專業診斷：</strong>運用原廠電腦診斷儀器檢測問題根源，不盲目亂換零件。</li>
-                    <li><strong>報價確認：</strong>清楚說明故障原因與零件費用，獲得車主同意後方開始施工。</li>
-                    <li><strong>完工測試：</strong>完工後進行路試確保安全無虞，交車並說明保養注意事項。</li>
-                </ol>
+            <div class="section-header">
+                <span>🛵 行車安全與檢測服務</span>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>煞車與輪胎安全檢測</h3>
+                    <p>檢查煞車皮厚度、煞車油品質及輪胎胎紋深度，守護您的緊急煞停與雨天行車安全。</p>
+                </div>
+                <div class="service-card">
+                    <h3>SYM 原廠電腦診斷</h3>
+                    <p>透過電腦檢測儀精準讀取引擎數據與故障碼，快速找出車輛電系與動力問題。</p>
+                </div>
+                <div class="service-card">
+                    <h3>免費排氣檢驗</h3>
+                    <p>提供免費環保排氣檢驗服務，現場檢測合格即獲贈實用精禮。</p>
+                </div>
             </div>
         </div>
 
-        <div class="service-section">
-            <h2>❓ 保養常見問題 FAQ</h2>
-            <div class="faq-item">
-                <h4>Q: 機車顧路可以請你們去接嗎？（道路救援）</h4>
-                <p>答：可以！我們提供在地救援服務，主要服務範圍為店家周邊 5 公里以內。若超過 5 公里，則需視當天店內人力與調度狀況評估，有可能無法前往救援，建議先來電諮詢。</p>
-            </div>
-            <div class="faq-item">
-                <h4>Q: 維修留車需要多久時間？</h4>
-                <p>答：一般定期保養約 20-30 分鐘；大保養或複雜維修若需留車，旭騰提供代步車借用服務，讓您通勤不中斷。</p>
-            </div>
-            <div class="faq-item">
-                <h4>Q: 可以自備零件請店家安裝嗎？</h4>
-                <p>答：為確保騎乘安全性與零件相容性，建議使用本店嚴選的三陽原廠正規零件，並享有完工保固保障。</p>
-            </div>
+        <div class="notice-box">
+            💡 <strong>貼心提示：</strong> 為節省您的寶貴時間，如需進行深度大保養或複雜維修，歡迎提前來電預約（02-8258-5800），我們將優先安排技師為您服務。
         </div>
     </div>
 
