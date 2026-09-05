@@ -1,9 +1,9 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', function () {
-	// 設定溫和柔光的深色系靜態漸層背景（深邃石墨紫藍莫蘭迪調）
+	// 設定溫和柔光的深夜極光藍綠靜態漸層背景 (Dark Midnight Turquoise)
 	const body = document.body;
-	body.style.background = 'linear-gradient(135deg, #1f1c2c 0%, #928dab 100%)';
+	body.style.background = 'linear-gradient(135deg, #0a192f 0%, #203a43 50%, #2c5364 100%)';
 });
 
 /*
