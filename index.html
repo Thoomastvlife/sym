@@ -10,16 +10,17 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, 'Microsoft JhengHei', sans-serif; background-color: #2b3e66; color: #333; line-height: 1.6; }
 
-        /* 統一白底紅字小型 Header */
+        /* 統一白底紅字小型 Header (4選單按鈕滿版均分) */
         header { background-color: #ffffff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 8px 15px; }
-        .logo { font-size: 1.1rem; font-weight: bold; color: #d32f2f; text-decoration: none; text-transform: uppercase; }
-        nav ul { list-style: none; display: flex; align-items: center; gap: 10px; }
-        nav ul li { position: relative; }
-        nav a { text-decoration: none; color: #333; padding: 6px 8px; font-size: 0.9rem; font-weight: 500; display: block; transition: color 0.3s; }
+        nav { display: flex; flex-direction: column; align-items: center; max-width: 1200px; margin: 0 auto; padding: 8px 0; }
+        .logo { font-size: 1.1rem; font-weight: bold; color: #d32f2f; text-decoration: none; text-transform: uppercase; margin-bottom: 6px; }
+        nav ul { list-style: none; display: flex; align-items: center; width: 100%; padding: 0; margin: 0; }
+        nav ul li { position: relative; flex: 1; text-align: center; }
+        nav a { text-decoration: none; color: #333; padding: 8px 0; font-size: 0.9rem; font-weight: 500; display: block; transition: color 0.3s; width: 100%; }
         nav a:hover { color: #d32f2f; }
 
-        .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #eee; border-radius: 6px; min-width: 160px; padding: 6px 0; z-index: 1001; }
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #eee; border-radius: 6px; min-width: 160px; padding: 6px 0; z-index: 1001; }
+        .dropdown-menu li { flex: none; text-align: left; }
         .dropdown-menu li a { color: #333; padding: 8px 12px; white-space: nowrap; font-size: 0.88rem; }
         .dropdown-menu li a:hover { background-color: #f5f5f5; color: #d32f2f; }
         .dropdown:hover .dropdown-menu { display: block; }
@@ -60,11 +61,8 @@
 
         /* 📱 手機版適應性調整 */
         @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 4px; padding: 6px 10px; }
             .logo { font-size: 1rem; }
-            nav ul { width: 100%; justify-content: center; gap: 4px; }
-            nav a { font-size: 0.85rem; padding: 4px 6px; }
-
+            nav a { font-size: 0.85rem; padding: 6px 0; }
             .main-container { margin: 15px auto; padding: 0 10px; }
             .hero-card { padding: 25px 15px; }
             .hero-title { font-size: 1.6rem; }
@@ -126,7 +124,7 @@
             </div>
         </div>
 
-        <!-- 新增內容：為什麼選擇旭騰車行 -->
+        <!-- 品牌優勢 -->
         <div class="info-card">
             <div class="card-header">
                 <span>⭐ 為什麼選擇旭騰車行？</span>
@@ -147,7 +145,7 @@
             </ul>
         </div>
 
-        <!-- 新增內容：標準服務與檢測流程 -->
+        <!-- 標準服務與檢測流程 -->
         <div class="info-card">
             <div class="card-header">
                 <span>📋 進廠快速檢測流程</span>
@@ -171,7 +169,7 @@
                 <div class="step-box">
                     <div class="step-number">4</div>
                     <h4>施工與測試</h4>
-                    <p>使用正規原廠件更換，完工後進行實際路試確保安全。</p>
+                    <p>使用正規原廠件更換，完工後進行實際路驗確保安全。</p>
                 </div>
             </div>
         </div>
