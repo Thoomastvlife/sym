@@ -26,15 +26,60 @@
         .container { max-width: 900px; margin: 40px auto 60px auto; padding: 40px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         h1 { font-size: 1.8em; color: #222; border-bottom: 3px solid #ffcc00; padding-bottom: 12px; margin-bottom: 25px; text-align: center; }
 
-        .service-section { margin-bottom: 40px; }
-        .service-section h2 { font-size: 1.3rem; color: #222; border-left: 4px solid #ffcc00; padding-left: 10px; margin-bottom: 15px; }
-        
+        /* 排氣檢測送好禮 - 促銷橫幅 */
+        .promo-banner {
+            background-color: #fffde6;
+            border: 2px dashed #ffcc00;
+            padding: 22px;
+            border-radius: 8px;
+            margin-bottom: 35px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(255, 204, 0, 0.15);
+        }
+        .promo-banner h3 {
+            color: #d32f2f;
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .promo-banner p {
+            color: #444;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 道路救援提醒卡片 */
+        .rescue-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #d32f2f;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 35px;
+        }
+        .rescue-card h3 {
+            color: #d32f2f;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+        }
+        .rescue-card p {
+            font-size: 0.93rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
         /* 四大核心保障 */
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 35px; }
         .feature-item { background: #fdfdfd; border: 1px solid #eee; padding: 15px; border-radius: 6px; text-align: center; }
         .feature-item h3 { font-size: 1.05rem; color: #222; margin-bottom: 5px; }
         .feature-item p { font-size: 0.88rem; color: #666; }
 
+        .service-section { margin-bottom: 40px; }
+        .service-section h2 { font-size: 1.3rem; color: #222; border-left: 4px solid #ffcc00; padding-left: 10px; margin-bottom: 15px; }
+        
         /* 保養須知對照表格 */
         .maintenance-table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 30px; }
         .maintenance-table th, .maintenance-table td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #eee; }
@@ -93,6 +138,15 @@
     <div class="container">
         <h1>專業維修與定期保養</h1>
 
+        <!-- 免費排氣檢驗特惠區塊 -->
+        <div class="promo-banner">
+            <h3>🛵 免費機車排氣檢驗 ‧ 好禮大方送！</h3>
+            <p>
+                收到驗車提醒單了嗎？歡迎至旭騰車行進行年度免費排氣檢測！<br>
+                檢驗完成即<strong>免費贈送精美垃圾袋一綑</strong>，現場還有技師貼心提醒您的最佳驗車月份與保養建議，讓您安心騎乘不罰款！
+            </p>
+        </div>
+
         <!-- 四大核心保障 -->
         <div class="features-grid">
             <div class="feature-item">
@@ -111,6 +165,15 @@
                 <h3>🛵 代步支援</h3>
                 <p>留車維修提供免費代步車借用服務，不影響您的日常通勤。</p>
             </div>
+        </div>
+
+        <!-- 道路救援說明區塊 -->
+        <div class="rescue-card">
+            <h3>🚨 道路救援支援說明</h3>
+            <p>
+                愛車半路熄火或爆胎？旭騰車行提供在地道路救援服務！<br>
+                <strong>距離限制與須知：</strong>救援服務範圍以店家周邊 <strong>5 公里境內</strong> 為主；若救援距離<strong>超過 5 公里以上，需視現場人力與距離評估，可能無法提供即時救援服務</strong>，敬請見諒。如遇緊急狀況，請先來電與我們確認現場位置與派車狀況！
+            </p>
         </div>
 
         <!-- 看板里程對照表 -->
@@ -204,12 +267,16 @@
         <div class="service-section">
             <h2>❓ 保養常見問題 FAQ</h2>
             <div class="faq-item">
-                <h4>Q: 維修留車需要多久時間？</h4>
-                <p>答：一般定期保養約 20-30 分鐘；大保養或複雜維修若需留車，旭騰提供代步車借用服務，讓您通勤不中斷。</p>
+                <h4>Q: 機車顧路可以請你們去接嗎？（道路救援）</h4>
+                <p>答：可以！我們提供在地救援服務，主要服務範圍為店家周邊 5 公里以內。若超過 5 公里，則需視當天店內人力與調度狀況評估，有可能無法前往救援，建議先來電諮詢。</p>
             </div>
             <div class="faq-item">
-                <h4>Q: 可以自備零件請店家安裝嗎？</h4>
-                <p>答：為確保騎乘安全性與零件相容性，建議使用本店嚴選的三陽原廠正規零件，並享有完工保固保障。</p>
+                <h4>Q: 免費排氣檢驗需要帶什麼證件？</h4>
+                <p>答：請攜帶您的「行車執照」或直接騎車前來，我們即可幫您透過電腦連線資料庫進行定期檢測。</p>
+            </div>
+            <div class="faq-item">
+                <h4>Q: 維修留車需要多久時間？</h4>
+                <p>答：一般定期保養約 20-30 分鐘；大保養或複雜維修若需留車，旭騰提供代步車借用服務，讓您通勤不中斷。</p>
             </div>
         </div>
     </div>
