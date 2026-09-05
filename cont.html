@@ -3,21 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聯繫我們 - SYM 旭騰車行</title>
-    <link rel="stylesheet" href="style.css"> <!-- 請依照您實際的 CSS 檔名連結 -->
+    <title>關於我們 / 聯繫我們 - SYM 旭騰車行</title>
     <style>
-        /* 頁面基礎樣式優化 (若您已將樣式整合至 style.css 可取消此處 <style>) */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        /* 基礎重置 */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: #f8f9fa;
             color: #333;
             line-height: 1.6;
         }
 
+        /* 導覽列 Header 樣式（修復跑版問題） */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        nav .logo {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav ul li a:hover {
+            color: #d32f2f;
+        }
+
+        /* 頁面主要內容 */
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 40px auto;
             padding: 0 20px;
         }
@@ -25,7 +71,7 @@
         .page-title {
             text-align: center;
             font-size: 2rem;
-            color: #d32f2f; /* SYM 主色調調紅 */
+            color: #d32f2f;
             margin-bottom: 30px;
         }
 
@@ -39,7 +85,6 @@
         }
 
         .info-card h2 {
-            margin-top: 0;
             font-size: 1.25rem;
             color: #212529;
             border-bottom: 2px solid #f1f3f5;
@@ -48,15 +93,12 @@
         }
 
         .contact-link {
-            display: inline-block;
             color: #1a73e8;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.2s;
         }
 
         .contact-link:hover {
-            color: #0b57d0;
             text-decoration: underline;
         }
 
@@ -76,6 +118,11 @@
             background-color: #b71c1c;
         }
 
+        .info-card ul {
+            padding-left: 20px;
+        }
+
+        /* 頁尾 */
         footer {
             text-align: center;
             padding: 20px;
@@ -84,18 +131,13 @@
             margin-top: 60px;
             font-size: 0.9rem;
         }
-
-        footer p {
-            margin: 0;
-        }
     </style>
 </head>
 <body>
 
-    <!-- 頁首導覽列 (與 terms.html 保持一致) -->
     <header>
         <nav>
-            <div>SYM 旭騰車行</div>
+            <div class="logo">SYM 旭騰車行</div>
             <ul>
                 <li><a href="index.html">首頁</a></li>
                 <li><a href="cont.html">關於我們</a></li>
@@ -105,11 +147,9 @@
         </nav>
     </header>
 
-    <!-- 主要內容區 -->
     <div class="container">
         <h1 class="page-title">SYM 旭騰車行</h1>
 
-        <!-- 店家地址區塊 -->
         <div class="info-card">
             <h2>📍 店址資訊</h2>
             <p>
@@ -120,33 +160,11 @@
             </p>
         </div>
 
-        <!-- 電話聯繫區塊 -->
         <div class="info-card">
             <h2>📞 電話預約與諮詢</h2>
             <p>點擊下方按鈕即可直接撥號聯繫門市：</p>
             <a href="tel:0282585800" class="btn-call">撥打電話：02-8258-5800</a>
         </div>
 
-        <!-- 線上客服與社群區塊 -->
         <div class="info-card">
-            <h2>💬 線上客服與社群</h2>
-            <ul>
-                <li style="margin-bottom: 10px;">
-                    <strong>LINE 官方帳號：</strong>
-                    <a class="contact-link" href="https://lin.ee/5yZJRvK" target="_blank" rel="noopener noreferrer">點此加入客服 Line 專區</a>
-                </li>
-                <li>
-                    <strong>Facebook 粉絲專頁：</strong>
-                    <a class="contact-link" href="https://www.facebook.com/people/sym-%E6%97%AD%E9%A8%B0%E8%BB%8A%E8%A1%8C/100092753474710/" target="_blank" rel="noopener noreferrer">SYM 旭騰車行 FB 粉絲專頁</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 頁尾 (與 terms.html 保持一致) -->
-    <footer>
-        <p>© 2026 SYM 三陽機車 - 旭騰車行 ® Xuteng car dealership. All Rights Reserved.</p>
-    </footer>
-
-</body>
-</html>
+            <h2>💬 線
