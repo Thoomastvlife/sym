@@ -1,150 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
-    <title href="./favicon.ico">SYM-三陽機車-旭騰車行_關於我們</title>
+    <title>聯繫我們 - SYM 旭騰車行</title>
+    <link rel="stylesheet" href="style.css"> <!-- 請依照您實際的 CSS 檔名連結 -->
     <style>
-    body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    
-}
+        /* 頁面基礎樣式優化 (若您已將樣式整合至 style.css 可取消此處 <style>) */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1em 0;
-}
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+        .page-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #d32f2f; /* SYM 主色調調紅 */
+            margin-bottom: 30px;
+        }
 
-.logo {
-    font-size: 1.5em;
-    font-weight: bold;
-}
+        .info-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e9ecef;
+        }
 
-nav ul {
-    list-style: none;
-    display: flex;
-}
+        .info-card h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            color: #212529;
+            border-bottom: 2px solid #f1f3f5;
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+        }
 
-nav a {
-    text-decoration: none;
-    color: #fff;
-    margin: 0 15px;
-    transition: color 0.3s;
-}
+        .contact-link {
+            display: inline-block;
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
 
-nav a:hover {
-    color: #ffcc00;
-}
+        .contact-link:hover {
+            color: #0b57d0;
+            text-decoration: underline;
+        }
 
-.hero {
-    background-image: url('hero-background.jpg');
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-    text-align: center;
-    padding: 150px 0;
-}
+        .btn-call {
+            display: inline-block;
+            background-color: #d32f2f;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
 
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
+        .btn-call:hover {
+            background-color: #b71c1c;
+        }
 
-.hero h1 {
-    font-size: 2.5em;
-}
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #212529;
+            color: #aaa;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
 
-.hero p {
-    font-size: 1.2em;
-}
-
-.cta-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ffcc00;
-    color: #333;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.cta-button:hover {
-    background-color: #e6b800;
-}
-
-.about-us,
-.services,
-.contact {
-    max-width: 1200px;
-    margin: 50px auto;
-}
-
-.service-item {
-    text-align: center;
-}
-
-.service-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.contact form {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.contact label {
-    flex: 1 0 100%;
-    margin-bottom: 10px;
-}
-
-.contact input,
-.contact textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-.contact button {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.contact button:hover {
-    background-color: #555;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1em 0;
-}
-</style>
+        footer p {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- 頁首導覽列 (與 terms.html 保持一致) -->
     <header>
         <nav>
-            <div class="logo">sym</div>
+            <div>SYM 旭騰車行</div>
             <ul>
                 <li><a href="index.html">首頁</a></li>
                 <li><a href="cont.html">關於我們</a></li>
@@ -154,19 +105,48 @@ footer {
         </nav>
     </header>
 
-    <h1 color="red">旭騰車行</h1>
-    <h3><a href="https://www.google.com/maps/place/SYM-%E4%B8%89%E9%99%BD%E6%A9%9F%E8%BB%8A-%E6%97%AD%E9%A8%B0%E6%A9%9F%E8%BB%8A%E8%A1%8C/@25.0267007,121.4562012,17z/data=!3m1!4b1!4m6!3m5!1s0x3442a9ca1fd37e1b:0x8491771a39f014c4!8m2!3d25.0267007!4d121.4587761!16s%2Fg%2F11kj5bnyk3?hl=zh-TW&authuser=0&entry=ttu">220015新北市板橋區新海路398號</a></h3><br>
-         <h3>客服專區：<a href="https://lin.ee/5yZJRvK">line官方帳號</a></h3>
-    <h3><a href="https://www.facebook.com/people/sym-%E6%97%AD%E9%A8%B0%E8%BB%8A%E8%A1%8C/100092753474710/">Facebook粉絲專頁</a></h3><br>
-    <h2>撥打電話給我們:<a href="tel:+886-282-585-800">0282-585-800</a></h2><br>
-    <h2>點擊即可撥打電話</a></h2><br>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.2172398626467!2d121.45619581166025!3d25.026700677728655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a9ca1fd37e1b%3A0x8491771a39f014c4!2zU1lNLeS4iemZveapn-i7ii3ml63pqLDmqZ_ou4rooYw!5e0!3m2!1szh-TW!2stw!4v1709558602714!5m2!1szh-TW!2stw" width="380px" height="220px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <!-- 主要內容區 -->
+    <div class="container">
+        <h1 class="page-title">SYM 旭騰車行</h1>
 
-    <footer class="text-center bg-info mt-4 py-3 position-absolute w-100" style="bottom:0"><p>sym旭騰車行 &reg; Xuteng car dealership.</p></footer>
+        <!-- 店家地址區塊 -->
+        <div class="info-card">
+            <h2>📍 店址資訊</h2>
+            <p>
+                <strong>地址：</strong>
+                <a class="contact-link" href="https://www.google.com/maps/place/SYM-%E4%B8%89%E9%99%BD%E6%A9%9F%E8%BB%8A-%E6%97%AD%E9%A8%B0%E6%A9%9F%E8%BB%8A%E8%A1%8C/@25.0267007,121.4562012,17z/data=!3m1!4b1!4m6!3m5!1s0x3442a9ca1fd37e1b:0x8491771a39f014c4!8m2!3d25.0267007!4d121.4587761!16s%2Fg%2F11kj5bnyk3?hl=zh-TW&authuser=0&entry=ttu" target="_blank" rel="noopener noreferrer">
+                    220015 新北市板橋區新海路398號（開啟 Google 地圖）
+                </a>
+            </p>
+        </div>
 
+        <!-- 電話聯繫區塊 -->
+        <div class="info-card">
+            <h2>📞 電話預約與諮詢</h2>
+            <p>點擊下方按鈕即可直接撥號聯繫門市：</p>
+            <a href="tel:0282585800" class="btn-call">撥打電話：02-8258-5800</a>
+        </div>
 
-    <script src="script.js"></script>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script><!-- End Cloudflare Web Analytics -->
+        <!-- 線上客服與社群區塊 -->
+        <div class="info-card">
+            <h2>💬 線上客服與社群</h2>
+            <ul>
+                <li style="margin-bottom: 10px;">
+                    <strong>LINE 官方帳號：</strong>
+                    <a class="contact-link" href="https://lin.ee/5yZJRvK" target="_blank" rel="noopener noreferrer">點此加入客服 Line 專區</a>
+                </li>
+                <li>
+                    <strong>Facebook 粉絲專頁：</strong>
+                    <a class="contact-link" href="https://www.facebook.com/people/sym-%E6%97%AD%E9%A8%B0%E8%BB%8A%E8%A1%8C/100092753474710/" target="_blank" rel="noopener noreferrer">SYM 旭騰車行 FB 粉絲專頁</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 頁尾 (與 terms.html 保持一致) -->
+    <footer>
+        <p>© 2026 SYM 三陽機車 - 旭騰車行 ® Xuteng car dealership. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script><!-- End Cloudflare Web Analytics -->
