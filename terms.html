@@ -208,34 +208,29 @@
             font-size: 0.85rem;
         }
 
-        /* 手機版響應式 RWD 調整 */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 10px;
-                padding: 12px;
-            }
-
-            nav ul {
-                width: 100%;
-                justify-content: center;
-                gap: 5px;
-            }
-
-            nav a {
-                padding: 6px 10px;
-                font-size: 0.95rem;
-            }
-
-            .terms-container {
-                margin: 20px 15px;
-                padding: 20px;
-            }
-
-            .terms-container h1 {
-                font-size: 1.4em;
-            }
-        }
+/* 替換原本的 @media 區塊 */
+@media (max-width: 768px) {
+    nav { 
+        flex-direction: column; 
+        gap: 10px; 
+        padding: 12px; 
+    }
+    nav ul { 
+        width: 100%; 
+        justify-content: center; 
+        gap: 5px; 
+    }
+    .container { 
+        margin: 10px auto;   /* 降低上下邊距 */
+        padding: 15px 12px;  /* 左右內距從原本 20px 縮減至 12px，釋放畫面空間 */
+        width: 95%;          /* 讓容器寬度更貼近螢幕兩側 */
+    }
+    .maintenance-table th, 
+    .maintenance-table td { 
+        padding: 8px 5px; 
+        font-size: 0.85rem; 
+    }
+}
 
         /* 列印時隱藏導覽列與按鈕 */
         @media print {
