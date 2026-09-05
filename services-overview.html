@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="./favicon.ico">
+    <title>SYM-三陽機車-旭騰車行_頂級維修與全方位服務</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, 'Microsoft JhengHei', sans-serif; background-color: #f9f9f9; color: #333; line-height: 1.6; }
+        
+        header { background-color: #222; color: #fff; position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 15px 20px; }
+        .logo { font-size: 1.25rem; font-weight: bold; color: #ffcc00; text-decoration: none; text-transform: uppercase; }
+        nav ul { list-style: none; display: flex; align-items: center; gap: 15px; }
+        nav ul li { position: relative; }
+        nav a { text-decoration: none; color: #fff; padding: 10px 12px; font-weight: 500; display: block; transition: color 0.3s; }
+        nav a:hover { color: #ffcc00; }
+
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background-color: #222; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 6px; min-width: 180px; padding: 8px 0; z-index: 1001; }
+        .dropdown-menu li a { color: #fff; padding: 10px 16px; white-space: nowrap; font-size: 0.95rem; }
+        .dropdown-menu li a:hover { background-color: #333; color: #ffcc00; }
+        .dropdown:hover .dropdown-menu { display: block; }
+
+        .hero-banner { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #333; color: #fff; text-align: center; padding: 60px 20px; }
+        .hero-banner h1 { font-size: 2.2rem; color: #ffcc00; margin-bottom: 15px; }
+        .hero-banner p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: #eee; }
+
+        .container { max-width: 1000px; margin: 40px auto 60px auto; padding: 0 20px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+        
+        .service-card { background: #fff; border-radius: 10px; padding: 30px 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid #ffcc00; transition: transform 0.3s; }
+        .service-card:hover { transform: translateY(-5px); }
+        .service-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: #222; }
+        .service-card p { font-size: 0.95rem; color: #666; margin-bottom: 20px; text-align: justify; }
+        .btn-link { display: inline-block; background-color: #222; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background 0.3s; }
+        .btn-link:hover { background-color: #ffcc00; color: #222; }
+
+        footer { background-color: #222; color: #fff; text-align: center; padding: 1.5em 0; width: 100%; font-size: 0.85rem; }
+        
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 10px; padding: 12px; }
+            nav ul { width: 100%; justify-content: center; gap: 5px; }
+            .hero-banner h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SYM 旭騰車行</a>
+            <ul>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="cont.html">關於我們</a></li>
+                <li class="dropdown">
+                    <a href="services-overview.html">服務 ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="service.html">專業維修與保養</a></li>
+                        <li><a href="terms.html">代步車借用條款</a></li>
+                        <li><a href="reviews.html">顧客評價與推薦</a></li>
+                    </ul>
+                </li>
+                <li><a href="cont.html">聯繫我們</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero-banner">
+        <h1>拒絕盲目換零件！旭騰嚴選透明化極致服務</h1>
+        <p>專業電腦診斷 × 原廠標準工法 × 免費代步機車支援，為您的日常騎乘安全嚴格把關。</p>
+    </div>
+
+    <div class="container">
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>🛠️ 專業維修與定期保養</h3>
+                <p>引進 SYM 原廠電腦診斷儀器，針對引擎、噴射系統與傳動進行精準檢測。報價透明，絕不無故更換良品。</p>
+                <a href="service.html" class="btn-link">查看保養項目與流程</a>
+            </div>
+
+            <div class="service-card">
+                <h3>🛵 留車貼心代步車服務</h3>
+                <p>留車維修不影響生活步調！我們為符合資格的顧客提供代步機車借用，免去車子維修時無車可用的困擾。</p>
+                <a href="terms.html" class="btn-link">閱讀代步車服務條款</a>
+            </div>
+
+            <div class="service-card">
+                <h3>⭐ 車友口碑與五星推薦</h3>
+                <p>看看在地車友與 SYM 車主對旭騰車行維修品質與服務價值的真實點評，誠信經營獲得一致好評。</p>
+                <a href="reviews.html" class="btn-link">查看完整顧客好評</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 SYM 三陽機車 - 旭騰車行 &reg; All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script>
+</body>
+</html>
