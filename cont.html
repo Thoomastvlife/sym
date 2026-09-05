@@ -10,16 +10,16 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, 'Microsoft JhengHei', sans-serif; background-color: #2b3e66; color: #333; line-height: 1.6; }
 
-        /* 統一白底紅字小型 Header */
         header { background-color: #ffffff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 8px 15px; }
-        .logo { font-size: 1.1rem; font-weight: bold; color: #d32f2f; text-decoration: none; text-transform: uppercase; }
-        nav ul { list-style: none; display: flex; align-items: center; gap: 10px; }
-        nav ul li { position: relative; }
-        nav a { text-decoration: none; color: #333; padding: 6px 8px; font-size: 0.9rem; font-weight: 500; display: block; transition: color 0.3s; }
+        nav { display: flex; flex-direction: column; align-items: center; max-width: 1200px; margin: 0 auto; padding: 8px 0; }
+        .logo { font-size: 1.1rem; font-weight: bold; color: #d32f2f; text-decoration: none; text-transform: uppercase; margin-bottom: 6px; text-align: center; }
+        nav ul { list-style: none; display: flex; align-items: center; width: 100%; padding: 0; margin: 0; }
+        nav ul li { position: relative; flex: 1; text-align: center; }
+        nav a { text-decoration: none; color: #333; padding: 8px 0; font-size: 0.9rem; font-weight: 500; display: block; transition: color 0.3s; width: 100%; }
         nav a:hover { color: #d32f2f; }
 
-        .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #eee; border-radius: 6px; min-width: 160px; padding: 6px 0; z-index: 1001; }
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #eee; border-radius: 6px; min-width: 160px; padding: 6px 0; z-index: 1001; }
+        .dropdown-menu li { flex: none; text-align: left; }
         .dropdown-menu li a { color: #333; padding: 8px 12px; white-space: nowrap; font-size: 0.88rem; }
         .dropdown-menu li a:hover { background-color: #f5f5f5; color: #d32f2f; }
         .dropdown:hover .dropdown-menu { display: block; }
@@ -27,12 +27,10 @@
         .main-container { max-width: 900px; margin: 30px auto 50px auto; padding: 0 15px; }
         .page-title { font-size: 2rem; color: #d32f2f; text-align: center; margin-bottom: 25px; font-weight: bold; }
 
-        /* 白色卡片通用樣式 */
         .info-card { background-color: #ffffff; border-radius: 8px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         .card-header { display: flex; align-items: center; gap: 10px; font-size: 1.25rem; font-weight: bold; color: #111; margin-bottom: 20px; }
         .card-header .icon { font-size: 1.4rem; color: #d32f2f; }
 
-        /* 店址資訊 */
         .address-text { font-size: 1rem; color: #333; margin-bottom: 20px; line-height: 1.6; }
         .address-text a { color: #2196f3; text-decoration: none; }
         .address-text a:hover { text-decoration: underline; }
@@ -40,12 +38,10 @@
         .map-container { width: 100%; height: 380px; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; }
         .map-container iframe { width: 100%; height: 100%; border: 0; }
 
-        /* 電話撥打按鈕 */
         .phone-sub { font-size: 0.95rem; color: #444; margin-bottom: 18px; }
         .btn-call { display: block; width: 100%; background-color: #d32f2f; color: #ffffff; text-align: center; text-decoration: none; padding: 14px 0; border-radius: 6px; font-size: 1.15rem; font-weight: bold; transition: background-color 0.3s; box-shadow: 0 2px 6px rgba(211,47,47,0.3); }
         .btn-call:hover { background-color: #b71c1c; }
 
-        /* 線上客服與社群 */
         .social-list { list-style: none; border-top: 1px solid #eee; padding-top: 15px; }
         .social-list li { font-size: 1rem; color: #222; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .social-list li a { color: #2196f3; font-weight: normal; text-decoration: none; }
@@ -53,13 +49,9 @@
 
         footer { background-color: #222; color: #fff; text-align: center; padding: 1.2em 0; width: 100%; font-size: 0.85rem; }
 
-        /* 📱 手機版適應性調整 */
         @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 4px; padding: 6px 10px; }
             .logo { font-size: 1rem; }
-            nav ul { width: 100%; justify-content: center; gap: 4px; }
-            nav a { font-size: 0.85rem; padding: 4px 6px; }
-
+            nav a { font-size: 0.85rem; padding: 6px 0; }
             .main-container { margin: 15px auto; padding: 0 10px; }
             .info-card { padding: 20px 15px; }
             .page-title { font-size: 1.6rem; margin-bottom: 18px; }
@@ -92,7 +84,6 @@
     <div class="main-container">
         <h1 class="page-title">SYM 旭騰車行</h1>
 
-        <!-- 店址資訊卡片 -->
         <div class="info-card">
             <div class="card-header">
                 <span class="icon">📍</span>
@@ -112,7 +103,6 @@
             </div>
         </div>
 
-        <!-- 電話預約與諮詢卡片 -->
         <div class="info-card">
             <div class="card-header">
                 <span class="icon">📞</span>
@@ -122,7 +112,6 @@
             <a href="tel:02-8258-5800" class="btn-call">撥打電話：02-8258-5800</a>
         </div>
 
-        <!-- 線上客服與社群卡片 -->
         <div class="info-card">
             <div class="card-header">
                 <span class="icon">💬</span>
