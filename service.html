@@ -24,16 +24,20 @@
         .dropdown:hover .dropdown-menu { display: block; }
 
         .container { max-width: 850px; margin: 40px auto 60px auto; padding: 40px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h1 { font-size: 1.8em; color: #222; border-bottom: 3px solid #ffcc00; padding-bottom: 12px; margin-bottom: 20px; text-align: center; }
+        h1 { font-size: 1.8em; color: #222; border-bottom: 3px solid #ffcc00; padding-bottom: 12px; margin-bottom: 25px; text-align: center; }
 
-        .service-section { margin-bottom: 30px; }
+        .service-section { margin-bottom: 35px; }
         .service-section h2 { font-size: 1.3rem; color: #222; border-left: 4px solid #ffcc00; padding-left: 10px; margin-bottom: 15px; }
-        .service-list { list-style: none; padding-left: 0; }
-        .service-list li { padding: 10px 0; border-bottom: 1px dashed #eee; display: flex; justify-content: space-between; align-items: center; }
-        .service-list li span.title { font-weight: bold; color: #444; }
-        .service-list li span.desc { color: #666; font-size: 0.9rem; }
+        
+        /* 保養須知對照表格樣式 */
+        .maintenance-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .maintenance-table th, .maintenance-table td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #eee; }
+        .maintenance-table th { background-color: #333; color: #fff; font-weight: 600; }
+        .maintenance-table tr:nth-child(even) { background-color: #fcfcfc; }
+        .maintenance-table tr:hover { background-color: #fffde6; }
+        .highlight-action { font-weight: bold; color: #d32f2f; }
 
-        .workflow { background-color: #f5f5f5; padding: 20px; border-radius: 6px; margin-top: 20px; }
+        .workflow { background-color: #f5f5f5; padding: 20px; border-radius: 6px; margin-top: 25px; }
         .workflow ol { padding-left: 20px; }
         .workflow li { margin-bottom: 10px; color: #444; }
 
@@ -43,6 +47,7 @@
             nav { flex-direction: column; gap: 10px; padding: 12px; }
             nav ul { width: 100%; justify-content: center; gap: 5px; }
             .container { margin: 20px 15px; padding: 20px; }
+            .maintenance-table th, .maintenance-table td { padding: 8px 5px; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -68,34 +73,66 @@
     </header>
 
     <div class="container">
-        <h1>專業維修與定期保養項目</h1>
+        <h1>專業維修與定期保養</h1>
 
+        <!-- 現場照片內容轉為對照表格 -->
         <div class="service-section">
-            <h2>🛵 定期基礎養護</h2>
-            <ul class="service-list">
-                <li><span class="title">SYM 原廠機油/齒輪油更換</span><span class="desc">依原廠規範建議里程保養</span></li>
-                <li><span class="title">煞車系統檢驗與更換</span><span class="desc">來令片/煞車油/煞車線檢查</span></li>
-                <li><span class="title">傳動系統深度清潔與維護</span><span class="desc">普利珠/皮帶/離心式離合器保養</span></li>
-                <li><span class="title">前後輪胎檢測與更換</span><span class="desc">胎紋深度檢測與靜態平衡平衡</span></li>
-            </ul>
-        </div>
-
-        <div class="service-section">
-            <h2>💻 噴射系統與專業維修</h2>
-            <ul class="service-list">
-                <li><span class="title">EFI 噴射系統電腦診斷</span><span class="desc">原廠診斷電腦排除故障碼</span></li>
-                <li><span class="title">節導門與噴油嘴超音波清洗</span><span class="desc">提升油耗效率與引擎平順度</span></li>
-                <li><span class="title">電瓶與充電系統量測</span><span class="desc">冷啟動電流CCA與發電機測試</span></li>
-            </ul>
+            <h2>📋 機車定期保養須知對照表</h2>
+            <table class="maintenance-table">
+                <thead>
+                    <tr>
+                        <th>保養 / 檢查項目</th>
+                        <th>建議保養里程</th>
+                        <th>處置方式</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>機油 / 齒輪油</strong></td>
+                        <td>每 1,000 公里</td>
+                        <td class="highlight-action">更換</td>
+                    </tr>
+                    <tr>
+                        <td><strong>空氣濾清器 (空濾)</strong></td>
+                        <td>每 5,000 公里</td>
+                        <td class="highlight-action">更換</td>
+                    </tr>
+                    <tr>
+                        <td><strong>汽油除碳劑</strong></td>
+                        <td>每 5,000 公里</td>
+                        <td>添加</td>
+                    </tr>
+                    <tr>
+                        <td><strong>火星塞</strong></td>
+                        <td>每 10,000 公里</td>
+                        <td class="highlight-action">更換</td>
+                    </tr>
+                    <tr>
+                        <td><strong>噴射系統</strong></td>
+                        <td>每 10,000 公里</td>
+                        <td>清洗</td>
+                    </tr>
+                    <tr>
+                        <td><strong>傳動系統</strong></td>
+                        <td>每 20,000 公里</td>
+                        <td>檢查</td>
+                    </tr>
+                    <tr>
+                        <td><strong>皮帶</strong></td>
+                        <td>每 20,000 公里</td>
+                        <td>檢查 / 更換</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="workflow">
             <h3>📋 旭騰標準維修服務流程：</h3>
             <ol>
                 <li><strong>進廠接單：</strong>聆聽車主用車狀況，進行初步外觀與基本功能檢測。</li>
-                <li><strong>專業診斷：</strong>運用儀器檢測問題根源，絕不模糊猜測。</li>
+                <li><strong>專業診斷：</strong>運用原廠電腦診斷儀器檢測問題根源，不模糊猜測。</li>
                 <li><strong>報價確認：</strong>清楚說明故障原因與零件費用，獲車主同意後方開始施工。</li>
-                <li><strong>交車試騎：</strong>完工後進行路試確保安全無虞，交交車並說明保養注意事項。</li>
+                <li><strong>交車試騎：</strong>完工後進行路試確保安全無虞，交車並說明保養注意事項。</li>
             </ol>
         </div>
     </div>
