@@ -6,124 +6,6 @@
     <link rel="stylesheet" href="./styles.css">
     <link rel="icon" href="./favicon.ico">
     <title>SYM-三陽機車-旭騰車行_專業維修與保養</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, 'Microsoft JhengHei', sans-serif; background-color: #f9f9f9; color: #333; line-height: 1.6; }
-
-        header { background-color: #222; color: #fff; position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 15px 20px; }
-        .logo { font-size: 1.25rem; font-weight: bold; color: #ffcc00; text-decoration: none; text-transform: uppercase; }
-        nav ul { list-style: none; display: flex; align-items: center; gap: 15px; }
-        nav ul li { position: relative; }
-        nav a { text-decoration: none; color: #fff; padding: 10px 12px; font-weight: 500; display: block; transition: color 0.3s; }
-        nav a:hover { color: #ffcc00; }
-
-        .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background-color: #222; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 6px; min-width: 180px; padding: 8px 0; z-index: 1001; }
-        .dropdown-menu li a { color: #fff; padding: 10px 16px; white-space: nowrap; font-size: 0.95rem; }
-        .dropdown-menu li a:hover { background-color: #333; color: #ffcc00; }
-        .dropdown:hover .dropdown-menu { display: block; }
-
-        .container { max-width: 900px; margin: 40px auto 60px auto; padding: 40px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h1 { font-size: 1.8em; color: #222; border-bottom: 3px solid #ffcc00; padding-bottom: 12px; margin-bottom: 25px; text-align: center; }
-
-        /* 排氣檢測送好禮 - 促銷橫幅 */
-        .promo-banner {
-            background-color: #fffde6;
-            border: 2px dashed #ffcc00;
-            padding: 22px;
-            border-radius: 8px;
-            margin-bottom: 35px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(255, 204, 0, 0.15);
-        }
-        .promo-banner h3 {
-            color: #d32f2f;
-            font-size: 1.25rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-        .promo-banner p {
-            color: #444;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* 道路救援說明區塊 */
-        .rescue-card {
-            background-color: #f8f9fa;
-            border: 1px solid #e0e0e0;
-            border-left: 5px solid #d32f2f;
-            padding: 20px;
-            border-radius: 6px;
-            margin-bottom: 35px;
-        }
-        .rescue-card h3 {
-            color: #d32f2f;
-            font-size: 1.15rem;
-            margin-bottom: 8px;
-        }
-        .rescue-card p {
-            font-size: 0.93rem;
-            color: #555;
-            line-height: 1.6;
-        }
-
-        /* 四大核心保障 */
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 35px; }
-        .feature-item { background: #fdfdfd; border: 1px solid #eee; padding: 15px; border-radius: 6px; text-align: center; }
-        .feature-item h3 { font-size: 1.05rem; color: #222; margin-bottom: 5px; }
-        .feature-item p { font-size: 0.88rem; color: #666; }
-
-        .service-section { margin-bottom: 40px; }
-        .service-section h2 { font-size: 1.3rem; color: #222; border-left: 4px solid #ffcc00; padding-left: 10px; margin-bottom: 15px; }
-        
-        /* 保養須知對照表格 */
-        .maintenance-table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 30px; }
-        .maintenance-table th, .maintenance-table td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #eee; }
-        .maintenance-table th { background-color: #333; color: #fff; font-weight: 600; }
-        .maintenance-table tr:nth-child(even) { background-color: #fcfcfc; }
-        .maintenance-table tr:hover { background-color: #fffde6; }
-        .highlight-action { font-weight: bold; color: #d32f2f; }
-
-        /* 項目卡片解說 */
-        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
-        .detail-card { background-color: #fbfbfb; border: 1px solid #eaeaea; border-radius: 6px; padding: 15px; }
-        .detail-card h4 { font-size: 1rem; color: #222; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-        .detail-card p { font-size: 0.88rem; color: #555; line-height: 1.5; }
-
-        /* 服務流程 */
-        .workflow { background-color: #f8f9fa; padding: 25px; border-radius: 6px; margin-top: 25px; border: 1px solid #e9ecef; }
-        .workflow ol { padding-left: 20px; }
-        .workflow li { margin-bottom: 12px; color: #444; }
-
-        /* FAQ 區塊 */
-        .faq-item { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 12px; }
-        .faq-item h4 { font-size: 1rem; color: #222; margin-bottom: 4px; }
-        .faq-item p { font-size: 0.9rem; color: #555; }
-
-        footer { background-color: #222; color: #fff; text-align: center; padding: 1.5em 0; width: 100%; font-size: 0.85rem; }
-
-        /* 📱 手機版邊界優化 */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 10px; padding: 12px; }
-            nav ul { width: 100%; justify-content: center; gap: 5px; }
-            .container { 
-                width: 95%; 
-                margin: 15px auto; 
-                padding: 18px 12px; 
-            }
-            .promo-banner {
-                padding: 16px 10px;
-            }
-            .rescue-card {
-                padding: 15px 12px;
-            }
-            .maintenance-table th, .maintenance-table td { padding: 8px 4px; font-size: 0.82rem; }
-        }
-    </style>
 </head>
 <body>
 
@@ -149,7 +31,6 @@
     <div class="container">
         <h1>專業維修與定期保養</h1>
 
-        <!-- 免費排氣檢驗特惠區塊 -->
         <div class="promo-banner">
             <h3>🛵 免費機車排氣檢驗 ‧ 好禮大方送！</h3>
             <p>
@@ -158,7 +39,6 @@
             </p>
         </div>
 
-        <!-- 四大核心保障 -->
         <div class="features-grid">
             <div class="feature-item">
                 <h3>🔍 透明報價</h3>
@@ -178,7 +58,6 @@
             </div>
         </div>
 
-        <!-- 道路救援說明區塊 -->
         <div class="rescue-card">
             <h3>🚨 道路救援支援說明</h3>
             <p>
@@ -187,7 +66,6 @@
             </p>
         </div>
 
-        <!-- 看板里程對照表 -->
         <div class="service-section">
             <h2>📋 機車定期保養須知對照表</h2>
             <table class="maintenance-table">
@@ -238,7 +116,6 @@
             </table>
         </div>
 
-        <!-- 保養項目深度解析 -->
         <div class="service-section">
             <h2>💡 為何需要定期保養？核心項目說明</h2>
             <div class="details-grid">
@@ -261,7 +138,6 @@
             </div>
         </div>
 
-        <!-- 服務流程 -->
         <div class="service-section">
             <h2>📋 旭騰標準維修服務流程</h2>
             <div class="workflow">
@@ -274,7 +150,6 @@
             </div>
         </div>
 
-        <!-- 常見問與答 -->
         <div class="service-section">
             <h2>❓ 保養常見問題 FAQ</h2>
             <div class="faq-item">
