@@ -23,23 +23,41 @@
         .dropdown-menu li a:hover { background-color: #333; color: #ffcc00; }
         .dropdown:hover .dropdown-menu { display: block; }
 
-        .container { max-width: 850px; margin: 40px auto 60px auto; padding: 40px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .container { max-width: 900px; margin: 40px auto 60px auto; padding: 40px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         h1 { font-size: 1.8em; color: #222; border-bottom: 3px solid #ffcc00; padding-bottom: 12px; margin-bottom: 25px; text-align: center; }
 
-        .service-section { margin-bottom: 35px; }
+        .service-section { margin-bottom: 40px; }
         .service-section h2 { font-size: 1.3rem; color: #222; border-left: 4px solid #ffcc00; padding-left: 10px; margin-bottom: 15px; }
         
-        /* 保養須知對照表格樣式 */
-        .maintenance-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        /* 四大核心保障 */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .feature-item { background: #fdfdfd; border: 1px solid #eee; padding: 15px; border-radius: 6px; text-align: center; }
+        .feature-item h3 { font-size: 1.05rem; color: #222; margin-bottom: 5px; }
+        .feature-item p { font-size: 0.88rem; color: #666; }
+
+        /* 保養須知對照表格 */
+        .maintenance-table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 30px; }
         .maintenance-table th, .maintenance-table td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #eee; }
         .maintenance-table th { background-color: #333; color: #fff; font-weight: 600; }
         .maintenance-table tr:nth-child(even) { background-color: #fcfcfc; }
         .maintenance-table tr:hover { background-color: #fffde6; }
         .highlight-action { font-weight: bold; color: #d32f2f; }
 
-        .workflow { background-color: #f5f5f5; padding: 20px; border-radius: 6px; margin-top: 25px; }
+        /* 項目卡片解說 */
+        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .detail-card { background-color: #fbfbfb; border: 1px solid #eaeaea; border-radius: 6px; padding: 15px; }
+        .detail-card h4 { font-size: 1rem; color: #222; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .detail-card p { font-size: 0.88rem; color: #555; line-height: 1.5; }
+
+        /* 服務流程 */
+        .workflow { background-color: #f8f9fa; padding: 25px; border-radius: 6px; margin-top: 25px; border: 1px solid #e9ecef; }
         .workflow ol { padding-left: 20px; }
-        .workflow li { margin-bottom: 10px; color: #444; }
+        .workflow li { margin-bottom: 12px; color: #444; }
+
+        /* FAQ 區塊 */
+        .faq-item { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 12px; }
+        .faq-item h4 { font-size: 1rem; color: #222; margin-bottom: 4px; }
+        .faq-item p { font-size: 0.9rem; color: #555; }
 
         footer { background-color: #222; color: #fff; text-align: center; padding: 1.5em 0; width: 100%; font-size: 0.85rem; }
 
@@ -47,7 +65,7 @@
             nav { flex-direction: column; gap: 10px; padding: 12px; }
             nav ul { width: 100%; justify-content: center; gap: 5px; }
             .container { margin: 20px 15px; padding: 20px; }
-            .maintenance-table th, .maintenance-table td { padding: 8px 5px; font-size: 0.9rem; }
+            .maintenance-table th, .maintenance-table td { padding: 8px 5px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -75,7 +93,27 @@
     <div class="container">
         <h1>專業維修與定期保養</h1>
 
-        <!-- 現場照片內容轉為對照表格 -->
+        <!-- 四大核心保障 -->
+        <div class="features-grid">
+            <div class="feature-item">
+                <h3>🔍 透明報價</h3>
+                <p>施工前清楚說明零件費用與工資，獲同意後方開始維修。</p>
+            </div>
+            <div class="feature-item">
+                <h3>💻 電腦診斷</h3>
+                <p>引進 SYM 原廠專用檢測設備，精準定位故障不猜測。</p>
+            </div>
+            <div class="feature-item">
+                <h3>🛠️ 原廠零件</h3>
+                <p>堅持使用 SYM 原廠正規零件，給愛車最佳耐用度與相容性。</p>
+            </div>
+            <div class="feature-item">
+                <h3>🛵 代步支援</h3>
+                <p>留車維修提供免費代步車借用服務，不影響您的日常通勤。</p>
+            </div>
+        </div>
+
+        <!-- 看板里程對照表 -->
         <div class="service-section">
             <h2>📋 機車定期保養須知對照表</h2>
             <table class="maintenance-table">
@@ -126,14 +164,53 @@
             </table>
         </div>
 
-        <div class="workflow">
-            <h3>📋 旭騰標準維修服務流程：</h3>
-            <ol>
-                <li><strong>進廠接單：</strong>聆聽車主用車狀況，進行初步外觀與基本功能檢測。</li>
-                <li><strong>專業診斷：</strong>運用原廠電腦診斷儀器檢測問題根源，不模糊猜測。</li>
-                <li><strong>報價確認：</strong>清楚說明故障原因與零件費用，獲車主同意後方開始施工。</li>
-                <li><strong>交車試騎：</strong>完工後進行路試確保安全無虞，交車並說明保養注意事項。</li>
-            </ol>
+        <!-- 保養項目深度解析 -->
+        <div class="service-section">
+            <h2>💡 為何需要定期保養？核心項目說明</h2>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <h4>🛢️ 機油 / 齒輪油</h4>
+                    <p>潤滑引擎與齒輪內部運轉。定期更換可防止金屬磨損、降低引擎運轉高溫，確保動力輸出順暢。</p>
+                </div>
+                <div class="detail-card">
+                    <h4>🌪️ 空氣濾清器</h4>
+                    <p>過濾進入引擎的空氣雜質。髒污過多會導致吸氣不順、油耗增加及加速無力。</p>
+                </div>
+                <div class="detail-card">
+                    <h4>⚡ 火星塞</h4>
+                    <p>負責點燃引擎混合氣。消耗磨損後易導致點火不良、冷車難發動甚至行駛中熄火。</p>
+                </div>
+                <div class="detail-card">
+                    <h4>⚙️ 噴射系統與傳動保養</h4>
+                    <p>清洗節導門與噴油嘴可恢復油耗效益；檢查皮帶與傳動元件可避免行駛中斷裂顧路。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 服務流程 -->
+        <div class="service-section">
+            <h2>📋 旭騰標準維修服務流程</h2>
+            <div class="workflow">
+                <ol>
+                    <li><strong>進廠接單：</strong>聆聽車主用車狀況，進行初步外觀與基本功能檢測。</li>
+                    <li><strong>專業診斷：</strong>運用原廠電腦診斷儀器檢測問題根源，不盲目亂換零件。</li>
+                    <li><strong>報價確認：</strong>清楚說明故障原因與零件費用，獲得車主同意後方開始施工。</li>
+                    <li><strong>完工測試：</strong>完工後進行路試確保安全無虞，交車並說明保養注意事項。</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 常見問與答 -->
+        <div class="service-section">
+            <h2>❓ 保養常見問題 FAQ</h2>
+            <div class="faq-item">
+                <h4>Q: 維修留車需要多久時間？</h4>
+                <p>答：一般定期保養約 20-30 分鐘；大保養或複雜維修若需留車，旭騰提供代步車借用服務，讓您通勤不中斷。</p>
+            </div>
+            <div class="faq-item">
+                <h4>Q: 可以自備零件請店家安裝嗎？</h4>
+                <p>答：為確保騎乘安全性與零件相容性，建議使用本店嚴選的三陽原廠正規零件，並享有完工保固保障。</p>
+            </div>
         </div>
     </div>
 
