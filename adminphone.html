@@ -94,7 +94,7 @@
         await w.loadLanguage('eng');
         await w.initialize('eng');
         await w.setParameters({
-          tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-',
+          tessedit_char_whitelist: 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789-',
           tessedit_pageseg_mode: '7'
         });
         return w;
@@ -212,24 +212,35 @@
   }
 
   // ---------- 格式校正(台灣車牌:L=字母 D=數字)----------
-  const PATTERNS = ['LLLDDDD', 'DDDLLL', 'LLLDDD', 'DDDDLL', 'LLDDDD', 'DDDDLLL'];
+  // 台灣車牌常見格式(L=字母 D=數字;字母不使用 I、O)
+  const PATTERNS = ['LLLDDDD', 'LLDDDD', 'DDDDLL', 'LLLDDD', 'DDDLLL'];
+  const LETTER_OK = /^[A-HJ-NP-Z]$/;
   const TO_DIGIT = { O:'0', Q:'0', D:'0', I:'1', L:'1', Z:'2', S:'5', G:'6', B:'8', T:'7' };
-  const TO_LETTER = { '0':'D', '1':'L', '2':'Z', '5':'S', '6':'G', '8':'B', '7':'T' };
+  const TO_LETTER = { '0':'D', '1':'L', '2':'Z', '5':'S', '6':'G', '8':'B', '7':'T', I:'L', O:'D' };
   const isD = (c) => c >= '0' && c <= '9';
-  function fitPattern(t) {               // 回傳 {text, cost, pattern};cost=修正字數,Infinity=不符
+  function fitPattern(t) {               // 回傳 {text, cost, pattern};cost=修正字數,Infinity=不符合標準
     let best = { text: t, cost: Infinity, pattern: null };
     for (const p of PATTERNS) {
       if (p.length !== t.length) continue;
       let out = '', cost = 0;
       for (let i = 0; i < t.length; i++) {
         const c = t[i], wantD = p[i] === 'D';
-        if (wantD === isD(c)) out += c;
+        if (wantD ? isD(c) : LETTER_OK.test(c)) out += c;
         else { const m = wantD ? TO_DIGIT[c] : TO_LETTER[c]; if (!m) { cost = Infinity; break; } out += m; cost++; }
       }
       if (cost < best.cost) best = { text: out, cost, pattern: p };
     }
     return best;
   }
+  function fitBest(raw) {                // 不符時,嘗試刪掉 1 個雜訊字元
+    let best = fitPattern(raw);
+    if (raw.length >= 6) for (let i = 0; i < raw.length; i++) {
+      const f = fitPattern(raw.slice(0, i) + raw.slice(i + 1));
+      if (f.cost + 2 < best.cost) best = { ...f, cost: f.cost + 2 };
+    }
+    return best;
+  }
+  const isValidPlate = (t) => fitPattern(t.replace(/-/g, '')).cost === 0;
   function hyphenate(t, pattern) {       // 顯示用:ABC-1234
     if (!pattern) return t;
     let k = 1; while (k < pattern.length && pattern[k] === pattern[0]) k++;
@@ -246,7 +257,8 @@
     const out = [];
     for (let i = 0; i < text.length; i++) {
       for (const ch of (SIMILAR[text[i]] || '')) {
-        if (pattern && (pattern[i] === 'D') !== isD(ch)) continue;      // 要符合該位置的字母/數字類型
+        if ((pattern[i] === 'D') !== isD(ch)) continue;               // 要符合該位置的字母/數字類型
+        if (pattern[i] === 'L' && !LETTER_OK.test(ch)) continue;      // 字母不使用 I、O
         const t = text.slice(0, i) + ch + text.slice(i + 1);
         if (t === text || exclude.has(t) || out.some(o => o.t === t)) continue;
         out.push({ t, i });
@@ -259,10 +271,11 @@
     await worker.setParameters({ tessedit_pageseg_mode: String(psm) });
     const { data } = await worker.recognize(canvas);
     const raw = clean(data.text);
-    const fit = fitPattern(raw);
+    const fit = fitBest(raw);
+    const valid = fit.cost !== Infinity;
     const conf = data.confidence || 0;
-    const score = conf - (fit.cost === Infinity ? 25 : fit.cost * 6) + (fit.cost === 0 ? 10 : 0);
-    return { raw, text: fit.cost === Infinity ? raw : fit.text, pattern: fit.pattern, score, conf };
+    const score = conf + (valid ? 10 - fit.cost * 6 : -40);
+    return { raw, text: valid ? fit.text : raw, pattern: fit.pattern, valid, score, conf };
   }
 
   captureBtn.addEventListener('click', async () => {
@@ -279,17 +292,17 @@
         setStatus('辨識中… (' + (i + 1) + '/' + variants.length + ' ' + variants[i].name + ')');
         results.push({ ...(await ocrOne(worker, variants[i].canvas, 7)), v: i });
       }
-      if (!results.some(r => looksLikePlate(r.text))) {       // 備援:多行模式
+      if (!results.some(r => r.valid)) {       // 備援:多行模式
         for (let i = 1; i < variants.length; i++) results.push({ ...(await ocrOne(worker, variants[i].canvas, 6)), v: i });
       }
       await worker.setParameters({ tessedit_pageseg_mode: '7' });
       results.sort((a, b) => b.score - a.score);
       const best = results[0];
       const text = best.text;
-      const others = [...new Set(results.map(r => r.text).filter(t => t && t !== text))].slice(0, 3);
+      const others = [...new Set(results.filter(r => r.valid).map(r => r.text).filter(t => t !== text))].slice(0, 3);
       const cands = others.map(t => ({ t, i: -1 }));
       const seenSet = new Set([text, ...others]);
-      similarOptions(text, best.pattern, seenSet).slice(0, 9 - cands.length).forEach(o => cands.push(o));
+      (best.valid ? similarOptions(text, best.pattern, seenSet) : []).slice(0, 9 - cands.length).forEach(o => cands.push(o));
 
       thumb.src = variants[best.v].canvas.toDataURL('image/jpeg', 0.8);
       plateInput.value = KEEP_HYPHEN ? hyphenate(text, best.pattern) : text;
@@ -307,7 +320,7 @@
       result.style.display = 'block';
       $('cam').style.display = 'none';
       captureBtn.style.display = 'none';
-      setStatus(text ? (looksLikePlate(text) ? '請核對車牌後按確認' + (cands.length ? '(下方有類似選項可替換)' : '') : '⚠️ 結果長度不像車牌,請仔細核對或重拍')
+      setStatus(text ? (best.valid ? '請核對車牌後按確認' + (cands.length ? '(下方有類似選項可替換)' : '') : '⚠️ 不符合台灣車牌格式,請核對或重拍')
                      : '沒有辨識到文字,請重拍或手動輸入');
     } catch (err) {
       setStatus('辨識失敗:' + err.message);
@@ -320,6 +333,7 @@
   $('sendBtn').addEventListener('click', async () => {
     const plate = plateInput.value.trim().toUpperCase();
     if (plate.length < 4) { setStatus('車牌長度不足,請確認'); return; }
+    if (!isValidPlate(plate) && !confirm('「' + plate + '」不符合台灣車牌格式(如 ABC-1234、123-ABC、1234-AB),仍要送出嗎?')) return;
     const btn = $('sendBtn');
     btn.disabled = true;
     try {
