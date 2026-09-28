@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>車牌掃描</title>
+<style>
+  :root { --bg:#14171a; --panel:#1e2226; --text:#eef0f2; --sub:#9aa3ab; --accent:#3ddc84; --accent-dim:#2a8f57; --border:#2b3136; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--text); }
+  body { font-family:-apple-system,"PingFang TC","Noto Sans TC",system-ui,sans-serif;
+    padding:calc(14px + env(safe-area-inset-top,0px)) 14px calc(20px + env(safe-area-inset-bottom,0px)); }
+  .wrap { max-width:480px; margin:0 auto; }
+  h1 { font-size:1.05rem; margin:4px 0 12px; text-align:center; }
+  .cam { position:relative; background:#000; border-radius:12px; overflow:hidden; }
+  video { width:100%; display:block; min-height:200px; }
+  .guide { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border:2px solid var(--accent);
+    border-radius:8px; box-shadow:0 0 0 9999px rgba(0,0,0,.5); pointer-events:none; }
+  .tip { position:absolute; top:8px; left:50%; transform:translateX(-50%); font-size:12px; background:rgba(0,0,0,.6);
+    padding:3px 10px; border-radius:6px; color:#cfd6dc; white-space:nowrap; pointer-events:none; }
+  button { font:inherit; font-weight:600; border:none; border-radius:10px; padding:14px; width:100%; margin-top:10px; cursor:pointer; }
+  .primary { background:var(--accent); color:#06231a; }
+  .primary:disabled { background:#37403a; color:#7c877f; }
+  .second { background:transparent; color:var(--accent); border:1px solid var(--accent-dim); }
+  .status { font-size:13px; color:var(--sub); text-align:center; margin-top:10px; min-height:1.3em; }
+  .result { display:none; margin-top:12px; }
+  .label { font-size:12px; color:var(--sub); margin-bottom:6px; }
+  input { width:100%; font-size:28px; font-weight:700; letter-spacing:.08em; text-align:center; padding:12px;
+    border-radius:10px; border:1.5px solid var(--accent-dim); background:#0f1214; color:var(--text); }
+  .thumb { display:block; width:100%; max-height:90px; object-fit:contain; background:#000; border-radius:8px; margin-bottom:10px; }
+  .ok { color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔍 車牌掃描(送到電腦)</h1>
+  <div class="cam">
+    <video id="video" playsinline muted autoplay></video>
+    <div class="guide" id="guide"></div>
+    <div class="tip">把車牌放進綠框內、拍清楚不反光</div>
+  </div>
+  <button id="startBtn" class="primary">📸 開啟相機</button>
+  <button id="captureBtn" class="primary" style="display:none">📷 拍照辨識</button>
+  <div class="status" id="status"></div>
+
+  <div class="result" id="result">
+    <img class="thumb" id="thumb" alt="">
+    <div class="label">辨識結果(不對請直接修改)</div>
+    <input id="plate" type="text" spellcheck="false" autocapitalize="characters" autocomplete="off">
+    <button id="sendBtn" class="primary">✅ 確認並送到電腦</button>
+    <button id="retryBtn" class="second">重新拍攝</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
+<script>
+(function () {
+  // ====== 設定 ======
+  const TOPIC = 'plate-8ecce93270be6f243cbe';                 // 與電腦端腳本必須相同(等同配對密碼,請勿外流)
+  const RELAY = 'https://ntfy.sh/' + TOPIC;
+  const KEEP_HYPHEN = false;
+  const GUIDE_WIDTH_RATIO = 0.86;
+  const GUIDE_ASPECT = 2.0;
+  const OCR_TARGET_WIDTH = 900;
+  // ==================
+
+  const $ = (id) => document.getElementById(id);
+  const video = $('video'), guide = $('guide'), statusEl = $('status');
+  const startBtn = $('startBtn'), captureBtn = $('captureBtn');
+  const result = $('result'), thumb = $('thumb'), plateInput = $('plate');
+  let stream = null, workerPromise = null, cropRect = null;
+
+  const setStatus = (t, ok) => { statusEl.textContent = t; statusEl.classList.toggle('ok', !!ok); };
+
+  function getWorker() {
+    if (!workerPromise) {
+      workerPromise = (async () => {
+        const w = await Tesseract.createWorker({
+          logger: (m) => { if (m.status === 'recognizing text') setStatus('辨識中… ' + Math.round(m.progress * 100) + '%'); }
+        });
+        await w.loadLanguage('eng');
+        await w.initialize('eng');
+        await w.setParameters({
+          tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-',
+          tessedit_pageseg_mode: '7'
+        });
+        return w;
+      })();
+      workerPromise.catch(() => { workerPromise = null; });
+    }
+    return workerPromise;
+  }
+
+  async function startCamera() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setStatus('此瀏覽器不支援相機(網址必須是 HTTPS)'); return;
+    }
+    startBtn.disabled = true;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 } }, audio: false
+      });
+      video.srcObject = stream;
+      await video.play().catch(() => {});
+      startBtn.style.display = 'none';
+      captureBtn.style.display = '';
+      setStatus('');
+      getWorker().catch((e) => setStatus('OCR引擎載入失敗:' + e.message));
+    } catch (err) {
+      startBtn.disabled = false;
+      setStatus('無法開啟相機:' + err.name + '(請允許相機權限)');
+    }
+  }
+
+  function layoutGuide() {
+    const vw = video.videoWidth, vh = video.videoHeight;
+    if (!vw || !vh) return;
+    const cw = vw * GUIDE_WIDTH_RATIO;
+    const ch = Math.min(cw / GUIDE_ASPECT, vh * 0.9);
+    cropRect = { x: (vw - cw) / 2, y: (vh - ch) / 2, w: cw, h: ch };
+    guide.style.width = (cw / vw * 100) + '%';
+    guide.style.height = (ch / vh * 100) + '%';
+  }
+  video.addEventListener('loadedmetadata', layoutGuide);
+  video.addEventListener('resize', layoutGuide);
+
+  function preprocess() {
+    if (!cropRect) layoutGuide();
+    const scale = OCR_TARGET_WIDTH / cropRect.w;
+    const c = document.createElement('canvas');
+    c.width = Math.round(cropRect.w * scale);
+    c.height = Math.round(cropRect.h * scale);
+    const ctx = c.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(video, cropRect.x, cropRect.y, cropRect.w, cropRect.h, 0, 0, c.width, c.height);
+    const img = ctx.getImageData(0, 0, c.width, c.height), d = img.data;
+    let min = 255, max = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      const g = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+      d[i] = d[i + 1] = d[i + 2] = g;
+      if (g < min) min = g; if (g > max) max = g;
+    }
+    const range = Math.max(max - min, 1);
+    for (let i = 0; i < d.length; i += 4) d[i] = d[i + 1] = d[i + 2] = ((d[i] - min) / range) * 255;
+    ctx.putImageData(img, 0, 0);
+    return c;
+  }
+
+  const clean = (raw) => {
+    let t = (raw || '').toUpperCase().replace(/[^A-Z0-9\-]/g, '');
+    return KEEP_HYPHEN ? t : t.replace(/-/g, '');
+  };
+  const looksLikePlate = (t) => { const n = t.replace(/-/g, '').length; return n >= 5 && n <= 7; };
+
+  captureBtn.addEventListener('click', async () => {
+    if (!stream || !video.videoWidth) { setStatus('相機尚未就緒'); return; }
+    captureBtn.disabled = true;
+    captureBtn.textContent = '辨識中…';
+    result.style.display = 'none';
+    setStatus('載入辨識引擎…(第一次會比較久)');
+    try {
+      const canvas = preprocess();
+      const worker = await getWorker();
+      let { data } = await worker.recognize(canvas);
+      let text = clean(data.text);
+      if (!looksLikePlate(text)) {
+        await worker.setParameters({ tessedit_pageseg_mode: '6' });
+        const r2 = await worker.recognize(canvas);
+        const t2 = clean(r2.data.text);
+        await worker.setParameters({ tessedit_pageseg_mode: '7' });
+        if (looksLikePlate(t2) || t2.length > text.length) text = t2;
+      }
+      thumb.src = canvas.toDataURL('image/jpeg', 0.8);
+      plateInput.value = text;
+      result.style.display = 'block';
+      captureBtn.style.display = 'none';
+      setStatus(text ? (looksLikePlate(text) ? '請核對車牌後按確認' : '⚠️ 結果長度不像車牌,請仔細核對或重拍')
+                     : '沒有辨識到文字,請重拍或手動輸入');
+    } catch (err) {
+      setStatus('辨識失敗:' + err.message);
+    } finally {
+      captureBtn.disabled = false;
+      captureBtn.textContent = '📷 拍照辨識';
+    }
+  });
+
+  $('sendBtn').addEventListener('click', async () => {
+    const plate = plateInput.value.trim().toUpperCase();
+    if (plate.length < 4) { setStatus('車牌長度不足,請確認'); return; }
+    const btn = $('sendBtn');
+    btn.disabled = true;
+    try {
+      const res = await fetch(RELAY, { method: 'POST', body: plate });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      setStatus('✅ 已送到電腦:' + plate, true);
+      result.style.display = 'none';
+      captureBtn.style.display = '';
+    } catch (err) {
+      setStatus('送出失敗:' + err.message + '(請確認手機有連網)');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  $('retryBtn').addEventListener('click', () => {
+    result.style.display = 'none';
+    captureBtn.style.display = '';
+    setStatus('');
+  });
+
+  startBtn.addEventListener('click', startCamera);
+})();
+</script>
+</body>
+</html>
