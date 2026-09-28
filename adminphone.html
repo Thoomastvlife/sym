@@ -29,12 +29,25 @@
     border-radius:10px; border:1.5px solid var(--accent-dim); background:#0f1214; color:var(--text); }
   .thumb { display:block; width:100%; max-height:50px; object-fit:contain; background:#000; border-radius:8px; margin-bottom:6px; }
   .ok { color:var(--accent); }
+  #lock { padding-top:12vh; }
+  #lock input { font-size:20px; letter-spacing:.1em; margin-top:8px; }
+  #lock .link { background:none; border:none; color:var(--sub); font-size:12px; font-weight:400; margin-top:14px; text-decoration:underline; }
   .cands { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:6px; }
   .cands button { width:auto; margin:0; padding:6px 12px; font-size:15px; background:#0f1214; color:var(--text); border:1px solid var(--border); }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div id="lock" style="display:none">
+    <h1 id="lockTitle">🔒 請輸入 PIN</h1>
+    <input id="topicIn" type="text" placeholder="配對碼(電腦端腳本裡的 TOPIC)" autocapitalize="off" autocomplete="off" spellcheck="false" style="display:none">
+    <input id="pinIn" type="password" placeholder="PIN 碼" autocomplete="off">
+    <input id="pinIn2" type="password" placeholder="再輸入一次 PIN 碼" autocomplete="off" style="display:none">
+    <button id="unlockBtn" class="primary">解鎖</button>
+    <div class="status" id="lockMsg"></div>
+    <button id="resetBtn" class="link">重設這支手機的設定</button>
+  </div>
+  <div id="app" style="display:none">
   <h1>🔍 車牌掃描(送到電腦)</h1>
   <div class="cam" id="cam">
     <video id="video" playsinline muted autoplay></video>
@@ -53,14 +66,14 @@
     <button id="sendBtn" class="primary">✅ 確認並送到電腦</button>
     <button id="retryBtn" class="second">重新拍攝</button>
   </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
 <script>
 (function () {
   // ====== 設定 ======
-  const TOPIC = 'plate-8ecce93270be6f243cbe';                 // 與電腦端腳本必須相同(等同配對密碼,請勿外流)
-  const RELAY = 'https://ntfy.sh/' + TOPIC;
+  let RELAY = '';   // 解鎖後才會設定(配對碼不寫在網頁裡)
   const KEEP_HYPHEN = false;
   const GUIDE_WIDTH_RATIO = 0.86;
   const GUIDE_ASPECT = 2.0;
@@ -304,6 +317,84 @@
     captureBtn.style.display = '';
     setStatus('');
   });
+
+
+  // ---------- 鎖定 / 解鎖 ----------
+  const KEY = 'plateCfg', enc = new TextEncoder();
+  const b64 = (u) => btoa(String.fromCharCode(...new Uint8Array(u)));
+  const unb64 = (t) => Uint8Array.from(atob(t), (c) => c.charCodeAt(0));
+  async function deriveKey(pin, salt) {
+    const km = await crypto.subtle.importKey('raw', enc.encode(pin), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 200000, hash: 'SHA-256' }, km,
+      { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+  }
+  async function encryptTopic(topic, pin) {
+    const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+    const c = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, await deriveKey(pin, salt), enc.encode(topic));
+    localStorage.setItem(KEY, JSON.stringify({ s: b64(salt), iv: b64(iv), c: b64(c) }));
+  }
+  async function decryptTopic(pin) {
+    const o = JSON.parse(localStorage.getItem(KEY));
+    const p = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(o.iv) }, await deriveKey(pin, unb64(o.s)), unb64(o.c));
+    return new TextDecoder().decode(p);
+  }
+
+  const lockEl = $('lock'), appEl = $('app'), lockMsg = $('lockMsg');
+  const topicIn = $('topicIn'), pinIn = $('pinIn'), pinIn2 = $('pinIn2'), unlockBtn = $('unlockBtn');
+  let fails = 0, setupMode = false, hashTopic = '';
+  const TOPIC_RE = /^[A-Za-z0-9_-]{8,64}$/;
+
+  function showLock() {
+    if (!window.crypto || !crypto.subtle) { lockEl.style.display = ''; $('lockTitle').textContent = '⚠️ 需要 HTTPS 才能使用'; unlockBtn.style.display = pinIn.style.display = 'none'; return; }
+    hashTopic = decodeURIComponent(location.hash.slice(1));
+    if (hashTopic) history.replaceState(null, '', location.pathname + location.search);   // 立刻把網址列的配對碼清掉
+    setupMode = !localStorage.getItem(KEY);
+    lockEl.style.display = '';
+    if (setupMode) {
+      $('lockTitle').textContent = '🔐 第一次使用:設定 PIN';
+      pinIn2.style.display = '';
+      if (!TOPIC_RE.test(hashTopic)) topicIn.style.display = '';
+      unlockBtn.textContent = '儲存並進入';
+    } else {
+      $('lockTitle').textContent = '🔒 請輸入 PIN';
+    }
+  }
+
+  async function doUnlock() {
+    lockMsg.textContent = '';
+    const pin = pinIn.value;
+    if (pin.length < 4) { lockMsg.textContent = 'PIN 至少 4 碼'; return; }
+    unlockBtn.disabled = true;
+    try {
+      let topic;
+      if (setupMode) {
+        topic = (TOPIC_RE.test(hashTopic) ? hashTopic : topicIn.value.trim());
+        if (!TOPIC_RE.test(topic)) { lockMsg.textContent = '配對碼格式不對'; return; }
+        if (pin !== pinIn2.value) { lockMsg.textContent = '兩次 PIN 不一致'; return; }
+        await encryptTopic(topic, pin);
+      } else {
+        try { topic = await decryptTopic(pin); }
+        catch (e) {
+          fails++;
+          const wait = Math.min(30, Math.pow(2, fails - 1));
+          lockMsg.textContent = 'PIN 錯誤,請等 ' + wait + ' 秒再試';
+          await new Promise((res) => setTimeout(res, wait * 1000));
+          lockMsg.textContent = '';
+          return;
+        }
+      }
+      RELAY = 'https://ntfy.sh/' + topic;
+      hashTopic = ''; topicIn.value = ''; pinIn.value = ''; pinIn2.value = '';
+      lockEl.style.display = 'none';
+      appEl.style.display = '';
+    } finally { unlockBtn.disabled = false; }
+  }
+  unlockBtn.addEventListener('click', doUnlock);
+  [pinIn, pinIn2, topicIn].forEach((el) => el.addEventListener('keydown', (e) => { if (e.key === 'Enter') doUnlock(); }));
+  $('resetBtn').addEventListener('click', () => {
+    if (confirm('會清除這支手機儲存的配對碼與 PIN,要重新設定,確定嗎?')) { localStorage.removeItem(KEY); location.reload(); }
+  });
+  showLock();
 
   startBtn.addEventListener('click', startCamera);
 })();
