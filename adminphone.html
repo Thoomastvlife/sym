@@ -345,6 +345,7 @@
         return;
       }
       RELAY = 'https://ntfy.sh/' + topic;
+      getWorker().catch(() => {});   // 解鎖後立刻在背景預載辨識引擎
       pinIn.value = '';
       lockEl.style.display = 'none';
       appEl.style.display = '';
