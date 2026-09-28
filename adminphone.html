@@ -33,7 +33,7 @@
   #lock input { font-size:20px; letter-spacing:.1em; margin-top:8px; }
   #lock .link { background:none; border:none; color:var(--sub); font-size:12px; font-weight:400; margin-top:14px; text-decoration:underline; }
   .cands { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:6px; }
-  .cands button { width:auto; margin:0; padding:6px 12px; font-size:15px; background:#0f1214; color:var(--text); border:1px solid var(--border); }
+  .cands button { width:auto; margin:0; padding:6px 10px; font-size:15px; letter-spacing:.05em; background:#0f1214; color:var(--text); border:1px solid var(--border); }
 </style>
 </head>
 <body>
@@ -70,7 +70,7 @@
 <script>
 (function () {
   // ====== 設定 ======
-  let RELAY = '5800';   // 解鎖後才會設定(配對碼不寫在網頁裡)
+  let RELAY = '';   // 解鎖後才會設定(配對碼不寫在網頁裡)
   const KEEP_HYPHEN = false;
   const GUIDE_WIDTH_RATIO = 0.86;
   const GUIDE_ASPECT = 2.0;
@@ -239,6 +239,22 @@
   const clean = (raw) => (raw || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
   const looksLikePlate = (t) => t.length >= 5 && t.length <= 7;
 
+  // 外形相近的字元(用來產生「類似選項」)
+  const SIMILAR = { '0':'86D','1':'7L','2':'7Z','3':'85','4':'9','5':'6S','6':'58G','7':'12','8':'036B','9':'40',
+    A:'H', B:'RE8', C:'GO', D:'B0', E:'FB', F:'E', G:'C6', H:'AN', K:'X', L:'1', M:'N', N:'MH', P:'R', R:'PB', S:'Z5', T:'7', U:'V', V:'UY', W:'V', X:'K', Y:'V', Z:'S2' };
+  function similarOptions(text, pattern, exclude) {
+    const out = [];
+    for (let i = 0; i < text.length; i++) {
+      for (const ch of (SIMILAR[text[i]] || '')) {
+        if (pattern && (pattern[i] === 'D') !== isD(ch)) continue;      // 要符合該位置的字母/數字類型
+        const t = text.slice(0, i) + ch + text.slice(i + 1);
+        if (t === text || exclude.has(t) || out.some(o => o.t === t)) continue;
+        out.push({ t, i });
+      }
+    }
+    return out;
+  }
+
   async function ocrOne(worker, canvas, psm) {
     await worker.setParameters({ tessedit_pageseg_mode: String(psm) });
     const { data } = await worker.recognize(canvas);
@@ -270,16 +286,28 @@
       results.sort((a, b) => b.score - a.score);
       const best = results[0];
       const text = best.text;
-      const cands = [...new Set(results.map(r => r.text).filter(t => t && t !== text))].slice(0, 3);
+      const others = [...new Set(results.map(r => r.text).filter(t => t && t !== text))].slice(0, 3);
+      const cands = others.map(t => ({ t, i: -1 }));
+      const seenSet = new Set([text, ...others]);
+      similarOptions(text, best.pattern, seenSet).slice(0, 9 - cands.length).forEach(o => cands.push(o));
 
       thumb.src = variants[best.v].canvas.toDataURL('image/jpeg', 0.8);
       plateInput.value = KEEP_HYPHEN ? hyphenate(text, best.pattern) : text;
       const box = $('cands'); box.innerHTML = '';
-      cands.forEach(c => { const b = document.createElement('button'); b.textContent = c; b.onclick = () => { plateInput.value = c; }; box.appendChild(b); });
+      cands.forEach(c => {
+        const b = document.createElement('button');
+        for (let k = 0; k < c.t.length; k++) {
+          const sp = document.createElement('span'); sp.textContent = c.t[k];
+          if (k === c.i) sp.style.color = '#ffb84d';               // 標出被替換的字
+          b.appendChild(sp);
+        }
+        b.onclick = () => { plateInput.value = c.t; };
+        box.appendChild(b);
+      });
       result.style.display = 'block';
       $('cam').style.display = 'none';
       captureBtn.style.display = 'none';
-      setStatus(text ? (looksLikePlate(text) ? '請核對車牌後按確認' + (cands.length ? '(下方有其他候選)' : '') : '⚠️ 結果長度不像車牌,請仔細核對或重拍')
+      setStatus(text ? (looksLikePlate(text) ? '請核對車牌後按確認' + (cands.length ? '(下方有類似選項可替換)' : '') : '⚠️ 結果長度不像車牌,請仔細核對或重拍')
                      : '沒有辨識到文字,請重拍或手動輸入');
     } catch (err) {
       setStatus('辨識失敗:' + err.message);
@@ -317,7 +345,7 @@
 
 
   // ---------- 鎖定 / 解鎖(配對碼已用 PIN 加密,網頁裡看不到明文)----------
-  const CFG = {"s":"xdWh2N2bFQi+XyH6zmwdpw==","iv":"KChTufbesUvUu1ue","c":"OMah8mbtYZkkv5LIgTgBukx3WBfq7AagBTVfvhx6nAHyxhV054h3ihKW"};
+  const CFG = {"s":"nXWuoQi1Ta2G7AGPKrh6gw==","iv":"6Tl1uBylqzVBoddF","c":"rPovsF5Jvs/NMxMHEvB5reqXgbXZG/uzAYraEtAWHkbdoYiU6i1Iggae"};
   const unb64 = (t) => Uint8Array.from(atob(t), (c) => c.charCodeAt(0));
   async function decryptTopic(pin) {
     const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveKey']);
