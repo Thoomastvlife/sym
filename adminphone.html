@@ -29,11 +29,19 @@
     border-radius:10px; border:1.5px solid var(--accent-dim); background:#0f1214; color:var(--text); }
   .thumb { display:block; width:100%; max-height:90px; object-fit:contain; background:#000; border-radius:8px; margin-bottom:10px; }
   .ok { color:var(--accent); }
+  .mode-switch { display:flex; gap:8px; margin-bottom:10px; }
+  .mode-btn { flex:1; margin-top:0; padding:10px; background:var(--panel); color:var(--sub);
+    border:1.5px solid var(--border); font-weight:600; }
+  .mode-btn.active { background:var(--accent); color:#06231a; border-color:var(--accent); }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>🔍 車牌掃描(送到電腦)</h1>
+  <div class="mode-switch">
+    <button id="modeNear" class="mode-btn">📏 近距離</button>
+    <button id="modeFar" class="mode-btn active">📐 遠距離</button>
+  </div>
   <div class="cam">
     <video id="video" playsinline muted autoplay></video>
     <div class="guide" id="guide"></div>
@@ -59,18 +67,51 @@
   const TOPIC = 'plate-8ecce93270be6f243cbe';                 // 與電腦端腳本必須相同(等同配對密碼,請勿外流)
   const RELAY = 'https://ntfy.sh/' + TOPIC;
   const KEEP_HYPHEN = false;
-  const GUIDE_WIDTH_RATIO = 0.95;
-  const GUIDE_ASPECT = 1.6;
-  const OCR_TARGET_WIDTH = 1300;
+  const MODES = {
+    near: { camWidth: 1920, camHeight: 1080, guideWidthRatio: 0.86, guideAspect: 2.0, ocrTargetWidth: 900,  label: '近距離' },
+    far:  { camWidth: 3840, camHeight: 2160, guideWidthRatio: 0.95, guideAspect: 1.6, ocrTargetWidth: 1300, label: '遠距離' }
+  };
+  let currentMode = 'far';
   // ==================
 
   const $ = (id) => document.getElementById(id);
   const video = $('video'), guide = $('guide'), statusEl = $('status');
   const startBtn = $('startBtn'), captureBtn = $('captureBtn');
+  const modeNearBtn = $('modeNear'), modeFarBtn = $('modeFar');
   const result = $('result'), thumb = $('thumb'), plateInput = $('plate');
   let stream = null, workerPromise = null, cropRect = null;
 
   const setStatus = (t, ok) => { statusEl.textContent = t; statusEl.classList.toggle('ok', !!ok); };
+
+  function updateModeButtons() {
+    modeNearBtn.classList.toggle('active', currentMode === 'near');
+    modeFarBtn.classList.toggle('active', currentMode === 'far');
+  }
+
+  async function switchMode(key) {
+    if (key === currentMode) return;
+    currentMode = key;
+    updateModeButtons();
+    layoutGuide();
+    if (!stream) return;
+    const m = MODES[currentMode];
+    const track = stream.getVideoTracks()[0];
+    try {
+      if (track && track.applyConstraints) {
+        await track.applyConstraints({ width: { ideal: m.camWidth }, height: { ideal: m.camHeight } });
+        layoutGuide();
+        return;
+      }
+    } catch (e) { /* 部分手機不支援即時換解析度,改用下面的重啟相機 */ }
+    stream.getTracks().forEach((t) => t.stop());
+    stream = null;
+    startBtn.style.display = '';
+    captureBtn.style.display = 'none';
+    startCamera();
+  }
+
+  modeNearBtn.addEventListener('click', () => switchMode('near'));
+  modeFarBtn.addEventListener('click', () => switchMode('far'));
 
   function getWorker() {
     if (!workerPromise) {
@@ -97,8 +138,9 @@
     }
     startBtn.disabled = true;
     try {
+      const m = MODES[currentMode];
       stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: 'environment' }, width: { ideal: 3840 }, height: { ideal: 2160 } }, audio: false
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: m.camWidth }, height: { ideal: m.camHeight } }, audio: false
       });
       video.srcObject = stream;
       await video.play().catch(() => {});
@@ -115,8 +157,9 @@
   function layoutGuide() {
     const vw = video.videoWidth, vh = video.videoHeight;
     if (!vw || !vh) return;
-    const cw = vw * GUIDE_WIDTH_RATIO;
-    const ch = Math.min(cw / GUIDE_ASPECT, vh * 0.9);
+    const m = MODES[currentMode];
+    const cw = vw * m.guideWidthRatio;
+    const ch = Math.min(cw / m.guideAspect, vh * 0.9);
     cropRect = { x: (vw - cw) / 2, y: (vh - ch) / 2, w: cw, h: ch };
     guide.style.width = (cw / vw * 100) + '%';
     guide.style.height = (ch / vh * 100) + '%';
@@ -126,7 +169,7 @@
 
   function preprocess() {
     if (!cropRect) layoutGuide();
-    const scale = OCR_TARGET_WIDTH / cropRect.w;
+    const scale = MODES[currentMode].ocrTargetWidth / cropRect.w;
     const c = document.createElement('canvas');
     c.width = Math.round(cropRect.w * scale);
     c.height = Math.round(cropRect.h * scale);
