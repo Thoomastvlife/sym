@@ -90,6 +90,7 @@
     if (!workerPromise) {
       workerPromise = (async () => {
         const w = await Tesseract.createWorker({
+          langPath: 'https://tessdata.projectnaptha.com/4.0.0_fast',   // 輕量版辨識資料,下載快、辨識也快
           logger: (m) => { if (m.status === 'recognizing text') setStatus('辨識中… ' + Math.round(m.progress * 100) + '%'); }
         });
         await w.loadLanguage('eng');
@@ -207,10 +208,10 @@
     if (fast) return [{ name: '自適應', canvas: toCanvas(adBin, w, h) }];   // 自動掃描:只做最抗反光的一種,求快
     const th = otsu(st);
     const otsuBin = normPolarity(st.map(v => v > th ? 255 : 0));
-    return [
+    return [                                                        // 自適應排第一:多數情況一次就過,省下後面兩次辨識的時間
+      { name: '自適應', canvas: toCanvas(adBin, w, h) },
       { name: '灰階', canvas: toCanvas(st, w, h) },
       { name: 'Otsu', canvas: toCanvas(otsuBin, w, h) },
-      { name: '自適應', canvas: toCanvas(adBin, w, h) },
     ];
   }
 
@@ -278,7 +279,7 @@
     const valid = fit.cost !== Infinity;
     const conf = data.confidence || 0;
     const score = conf + (valid ? 10 - fit.cost * 6 : -40);
-    return { raw, text: valid ? fit.text : raw, pattern: fit.pattern, valid, score, conf };
+    return { raw, text: valid ? fit.text : raw, pattern: fit.pattern, valid, cost: fit.cost, score, conf };
   }
 
   async function finalizeCapture() {
@@ -294,10 +295,15 @@
       const results = [];
       for (let i = 0; i < variants.length; i++) {
         setStatus('辨識中… (' + (i + 1) + '/' + variants.length + ' ' + variants[i].name + ')');
-        results.push({ ...(await ocrOne(worker, variants[i].canvas, 7)), v: i });
+        const r = { ...(await ocrOne(worker, variants[i].canvas, 7)), v: i };
+        results.push(r);
+        if (r.valid && r.cost === 0 && r.conf >= 65) break;    // 第一張就穩穩符合車牌格式,不用再多花時間辨識剩下的版本
       }
       if (!results.some(r => r.valid)) {       // 備援:多行模式
-        for (let i = 1; i < variants.length; i++) results.push({ ...(await ocrOne(worker, variants[i].canvas, 6)), v: i });
+        for (let i = 0; i < variants.length; i++) {
+          if (results.some(r => r.v === i)) continue;
+          results.push({ ...(await ocrOne(worker, variants[i].canvas, 6)), v: i });
+        }
       }
       await worker.setParameters({ tessedit_pageseg_mode: '7' });
       results.sort((a, b) => b.score - a.score);
