@@ -400,7 +400,7 @@
       result.style.display = 'block';
       captureBtn.style.display = 'none';
       setStatus(text ? (looksLikePlate(text) ? '請核對車牌後按確認'
-                       : '⚠️ 結果不像車牌,可能是太靠近讓車牌超出框外(被切掉一角),請往後退一點,讓整個車牌完整落在綠框內再重拍')
+                       : '⚠️ 結果不像車牌:手機可能貼太近,連鏡頭本身都拍不到完整車牌(不是框框大小的問題)。請把手機拿遠一點,讓整個車牌在畫面裡看起來完整、四周還留一點空間,再重拍')
                      : '沒有辨識到文字,請重拍或手動輸入');
     } catch (err) {
       setStatus('辨識失敗:' + err.message);
