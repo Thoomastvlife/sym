@@ -7,81 +7,47 @@
 <style>
   :root { --bg:#14171a; --panel:#1e2226; --text:#eef0f2; --sub:#9aa3ab; --accent:#3ddc84; --accent-dim:#2a8f57; --border:#2b3136; }
   * { box-sizing: border-box; }
-  html, body { margin:0; background:var(--bg); color:var(--text); height:100%; overscroll-behavior:none; }
+  html, body { margin:0; background:var(--bg); color:var(--text); }
   body { font-family:-apple-system,"PingFang TC","Noto Sans TC",system-ui,sans-serif;
-    padding:calc(14px + env(safe-area-inset-top,0px)) 14px calc(20px + env(safe-area-inset-bottom,0px));
-    display:flex; flex-direction:column; }
-  .wrap { max-width:480px; margin:0 auto; width:100%; }
-  h1 { font-size:1.05rem; margin:4px 0 12px; text-align:center; }
-  .cam { position:relative; background:#000; border-radius:12px; overflow:hidden;
-    height:48vh; max-height:420px; min-height:220px; }
-  video { width:100%; height:100%; display:block; object-fit:cover; }
-  .thumb { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none; }
-  .thumb.show { display:block; }
+    padding:calc(14px + env(safe-area-inset-top,0px)) 14px calc(20px + env(safe-area-inset-bottom,0px)); }
+  .wrap { max-width:480px; margin:0 auto; }
+  h1 { font-size:1rem; margin:0 0 8px; text-align:center; }
+  .cam { position:relative; background:#000; border-radius:12px; overflow:hidden; width:55%; max-width:220px; margin:0 auto; }
+  video { width:100%; display:block; }
   .guide { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border:2px solid var(--accent);
     border-radius:8px; box-shadow:0 0 0 9999px rgba(0,0,0,.5); pointer-events:none; }
   .tip { position:absolute; top:8px; left:50%; transform:translateX(-50%); font-size:12px; background:rgba(0,0,0,.6);
     padding:3px 10px; border-radius:6px; color:#cfd6dc; white-space:nowrap; pointer-events:none; }
-  button { font:inherit; font-weight:600; border:none; border-radius:10px; padding:14px; width:100%; margin-top:10px; cursor:pointer; }
+  button { font:inherit; font-weight:600; border:none; border-radius:10px; padding:10px; width:100%; margin-top:8px; cursor:pointer; }
   .primary { background:var(--accent); color:#06231a; }
   .primary:disabled { background:#37403a; color:#7c877f; }
   .second { background:transparent; color:var(--accent); border:1px solid var(--accent-dim); }
-  .status { font-size:13px; color:var(--sub); text-align:center; margin-top:10px; min-height:1.3em; }
-  .result { display:none; margin-top:12px; }
+  .status { font-size:13px; color:var(--sub); text-align:center; margin-top:6px; min-height:1.3em; }
+  .result { display:none; margin-top:8px; }
   .label { font-size:12px; color:var(--sub); margin-bottom:6px; }
-  input { width:100%; font-size:28px; font-weight:700; letter-spacing:.08em; text-align:center; padding:12px;
+  input { width:100%; font-size:26px; font-weight:700; letter-spacing:.08em; text-align:center; padding:8px;
     border-radius:10px; border:1.5px solid var(--accent-dim); background:#0f1214; color:var(--text); }
+  .thumb { display:block; width:100%; max-height:50px; object-fit:contain; background:#000; border-radius:8px; margin-bottom:6px; }
   .ok { color:var(--accent); }
-  .mode-switch { display:flex; gap:8px; margin-bottom:10px; }
-  .mode-btn { flex:1; margin-top:0; padding:10px; background:var(--panel); color:var(--sub);
-    border:1.5px solid var(--border); font-weight:600; }
-  .mode-btn.active { background:var(--accent); color:#06231a; border-color:var(--accent); }
-  .lock-screen { position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center;
-    z-index:9999; padding:20px; }
-  .lock-box { width:100%; max-width:320px; text-align:center; }
-  .lock-icon { font-size:2.4rem; margin-bottom:8px; }
-  .lock-title { font-size:1rem; color:var(--text); margin-bottom:18px; font-weight:600; }
-  #pinInput { width:100%; font-size:1.6rem; letter-spacing:.3em; text-align:center; padding:14px 44px 14px 14px;
-    border-radius:10px; border:1.5px solid var(--accent-dim); background:#0f1214; color:var(--text); }
-  #pinInput:focus { outline:none; border-color:var(--accent); }
-  .pin-wrap { position:relative; margin-bottom:12px; }
-  .pin-eye { position:absolute; right:6px; top:50%; transform:translateY(-50%); width:auto; margin:0;
-    padding:6px 8px; background:transparent; border:none; font-size:1.15rem; line-height:1; cursor:pointer; opacity:.75; }
-  .pin-eye:active { opacity:1; }
-  .cand-hint { font-size:11px; color:var(--sub); margin:10px 0 6px; text-align:center; }
-  .candidates { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-bottom:4px; }
-  .candidate-btn { margin-top:0; background:var(--panel); color:var(--text); border:1px solid var(--border);
-    border-radius:8px; padding:10px 4px; font-size:.92rem; letter-spacing:.03em; }
-  .candidate-btn:active { border-color:var(--accent); }
-  .candidate-btn .diff { color:#f2b84c; }
-  .lock-error { color:#e2574c; font-size:.82rem; margin-top:10px; min-height:1.2em; }
-  .shake { animation: shake .35s; }
-  @keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+  #lock { padding-top:12vh; }
+  #lock input { font-size:20px; letter-spacing:.1em; margin-top:8px; }
+  #lock .link { background:none; border:none; color:var(--sub); font-size:12px; font-weight:400; margin-top:14px; text-decoration:underline; }
+  .cands { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:6px; }
+  .cands button { width:auto; margin:0; padding:6px 10px; font-size:15px; letter-spacing:.05em; background:#0f1214; color:var(--text); border:1px solid var(--border); }
 </style>
 </head>
 <body>
-<div id="lockScreen" class="lock-screen">
-  <div class="lock-box">
-    <div class="lock-icon">🔒</div>
-    <div class="lock-title">請輸入密碼</div>
-    <div class="pin-wrap">
-      <input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="12" placeholder="••••••••">
-      <button id="pinToggle" type="button" class="pin-eye" aria-label="顯示密碼">👁</button>
-    </div>
-    <button id="pinConfirm" class="primary">確認</button>
-    <div class="lock-error" id="lockError"></div>
+<div class="wrap">
+  <div id="lock" style="display:none">
+    <h1 id="lockTitle">🔒 請輸入 PIN</h1>
+    <input id="pinIn" type="password" inputmode="numeric" placeholder="PIN 碼" autocomplete="off">
+    <button id="unlockBtn" class="primary">解鎖</button>
+    <div class="status" id="lockMsg"></div>
   </div>
-</div>
-
-<div class="wrap" id="mainApp" style="display:none">
+  <div id="app" style="display:none">
   <h1>🔍 車牌掃描(送到電腦)</h1>
-  <div class="mode-switch">
-    <button id="modeNear" class="mode-btn">📏 長車牌</button>
-    <button id="modeFar" class="mode-btn active">📐 短車牌</button>
-  </div>
-  <div class="cam">
+  <div class="cam" id="cam">
     <video id="video" playsinline muted autoplay></video>
-    <img class="thumb" id="thumb" alt="">
     <div class="guide" id="guide"></div>
     <div class="tip">把車牌放進綠框內、拍清楚不反光</div>
   </div>
@@ -90,121 +56,34 @@
   <div class="status" id="status"></div>
 
   <div class="result" id="result">
+    <img class="thumb" id="thumb" alt="">
     <div class="label">辨識結果(不對請直接修改)</div>
     <input id="plate" type="text" spellcheck="false" autocapitalize="characters" autocomplete="off">
-    <div class="cand-hint" id="candHint" style="display:none">相似選項(點選可替換,容易混淆的字元已標色)</div>
-    <div class="candidates" id="candidates"></div>
+    <div class="cands" id="cands"></div>
     <button id="sendBtn" class="primary">✅ 確認並送到電腦</button>
     <button id="retryBtn" class="second">重新拍攝</button>
+  </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
 <script>
 (function () {
-  // ====== PIN碼鎖定 ======
-  // 儲存的是 PIN 的 SHA-256 雜湊值,原始碼中不直接出現明碼PIN
-  const CORRECT_PIN_HASH = '14123deec10fe392ebbf62ca45e5fc752a9c950f1f1fcc013530de84004c4af3';
-
-  async function sha256Hex(text) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-    return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  const lockScreen = document.getElementById('lockScreen');
-  const mainApp = document.getElementById('mainApp');
-  const pinInput = document.getElementById('pinInput');
-  const pinConfirm = document.getElementById('pinConfirm');
-  const lockError = document.getElementById('lockError');
-  const lockBox = document.querySelector('.lock-box');
-  const pinToggle = document.getElementById('pinToggle');
-
-  pinToggle.addEventListener('click', () => {
-    const showing = pinInput.type === 'text';
-    pinInput.type = showing ? 'password' : 'text';
-    pinToggle.textContent = showing ? '👁' : '🙈';
-    pinToggle.setAttribute('aria-label', showing ? '顯示密碼' : '隱藏密碼');
-    pinInput.focus();
-  });
-
-  function unlock() {
-    lockScreen.style.display = 'none';
-    mainApp.style.display = '';
-    try { sessionStorage.setItem('plateAuthOK', '1'); } catch (e) {}
-  }
-
-  async function tryUnlock() {
-    pinConfirm.disabled = true;
-    const hash = await sha256Hex(pinInput.value);
-    pinConfirm.disabled = false;
-    if (hash === CORRECT_PIN_HASH) {
-      unlock();
-    } else {
-      lockError.textContent = '密碼錯誤,請再試一次';
-      lockBox.classList.remove('shake');
-      void lockBox.offsetWidth;
-      lockBox.classList.add('shake');
-      pinInput.value = '';
-      pinInput.focus();
-    }
-  }
-
-  pinConfirm.addEventListener('click', tryUnlock);
-  pinInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
-
-  let alreadyAuthed = false;
-  try { alreadyAuthed = sessionStorage.getItem('plateAuthOK') === '1'; } catch (e) {}
-  if (alreadyAuthed) unlock(); else setTimeout(() => pinInput.focus(), 300);
-  // ======================
   // ====== 設定 ======
-  const TOPIC = 'plate-8ecce93270be6f243cbe';                 // 與電腦端腳本必須相同(等同配對密碼,請勿外流)
-  const RELAY = 'https://ntfy.sh/' + TOPIC;
+  let RELAY = '';   // 解鎖後才會設定(配對碼不寫在網頁裡)
   const KEEP_HYPHEN = false;
-  const MODES = {
-    near: { camWidth: 3840, camHeight: 2160, guideWidthRatio: 0.92, guideAspect: 2.2, ocrTargetWidth: 1300, label: '長車牌' },
-    far:  { camWidth: 3840, camHeight: 2160, guideWidthRatio: 0.75, guideAspect: 1.3, ocrTargetWidth: 1100, label: '短車牌' }
-  };
-  let currentMode = 'far';
+  const GUIDE_WIDTH_RATIO = 0.86;
+  const GUIDE_ASPECT = 2.0;
+  const OCR_TARGET_WIDTH = 1000;
   // ==================
 
   const $ = (id) => document.getElementById(id);
   const video = $('video'), guide = $('guide'), statusEl = $('status');
   const startBtn = $('startBtn'), captureBtn = $('captureBtn');
-  const modeNearBtn = $('modeNear'), modeFarBtn = $('modeFar');
   const result = $('result'), thumb = $('thumb'), plateInput = $('plate');
   let stream = null, workerPromise = null, cropRect = null;
 
   const setStatus = (t, ok) => { statusEl.textContent = t; statusEl.classList.toggle('ok', !!ok); };
-
-  function updateModeButtons() {
-    modeNearBtn.classList.toggle('active', currentMode === 'near');
-    modeFarBtn.classList.toggle('active', currentMode === 'far');
-  }
-
-  async function switchMode(key) {
-    if (key === currentMode) return;
-    currentMode = key;
-    updateModeButtons();
-    layoutGuide();
-    if (!stream) return;
-    const m = MODES[currentMode];
-    const track = stream.getVideoTracks()[0];
-    try {
-      if (track && track.applyConstraints) {
-        await track.applyConstraints({ width: { ideal: m.camWidth }, height: { ideal: m.camHeight } });
-        layoutGuide();
-        return;
-      }
-    } catch (e) { /* 部分手機不支援即時換解析度,改用下面的重啟相機 */ }
-    stream.getTracks().forEach((t) => t.stop());
-    stream = null;
-    startBtn.style.display = '';
-    captureBtn.style.display = 'none';
-    startCamera();
-  }
-
-  modeNearBtn.addEventListener('click', () => switchMode('near'));
-  modeFarBtn.addEventListener('click', () => switchMode('far'));
 
   function getWorker() {
     if (!workerPromise) {
@@ -215,7 +94,7 @@
         await w.loadLanguage('eng');
         await w.initialize('eng');
         await w.setParameters({
-          tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-',
+          tessedit_char_whitelist: 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789-',
           tessedit_pageseg_mode: '7'
         });
         return w;
@@ -231,11 +110,11 @@
     }
     startBtn.disabled = true;
     try {
-      const m = MODES[currentMode];
       stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: 'environment' }, width: { ideal: m.camWidth }, height: { ideal: m.camHeight } }, audio: false
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 } }, audio: false
       });
       video.srcObject = stream;
+      try { await stream.getVideoTracks()[0].applyConstraints({ advanced: [{ focusMode: 'continuous' }] }); } catch (e) {}
       await video.play().catch(() => {});
       startBtn.style.display = 'none';
       captureBtn.style.display = '';
@@ -247,129 +126,156 @@
     }
   }
 
-  const camEl = document.querySelector('.cam');
-
-  function visibleSourceRect() {
-    const vw = video.videoWidth, vh = video.videoHeight;
-    const cw = camEl.clientWidth, ch = camEl.clientHeight;
-    if (!vw || !vh || !cw || !ch) return null;
-    // object-fit:cover 會用較大的縮放比例填滿容器,超出部分被裁掉
-    const scale = Math.max(cw / vw, ch / vh);
-    const visW = cw / scale, visH = ch / scale;
-    return { x: (vw - visW) / 2, y: (vh - visH) / 2, w: visW, h: visH };
-  }
-
   function layoutGuide() {
-    const vis = visibleSourceRect();
-    if (!vis) return;
-    const m = MODES[currentMode];
-    const gw = vis.w * m.guideWidthRatio;
-    const gh = Math.min(gw / m.guideAspect, vis.h * 0.9);
-    guide.style.width = (gw / vis.w * 100) + '%';
-    guide.style.height = (gh / vis.h * 100) + '%';
-  }
-
-  // 拍照當下直接讀取綠框跟影片在螢幕上的「實際」渲染位置來換算裁切區域,
-  // 不依賴之前算好、可能因版面變動(如網址列收合、捲動)而過期的數字,
-  // 確保「畫面上看到框住什麼,就精準裁什麼」。
-  function currentCropRectFromScreen() {
     const vw = video.videoWidth, vh = video.videoHeight;
-    if (!vw || !vh) return null;
-    const videoRect = video.getBoundingClientRect();
-    const guideRect = guide.getBoundingClientRect();
-    if (!videoRect.width || !videoRect.height) return null;
-    const scale = Math.max(videoRect.width / vw, videoRect.height / vh);
-    const visW = videoRect.width / scale, visH = videoRect.height / scale;
-    const originX = (vw - visW) / 2, originY = (vh - visH) / 2;
-    const gx = (guideRect.left - videoRect.left) / scale;
-    const gy = (guideRect.top - videoRect.top) / scale;
-    return {
-      x: originX + gx,
-      y: originY + gy,
-      w: guideRect.width / scale,
-      h: guideRect.height / scale
-    };
+    if (!vw || !vh) return;
+    const cw = vw * GUIDE_WIDTH_RATIO;
+    const ch = Math.min(cw / GUIDE_ASPECT, vh * 0.9);
+    cropRect = { x: (vw - cw) / 2, y: (vh - ch) / 2, w: cw, h: ch };
+    guide.style.width = (cw / vw * 100) + '%';
+    guide.style.height = (ch / vh * 100) + '%';
   }
   video.addEventListener('loadedmetadata', layoutGuide);
   video.addEventListener('resize', layoutGuide);
-  window.addEventListener('resize', () => { if (stream) layoutGuide(); });
-  window.addEventListener('orientationchange', () => setTimeout(layoutGuide, 200));
 
-  function preprocess() {
-    const rect = currentCropRectFromScreen();
-    if (!rect) return null;
-    const scale = MODES[currentMode].ocrTargetWidth / rect.w;
-    const c = document.createElement('canvas');
-    c.width = Math.round(rect.w * scale);
-    c.height = Math.round(rect.h * scale);
+  // ---------- 前處理 ----------
+  function cropToGray() {
+    if (!cropRect) layoutGuide();
+    const scale = OCR_TARGET_WIDTH / cropRect.w;
+    const w = Math.round(cropRect.w * scale), h = Math.round(cropRect.h * scale);
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
     const ctx = c.getContext('2d', { willReadFrequently: true });
-    ctx.drawImage(video, rect.x, rect.y, rect.w, rect.h, 0, 0, c.width, c.height);
-    const img = ctx.getImageData(0, 0, c.width, c.height), d = img.data;
-    let min = 255, max = 0;
-    for (let i = 0; i < d.length; i += 4) {
-      const g = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-      d[i] = d[i + 1] = d[i + 2] = g;
-      if (g < min) min = g; if (g > max) max = g;
-    }
-    const range = Math.max(max - min, 1);
-    for (let i = 0; i < d.length; i += 4) d[i] = d[i + 1] = d[i + 2] = ((d[i] - min) / range) * 255;
-    ctx.putImageData(img, 0, 0);
+    ctx.drawImage(video, cropRect.x, cropRect.y, cropRect.w, cropRect.h, 0, 0, w, h);
+    const d = ctx.getImageData(0, 0, w, h).data;
+    const g = new Uint8ClampedArray(w * h);
+    for (let i = 0, j = 0; i < d.length; i += 4, j++) g[j] = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+    return { g, w, h };
+  }
+  function toCanvas(g, w, h) {           // 加 40px 白邊(Tesseract 需要留白)
+    const pad = 40, c = document.createElement('canvas');
+    c.width = w + pad * 2; c.height = h + pad * 2;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+    const im = ctx.createImageData(w, h);
+    for (let i = 0; i < g.length; i++) { const v = g[i]; im.data[i*4] = im.data[i*4+1] = im.data[i*4+2] = v; im.data[i*4+3] = 255; }
+    const t = document.createElement('canvas'); t.width = w; t.height = h;
+    t.getContext('2d').putImageData(im, 0, 0);
+    ctx.drawImage(t, pad, pad);
     return c;
   }
-
-  const clean = (raw) => {
-    let t = (raw || '').toUpperCase().replace(/[^A-Z0-9\-]/g, '');
-    return KEEP_HYPHEN ? t : t.replace(/-/g, '');
-  };
-  const looksLikePlate = (t) => { const n = t.replace(/-/g, '').length; return n >= 5 && n <= 7; };
-
-  // 常見容易誤判的字元對照(OCR混淆組)
-  const CONFUSE = {
-    '0': ['O', 'D', 'Q'], 'O': ['0', 'D', 'Q'], 'D': ['0', 'O'], 'Q': ['0', 'O'],
-    '1': ['I', 'L'], 'I': ['1', 'L'], 'L': ['1', 'I'],
-    '2': ['Z'], 'Z': ['2'],
-    '5': ['S'], 'S': ['5'],
-    '6': ['G'], 'G': ['6', 'C'], 'C': ['G'],
-    '8': ['B'], 'B': ['8', 'R'], 'R': ['B'],
-    '9': ['G']
-  };
-
-  function generateCandidates(text, max) {
-    const seen = new Set();
-    const chars = text.split('');
-    for (let i = 0; i < chars.length; i++) {
-      const alts = CONFUSE[chars[i]];
-      if (!alts) continue;
-      alts.forEach((a) => {
-        const arr = chars.slice();
-        arr[i] = a;
-        const cand = arr.join('');
-        if (cand !== text) seen.add(cand);
-      });
+  function stretch(g) {                  // 2%~98% 百分位拉伸
+    const hist = new Array(256).fill(0); g.forEach(v => hist[v]++);
+    const lo = pct(hist, g.length, 0.02), hi = pct(hist, g.length, 0.98), r = Math.max(hi - lo, 1);
+    return g.map(v => Math.max(0, Math.min(255, (v - lo) / r * 255)));
+  }
+  function pct(hist, n, p) { let a = 0; for (let i = 0; i < 256; i++) { a += hist[i]; if (a >= n * p) return i; } return 255; }
+  function otsu(g) {
+    const hist = new Array(256).fill(0); g.forEach(v => hist[Math.round(v)]++);
+    const total = g.length; let sum = 0; for (let i = 0; i < 256; i++) sum += i * hist[i];
+    let sB = 0, wB = 0, best = 0, th = 128;
+    for (let t = 0; t < 256; t++) {
+      wB += hist[t]; if (!wB) continue; const wF = total - wB; if (!wF) break;
+      sB += t * hist[t];
+      const mB = sB / wB, mF = (sum - sB) / wF, v = wB * wF * (mB - mF) * (mB - mF);
+      if (v > best) { best = v; th = t; }
     }
-    return Array.from(seen).slice(0, max || 9);
+    return th;
+  }
+  function normPolarity(bin) {           // 確保「黑字白底」:黑色像素應為少數
+    let black = 0; for (let i = 0; i < bin.length; i++) if (!bin[i]) black++;
+    if (black > bin.length / 2) for (let i = 0; i < bin.length; i++) bin[i] = bin[i] ? 0 : 255;
+    return bin;
+  }
+  function adaptive(g, w, h) {           // 區域平均二值化(抗反光/陰影)
+    const I = new Float64Array((w + 1) * (h + 1));
+    for (let y = 0; y < h; y++) { let row = 0; for (let x = 0; x < w; x++) { row += g[y*w+x]; I[(y+1)*(w+1)+x+1] = I[y*(w+1)+x+1] + row; } }
+    const r = Math.max(15, Math.round(h / 4)), out = new Uint8ClampedArray(w * h);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const x1 = Math.max(0, x - r), x2 = Math.min(w, x + r + 1), y1 = Math.max(0, y - r), y2 = Math.min(h, y + r + 1);
+      const s = I[y2*(w+1)+x2] - I[y1*(w+1)+x2] - I[y2*(w+1)+x1] + I[y1*(w+1)+x1];
+      const mean = s / ((x2 - x1) * (y2 - y1));
+      out[y*w+x] = g[y*w+x] < mean * 0.85 ? 0 : 255;
+    }
+    return out;
+  }
+  function buildVariants() {
+    const { g, w, h } = cropToGray();
+    const st = stretch(g);
+    const th = otsu(st);
+    const otsuBin = normPolarity(st.map(v => v > th ? 255 : 0));
+    const adBin = normPolarity(adaptive(st, w, h));
+    return [
+      { name: '灰階', canvas: toCanvas(st, w, h) },
+      { name: 'Otsu', canvas: toCanvas(otsuBin, w, h) },
+      { name: '自適應', canvas: toCanvas(adBin, w, h) },
+    ];
   }
 
-  const candContainer = $('candidates');
-  const candHint = $('candHint');
-
-  function renderCandidates(text) {
-    candContainer.innerHTML = '';
-    const cands = generateCandidates(text);
-    if (!cands.length) { candHint.style.display = 'none'; return; }
-    candHint.style.display = '';
-    cands.forEach((c) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'candidate-btn';
-      let html = '';
-      for (let i = 0; i < c.length; i++) {
-        html += c[i] !== text[i] ? '<span class="diff">' + c[i] + '</span>' : c[i];
+  // ---------- 格式校正(台灣車牌:L=字母 D=數字)----------
+  // 台灣車牌常見格式(L=字母 D=數字;字母不使用 I、O)
+  const PATTERNS = ['LLLDDDD', 'LLDDDD', 'DDDDLL', 'LLLDDD', 'DDDLLL'];
+  const LETTER_OK = /^[A-HJ-NP-Z]$/;
+  const TO_DIGIT = { O:'0', Q:'0', D:'0', I:'1', L:'1', Z:'2', S:'5', G:'6', B:'8', T:'7' };
+  const TO_LETTER = { '0':'D', '1':'L', '2':'Z', '5':'S', '6':'G', '8':'B', '7':'T', I:'L', O:'D' };
+  const isD = (c) => c >= '0' && c <= '9';
+  function fitPattern(t) {               // 回傳 {text, cost, pattern};cost=修正字數,Infinity=不符合標準
+    let best = { text: t, cost: Infinity, pattern: null };
+    for (const p of PATTERNS) {
+      if (p.length !== t.length) continue;
+      let out = '', cost = 0;
+      for (let i = 0; i < t.length; i++) {
+        const c = t[i], wantD = p[i] === 'D';
+        if (wantD ? isD(c) : LETTER_OK.test(c)) out += c;
+        else { const m = wantD ? TO_DIGIT[c] : TO_LETTER[c]; if (!m) { cost = Infinity; break; } out += m; cost++; }
       }
-      btn.innerHTML = html;
-      btn.addEventListener('click', () => { plateInput.value = c; });
-      candContainer.appendChild(btn);
-    });
+      if (cost < best.cost) best = { text: out, cost, pattern: p };
+    }
+    return best;
+  }
+  function fitBest(raw) {                // 不符時,嘗試刪掉 1 個雜訊字元
+    let best = fitPattern(raw);
+    if (raw.length >= 6) for (let i = 0; i < raw.length; i++) {
+      const f = fitPattern(raw.slice(0, i) + raw.slice(i + 1));
+      if (f.cost + 2 < best.cost) best = { ...f, cost: f.cost + 2 };
+    }
+    return best;
+  }
+  const isValidPlate = (t) => fitPattern(t.replace(/-/g, '')).cost === 0;
+  function hyphenate(t, pattern) {       // 顯示用:ABC-1234
+    if (!pattern) return t;
+    let k = 1; while (k < pattern.length && pattern[k] === pattern[0]) k++;
+    return t.slice(0, k) + '-' + t.slice(k);
+  }
+
+  const clean = (raw) => (raw || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  const looksLikePlate = (t) => t.length >= 5 && t.length <= 7;
+
+  // 外形相近的字元(用來產生「類似選項」)
+  const SIMILAR = { '0':'86D','1':'7L','2':'7Z','3':'85','4':'9','5':'6S','6':'58G','7':'12','8':'036B','9':'40',
+    A:'H', B:'RE8', C:'GO', D:'B0', E:'FB', F:'E', G:'C6', H:'AN', K:'X', L:'1', M:'N', N:'MH', P:'R', R:'PB', S:'Z5', T:'7', U:'V', V:'UY', W:'V', X:'K', Y:'V', Z:'S2' };
+  function similarOptions(text, pattern, exclude) {
+    const out = [];
+    for (let i = 0; i < text.length; i++) {
+      for (const ch of (SIMILAR[text[i]] || '')) {
+        if ((pattern[i] === 'D') !== isD(ch)) continue;               // 要符合該位置的字母/數字類型
+        if (pattern[i] === 'L' && !LETTER_OK.test(ch)) continue;      // 字母不使用 I、O
+        const t = text.slice(0, i) + ch + text.slice(i + 1);
+        if (t === text || exclude.has(t) || out.some(o => o.t === t)) continue;
+        out.push({ t, i });
+      }
+    }
+    return out;
+  }
+
+  async function ocrOne(worker, canvas, psm) {
+    await worker.setParameters({ tessedit_pageseg_mode: String(psm) });
+    const { data } = await worker.recognize(canvas);
+    const raw = clean(data.text);
+    const fit = fitBest(raw);
+    const valid = fit.cost !== Infinity;
+    const conf = data.confidence || 0;
+    const score = conf + (valid ? 10 - fit.cost * 6 : -40);
+    return { raw, text: valid ? fit.text : raw, pattern: fit.pattern, valid, score, conf };
   }
 
   captureBtn.addEventListener('click', async () => {
@@ -379,28 +285,42 @@
     result.style.display = 'none';
     setStatus('載入辨識引擎…(第一次會比較久)');
     try {
-      const canvas = preprocess();
-      if (!canvas) { setStatus('相機畫面尚未就緒,請稍等再試'); captureBtn.disabled = false; captureBtn.textContent = '📷 拍照辨識'; return; }
+      const variants = buildVariants();
       const worker = await getWorker();
-      let { data } = await worker.recognize(canvas);
-      let text = clean(data.text);
-      if (!looksLikePlate(text)) {
-        await worker.setParameters({ tessedit_pageseg_mode: '6' });
-        const r2 = await worker.recognize(canvas);
-        const t2 = clean(r2.data.text);
-        await worker.setParameters({ tessedit_pageseg_mode: '7' });
-        if (looksLikePlate(t2) || t2.length > text.length) text = t2;
+      const results = [];
+      for (let i = 0; i < variants.length; i++) {
+        setStatus('辨識中… (' + (i + 1) + '/' + variants.length + ' ' + variants[i].name + ')');
+        results.push({ ...(await ocrOne(worker, variants[i].canvas, 7)), v: i });
       }
-      thumb.src = canvas.toDataURL('image/jpeg', 0.8);
-      thumb.classList.add('show');
-      guide.style.display = 'none';
-      document.querySelector('.tip').style.display = 'none';
-      plateInput.value = text;
-      renderCandidates(text);
+      if (!results.some(r => r.valid)) {       // 備援:多行模式
+        for (let i = 1; i < variants.length; i++) results.push({ ...(await ocrOne(worker, variants[i].canvas, 6)), v: i });
+      }
+      await worker.setParameters({ tessedit_pageseg_mode: '7' });
+      results.sort((a, b) => b.score - a.score);
+      const best = results[0];
+      const text = best.text;
+      const others = [...new Set(results.filter(r => r.valid).map(r => r.text).filter(t => t !== text))].slice(0, 3);
+      const cands = others.map(t => ({ t, i: -1 }));
+      const seenSet = new Set([text, ...others]);
+      (best.valid ? similarOptions(text, best.pattern, seenSet) : []).slice(0, 9 - cands.length).forEach(o => cands.push(o));
+
+      thumb.src = variants[best.v].canvas.toDataURL('image/jpeg', 0.8);
+      plateInput.value = KEEP_HYPHEN ? hyphenate(text, best.pattern) : text;
+      const box = $('cands'); box.innerHTML = '';
+      cands.forEach(c => {
+        const b = document.createElement('button');
+        for (let k = 0; k < c.t.length; k++) {
+          const sp = document.createElement('span'); sp.textContent = c.t[k];
+          if (k === c.i) sp.style.color = '#ffb84d';               // 標出被替換的字
+          b.appendChild(sp);
+        }
+        b.onclick = () => { plateInput.value = c.t; };
+        box.appendChild(b);
+      });
       result.style.display = 'block';
+      $('cam').style.display = 'none';
       captureBtn.style.display = 'none';
-      setStatus(text ? (looksLikePlate(text) ? '請核對車牌後按確認'
-                       : '⚠️ 結果不像車牌:手機可能貼太近,連鏡頭本身都拍不到完整車牌(不是框框大小的問題)。請把手機拿遠一點,讓整個車牌在畫面裡看起來完整、四周還留一點空間,再重拍')
+      setStatus(text ? (best.valid ? '請核對車牌後按確認' + (cands.length ? '(下方有類似選項可替換)' : '') : '⚠️ 不符合台灣車牌格式,請核對或重拍')
                      : '沒有辨識到文字,請重拍或手動輸入');
     } catch (err) {
       setStatus('辨識失敗:' + err.message);
@@ -413,6 +333,7 @@
   $('sendBtn').addEventListener('click', async () => {
     const plate = plateInput.value.trim().toUpperCase();
     if (plate.length < 4) { setStatus('車牌長度不足,請確認'); return; }
+    if (!isValidPlate(plate) && !confirm('「' + plate + '」不符合台灣車牌格式(如 ABC-1234、123-ABC、1234-AB),仍要送出嗎?')) return;
     const btn = $('sendBtn');
     btn.disabled = true;
     try {
@@ -420,12 +341,8 @@
       if (!res.ok) throw new Error('HTTP ' + res.status);
       setStatus('✅ 已送到電腦:' + plate, true);
       result.style.display = 'none';
-      thumb.classList.remove('show');
-      guide.style.display = '';
-      document.querySelector('.tip').style.display = '';
+      $('cam').style.display = '';
       captureBtn.style.display = '';
-      candContainer.innerHTML = '';
-      candHint.style.display = 'none';
     } catch (err) {
       setStatus('送出失敗:' + err.message + '(請確認手機有連網)');
     } finally {
@@ -435,14 +352,51 @@
 
   $('retryBtn').addEventListener('click', () => {
     result.style.display = 'none';
-    thumb.classList.remove('show');
-    guide.style.display = '';
-    document.querySelector('.tip').style.display = '';
+    $('cam').style.display = '';
     captureBtn.style.display = '';
-    candContainer.innerHTML = '';
-    candHint.style.display = 'none';
     setStatus('');
   });
+
+
+  // ---------- 鎖定 / 解鎖(配對碼已用 PIN 加密,網頁裡看不到明文)----------
+  const CFG = {"s":"nXWuoQi1Ta2G7AGPKrh6gw==","iv":"6Tl1uBylqzVBoddF","c":"rPovsF5Jvs/NMxMHEvB5reqXgbXZG/uzAYraEtAWHkbdoYiU6i1Iggae"};
+  const unb64 = (t) => Uint8Array.from(atob(t), (c) => c.charCodeAt(0));
+  async function decryptTopic(pin) {
+    const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: unb64(CFG.s), iterations: 200000, hash: 'SHA-256' }, km,
+      { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    const p = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(CFG.iv) }, key, unb64(CFG.c));
+    return new TextDecoder().decode(p);
+  }
+  const lockEl = $('lock'), appEl = $('app'), lockMsg = $('lockMsg'), pinIn = $('pinIn'), unlockBtn = $('unlockBtn');
+  let fails = 0;
+
+  async function doUnlock() {
+    lockMsg.textContent = '';
+    if (!pinIn.value) return;
+    unlockBtn.disabled = true;
+    try {
+      let topic;
+      try { topic = await decryptTopic(pinIn.value); }
+      catch (e) {
+        fails++;
+        const wait = Math.min(30, Math.pow(2, fails - 1));
+        lockMsg.textContent = 'PIN 錯誤,請等 ' + wait + ' 秒再試';
+        await new Promise((res) => setTimeout(res, wait * 1000));
+        lockMsg.textContent = ''; pinIn.value = '';
+        return;
+      }
+      RELAY = 'https://ntfy.sh/' + topic;
+      getWorker().catch(() => {});   // 解鎖後立刻在背景預載辨識引擎
+      pinIn.value = '';
+      lockEl.style.display = 'none';
+      appEl.style.display = '';
+    } finally { unlockBtn.disabled = false; }
+  }
+  unlockBtn.addEventListener('click', doUnlock);
+  pinIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') doUnlock(); });
+  if (!window.crypto || !crypto.subtle) { $('lockTitle').textContent = '⚠️ 需要 HTTPS 才能使用'; unlockBtn.style.display = pinIn.style.display = 'none'; }
+  lockEl.style.display = '';
 
   startBtn.addEventListener('click', startCamera);
 })();
