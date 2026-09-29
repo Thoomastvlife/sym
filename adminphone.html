@@ -90,6 +90,7 @@
     if (!workerPromise) {
       workerPromise = (async () => {
         const w = await Tesseract.createWorker({
+          cacheMethod: 'refresh',   // 強制重新下載辨識資料,避免之前測試輕量版留下的錯誤快取殘留
           logger: (m) => { if (m.status === 'recognizing text') setStatus('辨識中… ' + Math.round(m.progress * 100) + '%'); }
         });
         await w.loadLanguage('eng');
