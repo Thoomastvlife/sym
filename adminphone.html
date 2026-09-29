@@ -90,7 +90,7 @@
     if (!workerPromise) {
       workerPromise = (async () => {
         const w = await Tesseract.createWorker({
-          cacheMethod: 'refresh',   // 強制重新下載辨識資料,避免之前測試輕量版留下的錯誤快取殘留
+          langPath: 'https://tessdata.projectnaptha.com/4.0.0_fast',   // 輕量版辨識資料,下載快、辨識也快
           logger: (m) => { if (m.status === 'recognizing text') setStatus('辨識中… ' + Math.round(m.progress * 100) + '%'); }
         });
         await w.loadLanguage('eng');
