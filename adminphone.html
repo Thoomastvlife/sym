@@ -257,9 +257,30 @@
     const m = MODES[currentMode];
     const gw = vis.w * m.guideWidthRatio;
     const gh = Math.min(gw / m.guideAspect, vis.h * 0.9);
-    cropRect = { x: vis.x + (vis.w - gw) / 2, y: vis.y + (vis.h - gh) / 2, w: gw, h: gh };
     guide.style.width = (gw / vis.w * 100) + '%';
     guide.style.height = (gh / vis.h * 100) + '%';
+  }
+
+  // 拍照當下直接讀取綠框跟影片在螢幕上的「實際」渲染位置來換算裁切區域,
+  // 不依賴之前算好、可能因版面變動(如網址列收合、捲動)而過期的數字,
+  // 確保「畫面上看到框住什麼,就精準裁什麼」。
+  function currentCropRectFromScreen() {
+    const vw = video.videoWidth, vh = video.videoHeight;
+    if (!vw || !vh) return null;
+    const videoRect = video.getBoundingClientRect();
+    const guideRect = guide.getBoundingClientRect();
+    if (!videoRect.width || !videoRect.height) return null;
+    const scale = Math.max(videoRect.width / vw, videoRect.height / vh);
+    const visW = videoRect.width / scale, visH = videoRect.height / scale;
+    const originX = (vw - visW) / 2, originY = (vh - visH) / 2;
+    const gx = (guideRect.left - videoRect.left) / scale;
+    const gy = (guideRect.top - videoRect.top) / scale;
+    return {
+      x: originX + gx,
+      y: originY + gy,
+      w: guideRect.width / scale,
+      h: guideRect.height / scale
+    };
   }
   video.addEventListener('loadedmetadata', layoutGuide);
   video.addEventListener('resize', layoutGuide);
@@ -267,13 +288,14 @@
   window.addEventListener('orientationchange', () => setTimeout(layoutGuide, 200));
 
   function preprocess() {
-    if (!cropRect) layoutGuide();
-    const scale = MODES[currentMode].ocrTargetWidth / cropRect.w;
+    const rect = currentCropRectFromScreen();
+    if (!rect) return null;
+    const scale = MODES[currentMode].ocrTargetWidth / rect.w;
     const c = document.createElement('canvas');
-    c.width = Math.round(cropRect.w * scale);
-    c.height = Math.round(cropRect.h * scale);
+    c.width = Math.round(rect.w * scale);
+    c.height = Math.round(rect.h * scale);
     const ctx = c.getContext('2d', { willReadFrequently: true });
-    ctx.drawImage(video, cropRect.x, cropRect.y, cropRect.w, cropRect.h, 0, 0, c.width, c.height);
+    ctx.drawImage(video, rect.x, rect.y, rect.w, rect.h, 0, 0, c.width, c.height);
     const img = ctx.getImageData(0, 0, c.width, c.height), d = img.data;
     let min = 255, max = 0;
     for (let i = 0; i < d.length; i += 4) {
@@ -301,6 +323,7 @@
     setStatus('載入辨識引擎…(第一次會比較久)');
     try {
       const canvas = preprocess();
+      if (!canvas) { setStatus('相機畫面尚未就緒,請稍等再試'); captureBtn.disabled = false; captureBtn.textContent = '📷 拍照辨識'; return; }
       const worker = await getWorker();
       let { data } = await worker.recognize(canvas);
       let text = clean(data.text);
