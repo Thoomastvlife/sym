@@ -13,8 +13,9 @@
     display:flex; flex-direction:column; }
   .wrap { max-width:480px; margin:0 auto; width:100%; }
   h1 { font-size:1.05rem; margin:4px 0 12px; text-align:center; }
-  .cam { position:relative; background:#000; border-radius:12px; overflow:hidden; }
-  video { width:100%; display:block; min-height:200px; }
+  .cam { position:relative; background:#000; border-radius:12px; overflow:hidden;
+    height:48vh; max-height:420px; min-height:220px; }
+  video { width:100%; height:100%; display:block; object-fit:cover; }
   .thumb { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none; }
   .thumb.show { display:block; }
   .guide { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border:2px solid var(--accent);
@@ -156,18 +157,32 @@
     }
   }
 
-  function layoutGuide() {
+  const camEl = document.querySelector('.cam');
+
+  function visibleSourceRect() {
     const vw = video.videoWidth, vh = video.videoHeight;
-    if (!vw || !vh) return;
+    const cw = camEl.clientWidth, ch = camEl.clientHeight;
+    if (!vw || !vh || !cw || !ch) return null;
+    // object-fit:cover 會用較大的縮放比例填滿容器,超出部分被裁掉
+    const scale = Math.max(cw / vw, ch / vh);
+    const visW = cw / scale, visH = ch / scale;
+    return { x: (vw - visW) / 2, y: (vh - visH) / 2, w: visW, h: visH };
+  }
+
+  function layoutGuide() {
+    const vis = visibleSourceRect();
+    if (!vis) return;
     const m = MODES[currentMode];
-    const cw = vw * m.guideWidthRatio;
-    const ch = Math.min(cw / m.guideAspect, vh * 0.9);
-    cropRect = { x: (vw - cw) / 2, y: (vh - ch) / 2, w: cw, h: ch };
-    guide.style.width = (cw / vw * 100) + '%';
-    guide.style.height = (ch / vh * 100) + '%';
+    const gw = vis.w * m.guideWidthRatio;
+    const gh = Math.min(gw / m.guideAspect, vis.h * 0.9);
+    cropRect = { x: vis.x + (vis.w - gw) / 2, y: vis.y + (vis.h - gh) / 2, w: gw, h: gh };
+    guide.style.width = (gw / vis.w * 100) + '%';
+    guide.style.height = (gh / vis.h * 100) + '%';
   }
   video.addEventListener('loadedmetadata', layoutGuide);
   video.addEventListener('resize', layoutGuide);
+  window.addEventListener('resize', () => { if (stream) layoutGuide(); });
+  window.addEventListener('orientationchange', () => setTimeout(layoutGuide, 200));
 
   function preprocess() {
     if (!cropRect) layoutGuide();
