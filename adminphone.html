@@ -70,8 +70,8 @@
 <div class="wrap" id="mainApp" style="display:none">
   <h1>🔍 車牌掃描(送到電腦)</h1>
   <div class="mode-switch">
-    <button id="modeNear" class="mode-btn">📏 近距離</button>
-    <button id="modeFar" class="mode-btn active">📐 遠距離</button>
+    <button id="modeNear" class="mode-btn">📏 長車牌</button>
+    <button id="modeFar" class="mode-btn active">📐 短車牌</button>
   </div>
   <div class="cam">
     <video id="video" playsinline muted autoplay></video>
@@ -153,8 +153,8 @@
   const RELAY = 'https://ntfy.sh/' + TOPIC;
   const KEEP_HYPHEN = false;
   const MODES = {
-    near: { camWidth: 1920, camHeight: 1080, guideWidthRatio: 0.86, guideAspect: 2.0, ocrTargetWidth: 900,  label: '近距離' },
-    far:  { camWidth: 3840, camHeight: 2160, guideWidthRatio: 0.95, guideAspect: 1.6, ocrTargetWidth: 1300, label: '遠距離' }
+    near: { camWidth: 3840, camHeight: 2160, guideWidthRatio: 0.92, guideAspect: 2.2, ocrTargetWidth: 1300, label: '長車牌' },
+    far:  { camWidth: 3840, camHeight: 2160, guideWidthRatio: 0.75, guideAspect: 1.3, ocrTargetWidth: 1100, label: '短車牌' }
   };
   let currentMode = 'far';
   // ==================
