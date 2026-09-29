@@ -48,6 +48,12 @@
   .pin-eye { position:absolute; right:6px; top:50%; transform:translateY(-50%); width:auto; margin:0;
     padding:6px 8px; background:transparent; border:none; font-size:1.15rem; line-height:1; cursor:pointer; opacity:.75; }
   .pin-eye:active { opacity:1; }
+  .cand-hint { font-size:11px; color:var(--sub); margin:10px 0 6px; text-align:center; }
+  .candidates { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-bottom:4px; }
+  .candidate-btn { margin-top:0; background:var(--panel); color:var(--text); border:1px solid var(--border);
+    border-radius:8px; padding:10px 4px; font-size:.92rem; letter-spacing:.03em; }
+  .candidate-btn:active { border-color:var(--accent); }
+  .candidate-btn .diff { color:#f2b84c; }
   .lock-error { color:#e2574c; font-size:.82rem; margin-top:10px; min-height:1.2em; }
   .shake { animation: shake .35s; }
   @keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
@@ -86,6 +92,8 @@
   <div class="result" id="result">
     <div class="label">辨識結果(不對請直接修改)</div>
     <input id="plate" type="text" spellcheck="false" autocapitalize="characters" autocomplete="off">
+    <div class="cand-hint" id="candHint" style="display:none">相似選項(點選可替換,容易混淆的字元已標色)</div>
+    <div class="candidates" id="candidates"></div>
     <button id="sendBtn" class="primary">✅ 確認並送到電腦</button>
     <button id="retryBtn" class="second">重新拍攝</button>
   </div>
@@ -315,6 +323,55 @@
   };
   const looksLikePlate = (t) => { const n = t.replace(/-/g, '').length; return n >= 5 && n <= 7; };
 
+  // 常見容易誤判的字元對照(OCR混淆組)
+  const CONFUSE = {
+    '0': ['O', 'D', 'Q'], 'O': ['0', 'D', 'Q'], 'D': ['0', 'O'], 'Q': ['0', 'O'],
+    '1': ['I', 'L'], 'I': ['1', 'L'], 'L': ['1', 'I'],
+    '2': ['Z'], 'Z': ['2'],
+    '5': ['S'], 'S': ['5'],
+    '6': ['G'], 'G': ['6', 'C'], 'C': ['G'],
+    '8': ['B'], 'B': ['8', 'R'], 'R': ['B'],
+    '9': ['G']
+  };
+
+  function generateCandidates(text, max) {
+    const seen = new Set();
+    const chars = text.split('');
+    for (let i = 0; i < chars.length; i++) {
+      const alts = CONFUSE[chars[i]];
+      if (!alts) continue;
+      alts.forEach((a) => {
+        const arr = chars.slice();
+        arr[i] = a;
+        const cand = arr.join('');
+        if (cand !== text) seen.add(cand);
+      });
+    }
+    return Array.from(seen).slice(0, max || 9);
+  }
+
+  const candContainer = $('candidates');
+  const candHint = $('candHint');
+
+  function renderCandidates(text) {
+    candContainer.innerHTML = '';
+    const cands = generateCandidates(text);
+    if (!cands.length) { candHint.style.display = 'none'; return; }
+    candHint.style.display = '';
+    cands.forEach((c) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'candidate-btn';
+      let html = '';
+      for (let i = 0; i < c.length; i++) {
+        html += c[i] !== text[i] ? '<span class="diff">' + c[i] + '</span>' : c[i];
+      }
+      btn.innerHTML = html;
+      btn.addEventListener('click', () => { plateInput.value = c; });
+      candContainer.appendChild(btn);
+    });
+  }
+
   captureBtn.addEventListener('click', async () => {
     if (!stream || !video.videoWidth) { setStatus('相機尚未就緒'); return; }
     captureBtn.disabled = true;
@@ -339,6 +396,7 @@
       guide.style.display = 'none';
       document.querySelector('.tip').style.display = 'none';
       plateInput.value = text;
+      renderCandidates(text);
       result.style.display = 'block';
       captureBtn.style.display = 'none';
       setStatus(text ? (looksLikePlate(text) ? '請核對車牌後按確認'
@@ -366,6 +424,8 @@
       guide.style.display = '';
       document.querySelector('.tip').style.display = '';
       captureBtn.style.display = '';
+      candContainer.innerHTML = '';
+      candHint.style.display = 'none';
     } catch (err) {
       setStatus('送出失敗:' + err.message + '(請確認手機有連網)');
     } finally {
@@ -379,6 +439,8 @@
     guide.style.display = '';
     document.querySelector('.tip').style.display = '';
     captureBtn.style.display = '';
+    candContainer.innerHTML = '';
+    candHint.style.display = 'none';
     setStatus('');
   });
 
