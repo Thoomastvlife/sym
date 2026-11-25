@@ -46,7 +46,27 @@
         </a>
     </div>
 
-    <div class="reviews-grid">
+
+    <div class="stats-row" id="google-stats">
+        <div class="stat-card">
+            <div class="stat-num"><span class="count" id="stat-rating" data-count="5.0" data-decimals="1">0</span></div>
+            <div class="stat-label">Google 平均評分</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num"><span class="count" id="stat-total" data-count="100" data-suffix="+">0</span></div>
+            <div class="stat-label">Google 評論則數</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num"><span class="count" data-count="5" data-suffix=" 星">0</span></div>
+            <div class="stat-label">車友給我們的肯定</div>
+        </div>
+    </div>
+
+    <div class="marquee" id="marquee" aria-label="車友評價跑馬燈">
+        <div class="marquee-track" id="marquee-track"></div>
+    </div>
+
+    <div class="reviews-grid" id="reviews-grid">
         <div class="review-card">
             <div class="review-header">
                 <span class="reviewer-name">在地車友</span>
@@ -79,6 +99,7 @@
 <footer><p>&copy; 2026 SYM 三陽機車 - 旭騰車行 &reg; All Rights Reserved.</p></footer>
 
 <script src="site.js"></script>
+<script src="reviews.js"></script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script>
 </body>
 </html>
