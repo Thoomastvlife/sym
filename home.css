@@ -22,7 +22,7 @@ h2{font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:900;line-height:1.3}
 /* 服務 */
 .services{background:var(--mist);padding:120px 0}
 .services .wrap{display:grid;grid-template-columns:minmax(220px,1fr) 2fr;gap:60px}
-.services h2{position:sticky;top:110px;align-self:start;border-left:6px solid var(--red);padding-left:16px}
+.services h2{position:sticky;top:calc(110px + var(--bar-h,0px));align-self:start;border-left:6px solid var(--red);padding-left:16px}
 .svc{padding:30px 0 30px 28px;border-top:1px solid #c9d1e3;position:relative;transition:padding .25s}
 .svc:last-child{border-bottom:1px solid #c9d1e3}
 .svc::before{content:"";position:absolute;left:0;top:36px;width:10px;height:10px;background:var(--red);transform:skewX(-18deg);transition:transform .25s}
