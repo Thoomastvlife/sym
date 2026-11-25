@@ -1,6 +1,5 @@
 // 首頁視差：只更新 CSS 變數 --p，位移量由 home.css 決定
 (function () {
-  var header = document.querySelector('header');
   var track = document.querySelector('.hero-track');
   var items = Array.prototype.slice.call(document.querySelectorAll('[data-px]'));
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -10,7 +9,6 @@
   function update() {
     queued = false;
     var vh = window.innerHeight;
-    header.classList.toggle('scrolled', window.scrollY > 40);
     if (reduce) return;
     // 首頁主視覺：以捲動距離換算 0 → 1
     var range = track.offsetHeight - vh;

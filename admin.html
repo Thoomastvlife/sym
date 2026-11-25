@@ -1,176 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
-    <title href="./favicon.ico">SYM-三陽機車-旭騰車行_管理員後台</title>
-    <style>
-    body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1em 0;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.logo {
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-}
-
-nav a {
-    text-decoration: none;
-    color: #fff;
-    margin: 0 15px;
-    transition: color 0.3s;
-}
-
-nav a:hover {
-    color: #ffcc00;
-}
-
-.hero {
-    background-image: url('hero-background.jpg');
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-    text-align: center;
-    padding: 150px 0;
-}
-
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.hero h1 {
-    font-size: 2.5em;
-}
-
-.hero p {
-    font-size: 1.2em;
-}
-
-.cta-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ffcc00;
-    color: #333;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.cta-button:hover {
-    background-color: #e6b800;
-}
-
-.about-us,
-.services,
-.contact {
-    max-width: 1200px;
-    margin: 50px auto;
-}
-
-.service-item {
-    text-align: center;
-}
-
-.service-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.contact form {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.contact label {
-    flex: 1 0 100%;
-    margin-bottom: 10px;
-}
-
-.contact input,
-.contact textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-.contact button {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.contact button:hover {
-    background-color: #555;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1em 0;
-}
-</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYM-三陽機車-旭騰車行_管理員後台</title>
+<link rel="icon" href="./favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="./site.css">
 </head>
 <body>
 <header>
-        <nav>
-            <a href="index.html" class="logo">SYM 旭騰車行</a>
-            <ul>
-                <li><a href="index.html">首頁</a></li>
-                <li><a href="cont.html">關於我們</a></li>
-                <li class="dropdown">
-                    <a href="services-overview.html">服務 ▾</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="service.html">專業維修與保養</a></li>
-                        <li><a href="terms.html">代步車借用條款</a></li>
-                        <li><a href="reviews.html">顧客評價與推薦</a></li>
-                    </ul>
-                </li>
-                <li><a href="cont.html">聯繫我們</a></li>
-            </ul>
-        </nav>
-    </header>
-    <div>
-        <h2><a href="https://motofix2.sym.com.tw/">好幫手雲端版(結帳畫面)</a></h2>
-        <h2><a href="https://dms2.sym.com.tw/servlet/jform">好幫手報表</a></h2> 
+    <nav>
+        <a href="index.html" class="logo">SYM 旭騰車行</a>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="cont.html">關於我們</a></li>
+            <li class="dropdown">
+                <a href="services-overview.html">服務 ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="service.html">專業維修與保養</a></li>
+                    <li><a href="terms.html">代步車借用條款</a></li>
+                    <li><a href="reviews.html">顧客評價與推薦</a></li>
+                </ul>
+            </li>
+            <li><a href="cont.html">聯繫我們</a></li>
+        </ul>
+    </nav>
+</header>
 
+<section class="page-hero">
+    <h1>管理員後台</h1>
+    <p>常用內部系統快速連結</p>
+</section>
 
+<main class="page">
+<div class="wrap">
+<div class="services-grid">
+    <div class="service-card">
+        <h3>好幫手雲端版</h3>
+        <p>結帳畫面</p>
+        <a href="https://motofix2.sym.com.tw/" class="btn btn-sm">開啟</a>
     </div>
+    <div class="service-card">
+        <h3>好幫手報表</h3>
+        <p>DMS 報表系統</p>
+        <a href="https://dms2.sym.com.tw/servlet/jform" class="btn btn-sm">開啟</a>
+    </div>
+</div>
+</div>
+</main>
 
-    <footer class="text-center bg-info mt-4 py-3 position-absolute w-100" style="bottom:0"><p>sym旭騰車行 &reg; Xuteng car dealership.</p></footer>
+<footer><p>&copy; 2026 SYM 三陽機車 - 旭騰車行 &reg; All Rights Reserved.</p></footer>
 
-
-    <script src="script.js"></script>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script><!-- End Cloudflare Web Analytics -->
+<script src="site.js"></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script>
 </body>
 </html>
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script><!-- End Cloudflare Web Analytics -->
