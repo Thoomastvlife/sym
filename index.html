@@ -13,25 +13,26 @@
 </head>
 <body>
 <header>
-        <nav>
-            <a href="index.html" class="logo">SYM 旭騰車行</a>
-            <ul>
-                <li class="active"><a href="index.html" aria-current="page">首頁</a></li>
-                <li><a href="about.html">關於我們</a></li>
-                <li class="dropdown">
-                    <a href="services-overview.html">服務 ▾</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="service.html">專業維修與保養</a></li>
-                        <li><a href="terms.html">代步車借用條款</a></li>
-                        <li><a href="reviews.html">顧客評價與推薦</a></li>
-                    </ul>
-                </li>
-                <li><a href="cont.html">聯繫我們</a></li>
-            </ul>
-        </nav>
-    </header>
+  <nav>
+    <a href="index.html" class="logo">SYM 旭騰車行</a>
+    <ul>
+      <li class="active"><a href="index.html" aria-current="page">首頁</a></li>
+      <li><a href="about.html">關於我們</a></li>
+      <li class="dropdown">
+        <a href="services-overview.html">服務 ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="service.html">專業維修與保養</a></li>
+          <li><a href="terms.html">代步車借用條款</a></li>
+          <li><a href="reviews.html">顧客評價與推薦</a></li>
+        </ul>
+      </li>
+      <li><a href="cont.html">聯繫我們</a></li>
+    </ul>
+  </nav>
+</header>
 
 <main>
+<!-- ════════ HERO ════════ -->
 <div class="hero-track">
   <section class="hero" aria-label="旭騰車行">
     <div class="layer sun"></div>
@@ -47,6 +48,7 @@
   </section>
 </div>
 
+<!-- ════════ 服務 ════════ -->
 <section class="services" data-px>
   <div class="wrap">
     <h2>我們的四大核心服務</h2>
@@ -59,12 +61,14 @@
   </div>
 </section>
 
+<!-- ════════ 道路救援視差帶 ════════ -->
 <section class="band" data-px aria-label="道路救援範圍">
   <svg class="grid-map" viewBox="0 0 1200 800" aria-hidden="true"><path d="M0 200H1200M0 400H1200M0 620H1200M180 0V800M470 0V800M760 0V800M1020 0V800M0 90L1200 330M0 700L1200 520"/></svg>
   <svg class="rings" viewBox="0 0 1200 800" aria-hidden="true"><circle cx="600" cy="400" r="110"/><circle cx="600" cy="400" r="230"/><circle cx="600" cy="400" r="350"/><circle cx="600" cy="400" r="9" fill="#d32f2f" stroke="#fff" stroke-width="3"/><text x="612" y="296">1 km</text><text x="612" y="176">3 km</text><text x="612" y="56">5 km</text></svg>
   <div class="band-copy"><h2>半路熄火或爆胎，5 公里內我們出發</h2><p>店家周邊提供即時道路救援</p></div>
 </section>
 
+<!-- ════════ 為什麼選擇我們 ════════ -->
 <section class="why" data-px>
   <div class="wrap">
     <h2>為什麼選擇旭騰車行？</h2>
@@ -76,6 +80,90 @@
   </div>
 </section>
 
+<!-- ════════ 1. 顧客評價 ════════ -->
+<section class="home-reviews" data-px>
+  <div class="wrap">
+    <div class="home-reviews-head">
+      <div class="home-rating-badge">
+        <span class="home-stars" aria-hidden="true">★★★★★</span>
+        <span class="home-rating-num" id="js-home-rating">5.0</span>
+        <span class="home-rating-label">Google 評分</span>
+        <span class="home-total"><span id="js-home-total">100</span> 則評論</span>
+      </div>
+      <div>
+        <h2>顧客真實評價</h2>
+        <p>每則評論均來自 Google Maps 真實車主留言，自動每日更新</p>
+      </div>
+    </div>
+    <div class="home-reviews-grid" id="js-home-reviews">
+      <!-- JS 填入 -->
+    </div>
+    <div class="home-reviews-cta">
+      <a href="reviews.html" class="btn btn-dark">查看全部評價</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 6. 店面照片 ════════ -->
+<section class="shop-photos" data-px>
+  <div class="wrap">
+    <h2>旭騰車行實景</h2>
+    <p class="shop-photos-sub">歡迎親臨板橋旗艦店，感受專業服務環境</p>
+  </div>
+  <div class="photo-strip">
+    <figure>
+      <img src="./01.jpg" alt="旭騰車行店面外觀" loading="lazy">
+    </figure>
+    <figure>
+      <img src="./02.jpg" alt="旭騰車行維修作業區" loading="lazy">
+    </figure>
+    <figure>
+      <img src="./03.jpg" alt="旭騰車行服務現場" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<!-- ════════ 7. SYM 車款區塊 ════════ -->
+<section class="models" data-px>
+  <div class="wrap">
+    <h2>可維修 SYM 三陽車款</h2>
+    <p class="models-sub">以下為常見車款，其他車款歡迎電話洽詢，我們盡力服務</p>
+    <div class="models-grid">
+      <div class="model-card">
+        <div class="model-icon">🛵</div>
+        <h3>Jet 系列</h3>
+        <p>Jet S、Jet SR、Jet SL<br>高機動城市通勤首選</p>
+      </div>
+      <div class="model-card">
+        <div class="model-icon">🏍️</div>
+        <h3>DRG 系列</h3>
+        <p>DRG 158、DRG BT<br>時尚運動大羊代表</p>
+      </div>
+      <div class="model-card">
+        <div class="model-icon">🛵</div>
+        <h3>Woo 系列</h3>
+        <p>Woo 125、Woo R<br>輕量復古風格小羊</p>
+      </div>
+      <div class="model-card">
+        <div class="model-icon">🏍️</div>
+        <h3>MMBCU</h3>
+        <p>158cc 大羊全能旗艦<br>原廠科技智能車款</p>
+      </div>
+      <div class="model-card">
+        <div class="model-icon">🛵</div>
+        <h3>Fighter / GR</h3>
+        <p>街跑操控定位<br>運動跑格輕檔車</p>
+      </div>
+      <div class="model-card">
+        <div class="model-icon">🛵</div>
+        <h3>其他 SYM 車款</h3>
+        <p>Fiddle、Mio、Crox<br>各年份全系列歡迎洽詢</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 進廠流程 ════════ -->
 <section class="flow" data-px>
   <div class="wrap">
     <h2>進廠快速檢測流程</h2>
@@ -88,13 +176,128 @@
   </div>
 </section>
 
+<!-- ════════ 5. FAQ ════════ -->
+<section class="faq-home" data-px>
+  <div class="wrap">
+    <h2>常見問題</h2>
+    <p class="faq-sub">關於保養、驗車、借車的疑問，這裡都有解答</p>
+    <div class="faq-list">
+      <details class="faq-item-home">
+        <summary>機車多久保養一次比較好？</summary>
+        <p>一般建議每行駛 <strong>3,000～5,000 公里</strong>或每 <strong>3～6 個月</strong>進行一次基本保養（機油更換）。大保養（含傳動、剎車、氣門）建議每 10,000 公里或一年一次。若常走山路或日騎超過 30 公里的車主，可縮短至 3,000 公里一保。不確定的話歡迎進廠讓技師現場評估！</p>
+      </details>
+      <details class="faq-item-home">
+        <summary>機車驗車要帶哪些文件？</summary>
+        <p>驗車需攜帶：<strong>行車執照、駕照、強制責任險憑證</strong>（有效期內）。若委託他人代辦，另需攜帶委託書及代辦人身分證。旭騰車行提供免費排氣檢測，完成驗車即贈垃圾袋，歡迎預約安排！</p>
+      </details>
+      <details class="faq-item-home">
+        <summary>代步車怎麼借用？有哪些條件？</summary>
+        <p>凡在旭騰車行辦理<strong>大保養或大修</strong>（需留車超過半天）的車主，即可免費借用代步機車。借用前請出示駕照，並依店內規定填寫借車登記表。代步車數量有限，建議<a href="cont.html">提前聯繫</a>確認。</p>
+      </details>
+      <details class="faq-item-home">
+        <summary>道路救援的範圍和費用？</summary>
+        <p>本店提供店家周邊 <strong>5 公里內</strong>的道路救援服務，費用依實際情況洽談，基本救援搬運對旭騰維修車主友善計費。若在範圍外遇到困難，也歡迎先來電討論，我們會盡力協助！</p>
+      </details>
+      <details class="faq-item-home">
+        <summary>沒有預約可以直接進廠嗎？</summary>
+        <p>歡迎直接進廠！若是簡單問題（輪胎氣壓、機油等級確認、燈泡更換）通常可當場處理。需要電腦診斷或更換零件的項目，繁忙時段可能需要稍候，建議事先來電或 LINE 預約，省去等待時間。</p>
+      </details>
+      <details class="faq-item-home">
+        <summary>SYM 以外的廠牌也可以維修嗎？</summary>
+        <p>本店主要專精 <strong>SYM 三陽機車</strong>，擁有原廠認證技師與診斷設備。其他廠牌一般性保養（機油、剎車皮、輪胎）可協助，但較複雜的電系或引擎問題建議洽詢各廠牌原廠服務站，以確保零件與技術的原廠品質。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 2 & 3. 營業時間 + 地址 + 地圖 ════════ -->
+<section class="info-map" data-px>
+  <div class="wrap info-map-wrap">
+    <div class="info-block">
+      <h2>店面資訊</h2>
+      <div class="info-row">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <div>
+          <strong>地址</strong>
+          <p>220015 新北市板橋區新海路 398 號</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <div>
+          <strong>營業時間</strong>
+          <table class="hours-table">
+            <tr><td>週一 ～ 週五</td><td>11:00 ～ 21:00</td></tr>
+            <tr><td>週六</td><td>11:00 ～ 20:30</td></tr>
+            <tr><td>週日</td><td class="closed">公休</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="info-row">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.0 1.17 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+        <div>
+          <strong>電話</strong>
+          <p><a href="tel:+886282585800" class="info-tel">02-8258-5800</a></p>
+        </div>
+      </div>
+      <a href="https://www.google.com/maps/dir//SYM-%E4%B8%89%E9%99%BD%E6%A9%9F%E8%BB%8A-%E6%97%AD%E9%A8%B0%E6%A9%9F%E8%BB%8A%E8%A1%8C+220015%E6%96%B0%E5%8C%97%E5%B8%82%E6%9D%BF%E6%A9%8B%E5%8D%80%E6%9C%9D%E9%99%BD%E9%87%8C%E6%96%B0%E6%B5%B7%E8%B7%AF398%E8%99%9F/@24.9502851,121.389056,14z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3442a9ca1fd37e1b:0x8491771a39f014c4!2m2!1d121.4587764!2d25.0267009" target="_blank" rel="noopener" class="btn" style="margin-top:20px;display:inline-flex;align-items:center;gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        Google Maps 導航
+      </a>
+    </div>
+    <div class="map-block">
+      <!-- 3. Google 地圖嵌入 -->
+      <iframe
+        title="旭騰車行地圖位置"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.5!2d121.4587764!3d25.0267009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a9ca1fd37e1b%3A0x8491771a39f014c4!2sSYM-%E4%B8%89%E9%99%BD%E6%A9%9F%E8%BB%8A-%E6%97%AD%E9%A8%B0%E6%A9%9F%E8%BB%8A%E8%A1%8C!5e0!3m2!1szh-TW!2stw!4v1700000000000"
+        width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CTA ════════ -->
 <section class="cta"><h2>愛車有狀況，先來聊聊</h2><a href="cont.html" class="btn">立即聯繫預約</a></section>
 </main>
 
 <footer><p>&copy; 2026 SYM 三陽機車 - 旭騰車行 &reg; All Rights Reserved.</p></footer>
 
+<!-- ════════ 4. 浮動撥號 + LINE 按鈕 ════════ -->
+<div class="float-btns" role="complementary" aria-label="快速聯繫">
+  <a href="tel:+886226867175" class="float-btn float-call" aria-label="一鍵撥號">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.4 11.4 0 00.57 3.57 1 1 0 01-.25 1.01z"/></svg>
+    <span>電話</span>
+  </a>
+  <a href="https://line.me/R/ti/p/@420rhujg" target="_blank" rel="noopener" class="float-btn float-line" aria-label="LINE 聯繫">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+    <span>LINE</span>
+  </a>
+</div>
+
 <script src="site.js"></script>
 <script src="home.js"></script>
+<script>
+/* ── 顧客評價動態載入 ── */
+(async function () {
+  try {
+    const d = await fetch('./reviews-data.json').then(r => r.json());
+    const ratingEl = document.getElementById('js-home-rating');
+    const totalEl  = document.getElementById('js-home-total');
+    const gridEl   = document.getElementById('js-home-reviews');
+    if (ratingEl && d.rating) ratingEl.textContent = Number(d.rating).toFixed(1);
+    if (totalEl  && d.total)  totalEl.textContent  = d.total;
+    if (gridEl   && d.reviews) {
+      gridEl.innerHTML = d.reviews.slice(0, 3).map(r => `
+        <div class="home-review-card">
+          <div class="home-review-stars">${'★'.repeat(r.rating || 5)}${'☆'.repeat(5 - (r.rating || 5))}</div>
+          <p class="home-review-text">${r.text.replace(/</g,'&lt;')}</p>
+          <span class="home-review-author">— ${r.author.replace(/</g,'&lt;')}</span>
+        </div>`).join('');
+    }
+  } catch (e) { /* 靜默失敗，保留預設值 */ }
+})();
+</script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script>
 </body>
 </html>
