@@ -1,4 +1,4 @@
-// 顧客評價頁：數字滾動 + 串接 Google 評價（失敗時沿用頁面上的預設數字）
+// 顧客評價頁：數字滾動 + 跑馬燈；評分/則數/評論內容由 reviews-data.json 提供（失敗時沿用頁面預設）
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -90,7 +90,7 @@
     buildMarquee(list);
   }
 
-  fetch('/api/google-reviews', { headers: { Accept: 'application/json' } })
+  fetch('reviews-data.json', { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (d) {
       var rt = document.getElementById('stat-rating'), tt = document.getElementById('stat-total');
@@ -100,5 +100,5 @@
       if (started) { [rt, tt].forEach(function (el) { if (el) run(el, parseFloat(el.textContent.replace(/,/g, '')) || 0); }); }
       renderReviews(d.reviews);
     })
-    .catch(function () { /* 靜態頁面或 API 未設定：維持預設內容 */ });
+    .catch(function () { /* 讀不到 JSON：維持頁面預設內容 */ });
 })();
