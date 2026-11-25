@@ -1,72 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="icon" href="./favicon.ico">
-    <title>SYM-三陽機車-旭騰車行_首頁</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, 'Microsoft JhengHei', sans-serif; background-color: #2b3e66; color: #333; line-height: 1.6; }
-
-        /* 白底紅字小型 Header (Logo紅字置中、選單滿版均分) */
-        header { background-color: #ffffff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; flex-direction: column; align-items: center; max-width: 1200px; margin: 0 auto; padding: 8px 0; }
-        .logo { font-size: 1.1rem; font-weight: bold; color: #d32f2f; text-decoration: none; text-transform: uppercase; margin-bottom: 6px; text-align: center; }
-        nav ul { list-style: none; display: flex; align-items: center; width: 100%; padding: 0; margin: 0; }
-        nav ul li { position: relative; flex: 1; text-align: center; }
-        nav a { text-decoration: none; color: #333; padding: 8px 0; font-size: 0.9rem; font-weight: 500; display: block; transition: color 0.3s; width: 100%; }
-        nav a:hover { color: #d32f2f; }
-
-        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #eee; border-radius: 6px; min-width: 160px; padding: 6px 0; z-index: 1001; }
-        .dropdown-menu li { flex: none; text-align: left; }
-        .dropdown-menu li a { color: #333; padding: 8px 12px; white-space: nowrap; font-size: 0.88rem; }
-        .dropdown-menu li a:hover { background-color: #f5f5f5; color: #d32f2f; }
-        .dropdown:hover .dropdown-menu { display: block; }
-
-        .main-container { max-width: 950px; margin: 30px auto 50px auto; padding: 0 15px; }
-
-        .hero-card { background-color: #ffffff; border-radius: 8px; padding: 35px 30px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; }
-        .hero-title { font-size: 2rem; color: #d32f2f; margin-bottom: 10px; font-weight: bold; }
-        .hero-subtitle { font-size: 1.05rem; color: #555; margin-bottom: 25px; border-bottom: 2px solid #ffcc00; padding-bottom: 15px; }
-        .btn-action { display: inline-block; background-color: #d32f2f; color: #fff; padding: 12px 28px; border-radius: 6px; font-weight: bold; text-decoration: none; font-size: 1rem; transition: background 0.3s; }
-        .btn-action:hover { background-color: #b71c1c; }
-
-        .info-card { background-color: #ffffff; border-radius: 8px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-        .card-header { font-size: 1.25rem; font-weight: bold; color: #111; margin-bottom: 20px; border-left: 4px solid #ffcc00; padding-left: 10px; display: flex; align-items: center; gap: 8px; }
-
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
-        .feature-item { background: #fdfdfd; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; transition: transform 0.2s, box-shadow 0.2s; }
-        .feature-item:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .feature-item h3 { font-size: 1.05rem; color: #d32f2f; margin-bottom: 8px; font-weight: bold; }
-        .feature-item p { font-size: 0.88rem; color: #555; line-height: 1.6; }
-
-        .advantages-list { list-style: none; padding-left: 0; }
-        .advantages-list li { font-size: 0.95rem; color: #444; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
-        .advantages-list li strong { color: #222; }
-
-        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
-        .step-box { background-color: #f8f9fa; border: 1px solid #eee; border-radius: 6px; padding: 15px; text-align: center; }
-        .step-number { width: 30px; height: 30px; background-color: #d32f2f; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 10px auto; font-size: 0.9rem; }
-        .step-box h4 { font-size: 0.95rem; color: #222; margin-bottom: 6px; }
-        .step-box p { font-size: 0.85rem; color: #666; }
-
-        footer { background-color: #222; color: #fff; text-align: center; padding: 1.2em 0; width: 100%; font-size: 0.85rem; }
-
-        @media (max-width: 768px) {
-            .logo { font-size: 1rem; }
-            nav a { font-size: 0.85rem; padding: 6px 0; }
-            .main-container { margin: 15px auto; padding: 0 10px; }
-            .hero-card { padding: 25px 15px; }
-            .hero-title { font-size: 1.6rem; }
-            .info-card { padding: 20px 15px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYM-三陽機車-旭騰車行_首頁</title>
+<link rel="icon" href="./favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="./home.css">
 </head>
 <body>
-
-    <header>
+<header>
         <nav>
             <a href="index.html" class="logo">SYM 旭騰車行</a>
             <ul>
@@ -85,91 +30,69 @@
         </nav>
     </header>
 
-    <div class="main-container">
-        <div class="hero-card">
-            <h1 class="hero-title">SYM 三陽機車 - 旭騰車行</h1>
-            <p class="hero-subtitle">專業技術 ‧ 誠信服務 ‧ 為您的每趟騎乘安全把關</p>
-            <a href="cont.html" class="btn-action">立即聯繫預約</a>
-        </div>
-
-        <div class="info-card">
-            <div class="card-header">
-                <span>🛠️ 我們的四大核心服務</span>
-            </div>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <h3>專業維修與大保養</h3>
-                    <p>嚴選 SYM 原廠材料與正規零件，搭配原廠電腦診斷儀器，精準定位故障不猜測，讓愛車恢復最佳性能。</p>
-                </div>
-                <div class="feature-item">
-                    <h3>免費機車排氣檢驗</h3>
-                    <p>提供年度免費排氣檢測，完成驗車即贈送精美垃圾袋乙綑，現場提醒最佳驗車月份，騎乘安心不罰款。</p>
-                </div>
-                <div class="feature-item">
-                    <h3>5公里在地道路救援</h3>
-                    <p>半路熄火或爆胎？提供店家周邊 5 公里內及時道路救援服務，讓您緊急時刻不再孤立無援。</p>
-                </div>
-                <div class="feature-item">
-                    <h3>免費代步機車借用</h3>
-                    <p>留車進行大修或定期大保養之車主，貼心提供免費代步車借用服務，讓您日常通勤不斷線。</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-card">
-            <div class="card-header">
-                <span>⭐ 為什麼選擇旭騰車行？</span>
-            </div>
-            <ul class="advantages-list">
-                <li>
-                    <span>✅</span>
-                    <div><strong>施工前透明報價：</strong>技師會先進行詳細檢查，清楚說明損壞原因與零件費用，獲得車主同意後方開始施工，絕不隨意施工亂加價。</div>
-                </li>
-                <li>
-                    <span>✅</span>
-                    <div><strong>SYM 原廠技術認證：</strong>擁有多年三陽機車維修經驗與原廠診斷設備，不論是噴射系統清洗、傳動調整或引擎修復皆專業處理。</div>
-                </li>
-                <li>
-                    <span>✅</span>
-                    <div><strong>貼心服務與完善售後：</strong>維修完工皆經過嚴格路試測試，交車時主動說明注意事項，並享有原廠零件完工保固保障。</div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="info-card">
-            <div class="card-header">
-                <span>📋 進廠快速檢測流程</span>
-            </div>
-            <div class="steps-grid">
-                <div class="step-box">
-                    <div class="step-number">1</div>
-                    <h4>接單諮詢</h4>
-                    <p>了解騎乘狀況與異音問題，進行車輛外觀檢測。</p>
-                </div>
-                <div class="step-box">
-                    <div class="step-number">2</div>
-                    <h4>電腦診斷</h4>
-                    <p>連接 SYM 原廠儀器，快速精準掌握引擎與電系數據。</p>
-                </div>
-                <div class="step-box">
-                    <div class="step-number">3</div>
-                    <h4>報價說明</h4>
-                    <p>向車主詳細解釋故障原因，並提供明確零件與工資報價。</p>
-                </div>
-                <div class="step-box">
-                    <div class="step-number">4</div>
-                    <h4>施工與測試</h4>
-                    <p>使用正規原廠件更換，完工後進行實際路驗確保安全。</p>
-                </div>
-            </div>
-        </div>
+<main>
+<div class="hero-track">
+  <section class="hero" aria-label="旭騰車行">
+    <div class="layer sun"></div>
+    <svg class="layer hills" viewBox="0 0 1600 400" preserveAspectRatio="none" aria-hidden="true"><path d="M0 400V220L120 170 260 230 420 140 560 210 720 120 900 220 1060 160 1240 230 1400 150 1600 210V400Z"/></svg>
+    <svg class="layer city-far" viewBox="0 0 1600 400" preserveAspectRatio="none" aria-hidden="true"><path d="M0 400V250h60v-50h50v70h40v-90h60v110h50v-60h70v80h40v-130h50v150h60v-70h60v90h50v-110h60v120h70v-80h60v100h50v-140h60v160h60v-60h70v90h60v-100h60v110h50v-70h40V400Z"/></svg>
+    <svg class="layer city-near" viewBox="0 0 1600 400" preserveAspectRatio="none" aria-hidden="true"><path d="M0 400V300h90v-70h70v50h60v-110h80v140h70v-60h90v-90h60v150h80v-80h70v100h90v-130h70v110h80v-60h90v-100h60v130h80V400Z"/></svg>
+    <div class="road"><svg class="scooter" viewBox="0 0 320 170" aria-hidden="true"><defs><linearGradient id="beam"><stop offset="0" stop-color="#ffcc00" stop-opacity=".55"/><stop offset="1" stop-color="#ffcc00" stop-opacity="0"/></linearGradient></defs><path d="M244 82L320 50V124Z" fill="url(#beam)"/><path d="M26 116C24 90 50 76 92 78L142 82 160 112 122 128 60 132C40 132 28 128 26 116Z" fill="#d32f2f"/><path d="M48 78C70 66 122 66 146 76L140 84 58 84Z" fill="#0a1020"/><path d="M150 122H202L206 134H150Z" fill="#0a1020"/><path d="M200 124L210 72 224 66 234 72 228 126Z" fill="#d32f2f"/><path d="M222 70L242 138M204 60L228 56M66 136L112 124" stroke="#0a1020" stroke-width="6" stroke-linecap="round"/><circle cx="236" cy="80" r="6" fill="#ffe680"/><circle cx="26" cy="102" r="4" fill="#ff6b5e"/><g class="wheel"><circle cx="66" cy="136" r="30" fill="#070c1a" stroke="#6577a3" stroke-width="3"/><path d="M66 106V166M36 136H96M45 115L87 157M87 115L45 157" stroke="#6577a3" stroke-width="2"/></g><g class="wheel"><circle cx="242" cy="138" r="30" fill="#070c1a" stroke="#6577a3" stroke-width="3"/><path d="M242 108V168M212 138H272M221 117L263 159M263 117L221 159" stroke="#6577a3" stroke-width="2"/></g></svg></div>
+    <div class="hero-copy">
+      <h1>SYM 三陽機車 - 旭騰車行</h1>
+      <p>專業技術 ‧ 誠信服務 ‧ 為您的每趟騎乘安全把關</p>
+      <a href="cont.html" class="btn">立即聯繫預約</a>
     </div>
+  </section>
+</div>
 
-    <footer>
-        <p>&copy; 2026 SYM 三陽機車 - 旭騰車行 &reg; All Rights Reserved.</p>
-    </footer>
+<section class="services" data-px>
+  <div class="wrap">
+    <h2>我們的四大核心服務</h2>
+    <div>
+      <div class="svc"><h3>專業維修與大保養</h3><p>嚴選 SYM 原廠材料與正規零件，搭配原廠電腦診斷儀器，精準定位故障不猜測，讓愛車恢復最佳性能。</p></div>
+      <div class="svc"><h3>免費機車排氣檢驗</h3><p>提供年度免費排氣檢測，完成驗車即贈送精美垃圾袋乙綑，現場提醒最佳驗車月份，騎乘安心不罰款。</p></div>
+      <div class="svc"><h3>5公里在地道路救援</h3><p>半路熄火或爆胎？提供店家周邊 5 公里內及時道路救援服務，讓您緊急時刻不再孤立無援。</p></div>
+      <div class="svc"><h3>免費代步機車借用</h3><p>留車進行大修或定期大保養之車主，貼心提供免費代步車借用服務，讓您日常通勤不斷線。</p></div>
+    </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script>
+<section class="band" data-px aria-label="道路救援範圍">
+  <svg class="grid-map" viewBox="0 0 1200 800" aria-hidden="true"><path d="M0 200H1200M0 400H1200M0 620H1200M180 0V800M470 0V800M760 0V800M1020 0V800M0 90L1200 330M0 700L1200 520"/></svg>
+  <svg class="rings" viewBox="0 0 1200 800" aria-hidden="true"><circle cx="600" cy="400" r="110"/><circle cx="600" cy="400" r="230"/><circle cx="600" cy="400" r="350"/><circle cx="600" cy="400" r="9" fill="#d32f2f" stroke="#fff" stroke-width="3"/><text x="612" y="296">1 km</text><text x="612" y="176">3 km</text><text x="612" y="56">5 km</text></svg>
+  <div class="band-copy"><h2>半路熄火或爆胎，5 公里內我們出發</h2><p>店家周邊提供即時道路救援</p></div>
+</section>
+
+<section class="why" data-px>
+  <div class="wrap">
+    <h2>為什麼選擇旭騰車行？</h2>
+    <ul>
+      <li><h3>施工前透明報價</h3><p>技師會先進行詳細檢查，清楚說明損壞原因與零件費用，獲得車主同意後方開始施工，絕不隨意施工亂加價。</p></li>
+      <li><h3>SYM 原廠技術認證</h3><p>擁有多年三陽機車維修經驗與原廠診斷設備，不論是噴射系統清洗、傳動調整或引擎修復皆專業處理。</p></li>
+      <li><h3>貼心服務與完善售後</h3><p>維修完工皆經過嚴格路試測試，交車時主動說明注意事項，並享有原廠零件完工保固保障。</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="flow" data-px>
+  <div class="wrap">
+    <h2>進廠快速檢測流程</h2>
+    <ol class="steps">
+      <li><div class="num">1</div><h3>接單諮詢</h3><p>了解騎乘狀況與異音問題，進行車輛外觀檢測。</p></li>
+      <li><div class="num">2</div><h3>電腦診斷</h3><p>連接 SYM 原廠儀器，快速精準掌握引擎與電系數據。</p></li>
+      <li><div class="num">3</div><h3>報價說明</h3><p>向車主詳細解釋故障原因，並提供明確零件與工資報價。</p></li>
+      <li><div class="num">4</div><h3>施工與測試</h3><p>使用正規原廠件更換，完工後進行實際路驗確保安全。</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="cta"><h2>愛車有狀況，先來聊聊</h2><a href="cont.html" class="btn">立即聯繫預約</a></section>
+</main>
+
+<footer><p>&copy; 2026 SYM 三陽機車 - 旭騰車行 &reg; All Rights Reserved.</p></footer>
+
+<script src="home.js"></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3890049813b94d8d869dd466272225a9"}'></script>
 </body>
 </html>
