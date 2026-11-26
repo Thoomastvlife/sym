@@ -11,7 +11,7 @@
 window.SYM_ANNOUNCEMENT_ENABLED = true;   // ← 開關：true 顯示 / false 隱藏
 
 window.SYM_ANNOUNCEMENTS = [
+  { text: '【公告】因應總公司價格調整每瓶機油調漲50元' },
   { text: '【公告】歡迎蒞臨旭騰車行，維修保養歡迎先來電或透過「聯繫我們」預約', href: 'cont.html' },
-  { text: '【代步車借用】借用前請先閱讀代步車借用條款，了解借用規範與注意事項', href: 'terms.html' },
   { text: '【顧客評價】感謝車友們的肯定與支持，歡迎查看最新顧客評價', href: 'reviews.html' }
 ];
