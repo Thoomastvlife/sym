@@ -5,6 +5,7 @@
   var INTERVAL = 4500;                 // 自動切換間隔（毫秒）
   var STORE_KEY = 'sym-announce-closed';
 
+  if (window.SYM_ANNOUNCEMENT_ENABLED === false) return;   // 總開關：false 就不顯示
   if (!ANNOUNCEMENTS.length) return;
   var header = document.querySelector('header');
   if (!header) return;
@@ -47,6 +48,7 @@
     var node;
     if (a.href) { node = el('a'); node.href = a.href; } else { node = el('span'); }
     node.textContent = a.text;
+    node.title = a.text;                     // 完整文字的備援（滑鼠停留可看全文）
     if (i !== 0) { if (node.tagName === 'A') node.tabIndex = -1; li.setAttribute('aria-hidden', 'true'); }
     li.appendChild(node);
     list.appendChild(li);

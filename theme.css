@@ -1,0 +1,137 @@
+/* ==========================================================
+   旭騰車行 — 風格主題「機車工坊 Workshop Bold」
+   疊在 site.css / home.css 之後載入，只覆蓋外觀（顏色、邊框、陰影、圓角）。
+   想還原成原本的風格：把各頁 <head> 裡的 <link href="./theme.css"> 那一行刪掉即可。
+
+   風格重點
+   ・米色方格紙底 + 深藍墨色粗邊框 + 硬陰影（不模糊）
+   ・方正小圓角、黃黑警示斜紋、紅色只用在行動點與重點
+   ・按鈕／卡片 hover 時「浮起」，按下時「壓下去」
+   ========================================================== */
+
+:root{
+  --ink:#101a33;            /* 墨色：文字與粗邊框 */
+  --mist:#f4eee0;           /* 米色紙面（原本的淺藍灰） */
+  --paper-hi:#fffdf8;       /* 卡片紙面 */
+  --line:#d9cfb8;           /* 細分隔線（暖灰） */
+  --red:#c62828;            /* 稍深的紅：在米色底上文字對比 ≥ 4.5:1 */
+  --bw:2px;                 /* 粗邊框寬度 */
+  --hard:4px 4px 0 var(--ink);
+  --hard-lg:6px 6px 0 var(--ink);
+  --hazard:repeating-linear-gradient(-45deg,var(--sun) 0 14px,var(--night) 14px 28px);
+  --grid:linear-gradient(rgba(16,26,51,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(16,26,51,.045) 1px,transparent 1px);
+}
+
+/* ---------- 焦點框：淺色底用墨色，深色區塊用黃色 ---------- */
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+header :focus-visible,.hero :focus-visible,.band :focus-visible,.flow :focus-visible,
+.cta :focus-visible,.shop-photos :focus-visible,footer :focus-visible,.page-hero :focus-visible{outline-color:var(--sun)}
+
+/* ---------- 方格紙背景 ---------- */
+.page,.services,.models,.info-map{background-color:var(--mist);background-image:var(--grid);background-size:28px 28px}
+.why,.home-reviews,.faq-home{background:var(--paper-hi)}
+
+/* ---------- Header ---------- */
+header.scrolled{background:var(--night);backdrop-filter:none;box-shadow:none;border-bottom:3px solid var(--red)}
+nav li>a{border-radius:2px}
+nav li>a:hover,nav li.active>a{color:var(--sun);box-shadow:inset 0 -3px 0 var(--sun)}
+.dropdown-menu{border:var(--bw) solid var(--ink);border-radius:4px;box-shadow:4px 4px 0 var(--red)}
+.dropdown-menu a:hover,.dropdown-menu li.active a{background:var(--sun);color:var(--ink)}
+
+/* 公告欄：與工坊風格一致，黃底加墨色下框 */
+.announce{box-shadow:none;border-bottom:var(--bw) solid var(--night)}
+
+/* ---------- 按鈕：硬陰影，hover 浮起、按下壓平 ---------- */
+.btn{border:var(--bw) solid var(--ink);border-radius:3px;box-shadow:var(--hard);letter-spacing:.04em;
+  transition:transform .15s,box-shadow .15s,background .15s}
+.btn:hover{background:#a81f1f;transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.btn-dark{background:var(--navy);box-shadow:4px 4px 0 var(--red)}
+.btn-dark:hover{background:var(--night);box-shadow:6px 6px 0 var(--red)}
+.btn-dark:active{box-shadow:0 0 0 var(--red)}
+/* 深色背景上，陰影改黃色才看得見 */
+.hero-copy .btn{border-color:var(--night);box-shadow:4px 4px 0 var(--sun)}
+.hero-copy .btn:hover{box-shadow:6px 6px 0 var(--sun)}
+.cta .btn{background:#fff;color:var(--ink);border-color:var(--night);box-shadow:4px 4px 0 var(--night)}
+.cta .btn:hover{background:var(--sun);color:var(--ink);box-shadow:6px 6px 0 var(--night)}
+
+/* ---------- 內頁橫幅：黃黑警示斜紋收邊 ---------- */
+.page-hero::after{height:12px;background:var(--hazard);opacity:1}
+.page h2{border-left-width:8px}
+
+/* ---------- 卡片：粗框 + 硬陰影 + 頂端紅條 ---------- */
+.feature-item,.detail-card,.faq-item,.service-card,.review-card,.info-card,.hero-card,.counter-card,
+.workflow,.stat-card,.home-review-card,.model-card,.faq-item-home{
+  background:var(--paper-hi);border:var(--bw) solid var(--ink);border-radius:4px;box-shadow:var(--hard)}
+.service-card,.review-card,.hero-card{border-top:var(--bw) solid var(--ink);box-shadow:var(--hard),inset 0 6px 0 var(--red);padding-top:30px}
+.stat-card{border-top:var(--bw) solid var(--ink);box-shadow:var(--hard),inset 0 6px 0 var(--sun);padding-top:32px}
+.home-review-card{border-top:var(--bw) solid var(--ink);box-shadow:var(--hard),inset 0 6px 0 var(--sun);padding-top:30px}
+.counter-card{border-left:8px solid var(--sun)}
+.service-card,.model-card,.home-review-card{transition:transform .15s,box-shadow .15s}
+.service-card:hover{transform:translate(-2px,-2px);box-shadow:var(--hard-lg),inset 0 6px 0 var(--red)}
+.model-card:hover{transform:translate(-2px,-2px);box-shadow:var(--hard-lg)}
+.home-review-card:hover{transform:translate(-2px,-2px);box-shadow:var(--hard-lg),inset 0 6px 0 var(--sun)}
+.stat-num{color:var(--red)}
+.faq-item-home{background:var(--mist)}
+.faq-item-home summary{color:var(--ink)}
+.faq-item-home[open]{background:var(--paper-hi)}
+.faq-item-home summary::after{color:var(--red);font-weight:900}
+
+/* 首頁評分徽章、車款圖示 */
+.home-rating-badge{background:var(--night);border:var(--bw) solid var(--ink);border-radius:4px;box-shadow:4px 4px 0 var(--red)}
+.model-icon{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 14px;background:var(--sun);border:var(--bw) solid var(--ink);border-radius:3px;box-shadow:3px 3px 0 var(--ink);font-size:1.9rem}
+
+/* 品牌簡介引言、提示框 */
+.promo-banner h3,.rescue-card h3{color:#a31d1d}   /* 加深，確保在黃/粉底上對比 ≥ 4.5:1 */
+.quote{border-left:8px solid var(--sun);border-radius:3px;box-shadow:5px 5px 0 var(--red)}
+.promo-banner,.rescue-card,.alert-box{border:var(--bw) solid var(--ink);border-left-width:8px;border-radius:4px;box-shadow:var(--hard);background:#fff1b8}
+.rescue-card{background:#ffd9d6}
+
+/* 表格、地圖 */
+.maintenance-table{border:var(--bw) solid var(--ink)}
+.maintenance-table th{background:var(--night);color:#fff;border-bottom:3px solid var(--sun)}
+.maintenance-table th,.maintenance-table td{border-color:var(--line)}
+.maintenance-table tbody tr:nth-child(even){background:#f6f0e2}
+.map-container,.map-block{border:var(--bw) solid var(--ink);border-radius:4px;box-shadow:var(--hard-lg)}
+.section-title{border-bottom:var(--bw) solid var(--ink)}
+
+/* ---------- 首頁分區線條 ---------- */
+.svc{border-top:var(--bw) solid var(--ink)}
+.svc:last-child{border-bottom:var(--bw) solid var(--ink)}
+.svc:hover{background:var(--sun);}
+.svc::before{width:12px;height:12px}
+.why li{border-left:var(--bw) solid var(--ink)}
+.why h3{color:var(--ink)}
+.flow{border-top:6px solid var(--sun)}
+
+/* ---------- CTA + Footer ---------- */
+.info-map{padding-bottom:64px}
+.cta{position:relative;padding-top:104px}
+.cta::before{content:"";position:absolute;left:0;right:0;top:0;height:14px;background:var(--hazard)}
+footer{border-top:4px solid var(--sun)}
+
+/* ---------- 浮動按鈕 ---------- */
+.float-btn{border:var(--bw) solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.float-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.float-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+
+/* ---------- 跑馬燈：留空間給硬陰影，避免被裁掉 ---------- */
+.marquee{padding:6px 8px 12px}
+
+/* ---------- 手機 ---------- */
+@media (max-width:820px){
+  :root{--hard:3px 3px 0 var(--ink);--hard-lg:4px 4px 0 var(--ink)}
+  .page-hero::after{height:10px}
+  .cta::before{height:10px}
+  .cta{padding-top:76px}
+}
+
+/* ---------- 減少動態效果、列印 ---------- */
+@media (prefers-reduced-motion:reduce){
+  .btn,.service-card,.model-card,.home-review-card,.float-btn{transition:none}
+  .btn:hover,.service-card:hover,.model-card:hover,.home-review-card:hover,.float-btn:hover{transform:none}
+}
+@media print{
+  *{box-shadow:none!important}
+  .page{background:#fff;background-image:none}
+}
